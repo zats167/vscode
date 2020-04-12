@@ -6,7 +6,18 @@
     <title>hellovue</title>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+ <script src="vue.js" type="text/javascript"></script>
+ <script>
+        <div id="app">
+                {{ message }}
+              </div>
+    var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue!'
+        }
+      })
   </body>
 </html>

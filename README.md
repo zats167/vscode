@@ -32,7 +32,6 @@ git.stage.scmResources 1
 > git show :README.md
 > git push -u origin master
 fatal: HttpRequestException encountered.
-   ��������ʱ������
 To https://github.com/zats167/vscode.git
  ! [rejected]        master -> master (non-fast-forward)
 error: failed to push some refs to 'https://github.com/zats167/vscode.git'

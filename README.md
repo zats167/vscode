@@ -1,3 +1,3 @@
 # vscode
 vue.js相关教程
-更新20200421
+20200421 update

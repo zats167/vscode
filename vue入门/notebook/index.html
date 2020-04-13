@@ -36,7 +36,7 @@
       <span class="todo-count" v-if="list.length!=0">
         <strong>共{{ list.length }}</strong> 条记录
       </span>
-      <button v-show="list.length!=0" class="clear-completed" @click="Clear">
+      <button v-show="list.length!=0" class="clear-completed" @click="clear">
         清空
       </button>
     </footer>
@@ -54,10 +54,10 @@
       el: "#todoapp",
       data: {
         list: ["写JS，HTML，CSS,jQuery,React,Vue等初级代码", "学习ECMAScript，Node.js等中级编程", "学习Docker，SQL等高级编程"],
-        inputValue: ""
+       
       },
       methods: {
-        add: function () {
+        add: function (inputValue) {
           this.list.push(this.inputValue);
         },
         remove: function (index) {

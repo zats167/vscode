@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-on指令基础</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="v-on指令" v-on:click="doit">
+        <input type="button" value="v-on简写" @click="doit">
+        <input type="button" value="双击事件" @dblclick="doit">
+        <h2 @click="changeFood">{{ food }}</h2>
+    </div>
+    <!-- 1.开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                food:"西红柿"
+            },
+            methods: {
+                doit:function(){
+                    alert("做IT");
+            },
+            //:function可以省略
+            changeFood:function(){
+                 //consol.log(this.food) 
+                 this.food+="好吃的"
+            }
+            },
+        })
+    </script>
+</body>
+
+</html>

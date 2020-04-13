@@ -32,13 +32,13 @@
             },
             methods: {
                 getJoke:function(){
-                    // console.log(this.joke);
-                    var that = this;
+                    //console.log(this.joke);
+                    var the = this;
                     axios.get("https://autumnfish.cn/api/joke").then(function(response){
-                        // console.log(response)
+                        //console.log(response)
                         console.log(response.data);
                         // console.log(this.joke);
-                        that.joke = response.data;
+                        the.joke = response.data;
                     },function (err) {  })
                 }
             },

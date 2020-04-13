@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="src/page.css">
+    <link rel="stylesheet" type="text/css" href="./src/page.css">
     <script src="./src/vue.js"></script>
     <script src="./src/vue-resource@1.5.1.js"></script>
     <!-- 滚动 -->
@@ -17,11 +17,18 @@
     <div class="wrap">
       <div class="play_wrap" id="player">
         <div class="search_bar">
-          <img src="images/player_title.png" alt="" />
-          <input type="text" v-model.trim="search" @keyup.enter="searchMusic" />
+          <img src="./images/player_title.png" alt="" />
+          <!--<input type="text" v-model.trim="search"  @keyup.enter="searchMusic" />  -->
+          <div class="search_recommend top_search_recommend">
+          </div>
+          <div class="search_histroy top_search_histroy">  
+          </div>
+          <input type="text" v-model.trim="search"  @keyup.enter="searchMusic" placeholder="请输入歌名、歌词、歌手或专辑" autocomplete="off" value="">
+          <i class="search_bar input"></i>
+         <!-- <div class="search-content-wrap" style="display:none;"></div>-->
         </div>
         <div class="center_con">
-          <div class="song_wrapper">
+          <div class="song_wrapper"> 
             <transition-group
               name="list"
               tag="ul"

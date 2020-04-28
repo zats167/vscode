@@ -1,0 +1,19 @@
+*{margin: 0;padding: 0;}
+li{list-style: none;}
+.clear{clear: both;}
+.header{float: right;margin-top: 25px;}
+.header li{float: left;margin-right: 20px;font-size: 13px;font-weight: bold;}
+.header li a{color: #000;}
+.header a:hover{color: #3388FF;}
+.menu_list span{background:#3388FF;color: #fff;padding: 4px; } 
+/*下拉菜单*/
+.menu{position: relative;}
+.menu_l{width: 65px;/*border: 1px solid #ccc;*/
+		text-align: center;font-weight: normal;
+		line-height: 25px;
+		position:absolute;top: 26px;left: -20px; /*绝对定位*/
+		box-shadow: 1px -1px 15px #AFADAD;/*设置阴影*/
+		display: none;
+     }     
+.menu_l a{text-decoration: none;font-size: 12px;display: block;}
+.menu_l a:hover{background: #3388FF;color:#fff; }

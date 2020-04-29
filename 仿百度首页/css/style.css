@@ -17,3 +17,83 @@ li{list-style: none;}
      }     
 .menu_l a{text-decoration: none;font-size: 12px;display: block;}
 .menu_l a:hover{background: #3388FF;color:#fff; }
+
+/*小箭头 源代码width: 0;height: 6px;border:6px solid; border-color:  transparent transparent #fff transparent;*/
+.menu_l #triangle-up{ 
+		width:0;  
+		height:0;  
+		border-left:6px solid transparent;  
+		border-right: 6px solid transparent;  
+		border-bottom:6px solid #fff;
+		position: absolute;top: -6px;left:26px; 
+					}
+.menu:hover .menu_l{display: block;}
+/*侧边栏*/
+.dropbtn {
+	color: #3388FF;
+	background-color:none;
+	width:85px;height: 100%;
+	
+	border:none;
+}
+
+.dropdown {
+    position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	padding: 10px 6px;margin-right: 0;font-weight: normal;
+	border-bottom:1px solid #e5e5e5;
+	text-align: center;
+	display: none; 
+	position: absolute;
+	
+	
+	
+}
+.dropdown-content a img{
+	max-width: 36px;
+	display: inline-block; 
+	max-height: 36px;
+	vertical-align: middle;}
+.dropdown-content a {
+	text-decoration: underline;
+	text-align: center;
+	text-decoration: none;
+	display: block; 
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* .list {width:85px;height: 100%;background: #f5f5f5;
+	position: absolute;top:0px ;right: 0;
+	border-left: 1px solid #e5e5e5;
+	display: none;
+    
+}
+.list>ul{width:70px;margin: 25px auto 0;}
+.list ul li{padding: 10px 6px;margin-right: 0;font-weight: normal;
+	border-bottom:1px solid #e5e5e5;
+	text-align: center; }
+.list .menu_list1{padding: 0 0 1px;}
+.list .menu_list1>span{background:#f5f5f5;color: #000;} */
+/*背景图片定位*/
+/* .list ul li a>span{display: inline-block; } */
+
+/*搜索框*/
+.search{margin: 150px auto 0;width:  700px;/*background: #ccc;*/text-align: center;}
+.search img{width: 300px;height: 130px;}
+.search form{margin: 10px auto;width: 644px;position: relative; }
+.search input{border: none;float:left; } 
+.search input[type="text"]{width: 540px;height: 30px;border: 1px solid #3388FF;}
+.search i{position: absolute;right: 110px;top: 6px;font-size: 20px;color: #ccc;}
+.search input[type="button"]{width: 100px;height: 32px;color: #fff;background:#3388FF;} 
+/*页面底部*/
+/*页面底部*/
+.bottom{width: 600px;margin: 420px auto 0;/*background: #ccc;*/text-align: center;font-size:12px;}
+.bottom span{display: block;color: #ccc;line-height: 20px;}
+.bottom span a{color: #ccc;margin-right: 20px;text-decoration: underline; }
+.bottom span img{width: 15px;height: 15px;}

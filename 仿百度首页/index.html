@@ -4,26 +4,79 @@
 	<meta charset="UTF-8">
 	<title>百度一下，你就知道</title> 	
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/layui/css/layui.css">
 	<link rel="icon" type="image/icon-x" href="images/favicon.ico">
+	<!-- <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> -->
+	
 </head>
-<body>
-	   <ul class="header">
-   	<li><a href="http://news.baidu.com/">新闻</a></li>
-   	<li><a href="">hao123</a></li>
-	<li><a href="">地图</a></li>
-	<li><a href="">视频</a></li>
-	<li><a href="">贴吧</a></li>
-	<li><a href="">学术</a></li>
-	<li><a href="">登录</a></li>
-	<li class="menu"><a href="">设置</a>
-		<div class="menu_l">
-			<a href="">搜索设置</a>
-        	<a href="">高级搜索</a>
-        	<a href="">关闭预测</a>
-        	<a href="">隐私设置</a>
+<body> 
+	<ul class="header">
+		<li><a href="http://news.baidu.com/">新闻</a></li>
+		<li><a href="">hao123</a></li>
+	 <li><a href="">地图</a></li>
+	 <li><a href="">视频</a></li>
+	 <li><a href="">贴吧</a></li>
+	 <li><a href="">学术</a></li>
+	 <li><a href="">登录</a></li>
+	 <li class="menu"><a href="">设置</a>
+		 <div class="menu_l">
+		 <div id="triangle-up"></div>
+		 <a href="">搜索设置</a>
+			 <a href="">高级搜索</a>
+			 <a href="">关闭预测</a>
+			 <a href="">隐私设置</a>
+		 </div>
+	 </li>
+	<div class="dropdown"> 
+		<button class="dropbtn">更多产品</button>
+		<div class="dropdown-content">
+				<a href=""> <img src="images/wenku.png"><br>文库</a>
+				<a href=""> <img src="images/zhidao.png"><br>知道</a>
+				<a href=""><img src="images/yinyue.png"><br>音乐</a>
+				<a href=""><img src="images/baiduyun.png"><br>网盘</a>
+				<a style="padding:10;font-size: 12px; border:0; margin-top:5px; " href="" >全部产品></a>
+		<!-- 	语法：Background-position:水平位置 垂直位置 
+		数值（px）正负值都可以，正数值表示向右移动或向下移动，负数值表示向左或向上移动；-->
+		<!-- <li><a href=""><span  style="background:url(images/wenku.png);" 0 -120px > </span><br>文库</a></li> -->
 		</div>
-	</li>
-	<li class="menu_list"><span>更多产品</span></li>
-   </ul>
+	</div>
+	</ul> 
+	<div class="clear"></div>
+	<div class="search">
+		<img src="images/bd_logo.png">
+		<form>
+			<input type="text">
+			<i class="layui-icon">&#xe660;</i>   
+			<input type="button"  value="百度一下">
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div class="bottom">
+   	 <img src="images/qrcode.png">
+   	 <span style="font-weight: bold;color: #000;">百度</span>
+   	 <br>
+   	 <span>
+   	 	<a href="">把百度设为主页</a>
+		<a href="">关于百度</a>
+		<a href="">About  Baidu</a>
+		<a href="">百度推广</a>
+   	 </span>
+   	 <span>
+   	 	©2020 Baidu <a href="">使用百度前必读 意见反馈</a> 京ICP证030173号
+   	 </span>
+   </div>
+<!--    <script type="text/javascript">
+	$(function(){
+		$('li').hover(function(){
+			$(this).find('.list').css('display','block');
+		},
+		function(){
+			$(this).find('.list').css('display','none');
+		}
+		)
+	});
+</script>   -->
+  
 </body>
+
 </html>

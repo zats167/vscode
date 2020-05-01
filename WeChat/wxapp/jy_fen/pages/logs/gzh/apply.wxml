@@ -1,0 +1,139 @@
+<view class="hydlzhezhao" wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定 </button>
+</view>
+<view class="flex-row flex-y-center edit-row none" style=" display:none;">
+    <view class="">是否开启广告：</view>
+    <radio-group bindchange="radioChange" class="radio-group ">
+        <label class="radio" style="margin-right:30px;">
+            <radio checked="{{is_gg}}" color="{{system.color}}" value="1"></radio>开启
+    </label>
+        <label class="radio">
+            <radio checked="{{!is_gg}}" color="{{system.color}}" value="2"></radio>关闭
+    </label>
+    </radio-group>
+</view>
+<view class="flex-row flex-y-center edit-row">
+    <view class="flex-grow-0 row-label">公众号名称：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="appname" placeholder="" value="{{appname}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row ">
+    <view class="flex-grow-0 row-label">公众号Appid：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="appid" placeholder="" value="{{appid}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row ">
+    <view class="flex-grow-0 row-label">公众号appsecret：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="appsecret" placeholder="" value="{{appsecret}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row ">
+    <view class="flex-grow-0 row-label">公众号原始ID：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="appgh" placeholder="" value="{{appgh}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row">
+    <view class="flex-grow-0 row-label">联系人：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="realname" placeholder="" value="{{realname}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row">
+    <view class="flex-grow-0 row-label">联系电话：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="utel" placeholder="" value="{{utel}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row">
+    <view class="flex-grow-0 row-label">简介：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="miaoshu" placeholder="" value="{{miaoshu}}"></input>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row">
+    <view class="flex-grow-0 row-label">公告：</view>
+    <view class="flex-grow-1">
+        <input bindinput="inputBlur" data-name="gonggao" placeholder="" value="{{gonggao}}"></input>
+    </view>
+</view>
+<view class="geren_header_onep">
+    <view class="header_leftp">地址：</view>
+    <input class="header_inputp" name="address" placeholder="请选择商家地址" placeholderStyle="color:#ccc;" type="text" value="{{address}}"></input>
+    <image bindtap="dingwei" lazyLoad="true" mode="aspectFit" src="{{url3}}template/images/applet/xiangqingdizhi@2x.png" style="margin-right: 5px;vertical-align: middle;width:40rpx; height: 40rpx;"></image>
+</view>
+<view class="sctp">
+    <view class="bannerp">
+        <view class="header_leftp " style="padding-left:10rpx;">微信联系二维码：</view>
+        <view class="banner_leftp">
+            <view bindtap="choose5" class="banner_box banner_box2 rel" style="padding-left:10px;">
+                <image class="camera" lazyLoad="true" src="{{url3}}template/images/applet/uploadadd.png?v=1" wx:if="{{yyzz5==''}}"></image>
+                <image class="camera" lazyLoad="true" mode="aspectFit" src="{{files5}}" wx:if="{{yyzz5!=''}}"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="sctp">
+    <view class="bannerp">
+        <view class="header_leftp " style="padding-left:10rpx;">门店Logo：</view>
+        <view class="banner_leftp">
+            <view bindtap="choose4" class="banner_box banner_box2 rel" style="padding-left:10px;">
+                <image class="camera" lazyLoad="true" src="{{url3}}template/images/applet/uploadadd.png?v=1" wx:if="{{yyzz4==''}}"></image>
+                <image class="camera" lazyLoad="true" mode="aspectFit" src="{{files4}}" wx:if="{{yyzz4!=''}}"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="sctp">
+    <view class="bannerp">
+        <view class="header_leftp" style="padding-left:10px;">门店封面图</view>
+        <view class="banner_leftp">
+            <view class="banner_box rel" style="padding-left:10px;" wx:for="{{photos}}" wx:for-index="idx" wx:for-item="image" wx:key="key">
+                <image bindtap="previewImage" class="camera2" data-src="{{image.src}}" lazyLoad="true" src="{{image.src}}"></image>
+                <image bindtap="delImage" class="delcamera" data-id="{{idx}}" lazyLoad="true" src="{{url3}}template/images/applet/closebtn3.png"></image>
+            </view>
+            <view bindtap="chooseImage" class="banner_box banner_box2 rel" style="padding-left:10px;">
+                <image class="camera" lazyLoad="true" src="{{url3}}template/images/applet/uploadadd.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row none">
+    <view class="flex-grow-0 row-label">服务器地址：</view>
+    <view class="flex-grow-1">
+        <input placeholder="" value="{{url2}}app/index.php?i={{system.uniacid}}&a=wxapp&c=entry&do=Wxapi&m=jy_fen"></input>
+    </view>
+    <view class="flex-grow-1 fz">
+        <text bindtap="fz_tap" data-kl="{{url2}}app/index.php?i={{system.uniacid}}&a=wxapp&c=entry&do=Wxapi&m=jy_fen" style="color:{{system.color}}">复制</text>
+    </view>
+</view>
+<view class="flex-row flex-y-center edit-row  none">
+    <view class="flex-grow-0 row-label">令牌(Token)：</view>
+    <view class="flex-grow-1">
+        <input placeholder="" value="rqucw55kmcs3vsxrd0pricejx4mlt53z"></input>
+    </view>
+    <view class="flex-grow-1 fz">
+        <text bindtap="fz_tap" data-kl="rqucw55kmcs3vsxrd0pricejx4mlt53z" style="color:{{system.color}}">复制</text>
+    </view>
+</view>
+<view class="toolbg flex"></view>
+<view class="tool flex">
+    <view bindtap="lookck" class="jiaoc">点击查看教程</view>
+    <view bindtap="saveAddress" class="bcbtn" style="background:{{system.color}}">保存</view>
+</view>
+<view class="zhezhao" hidden="{{fwxy}}"></view>
+<view class="kcrzxy" hidden="{{fwxy}}">
+    <view class="kcrzxyhd" style="background:{{system.color}}">入驻教程</view>
+    <scroll-view scrollY class="kcrzxybd" style="height: 600rpx;">
+        <rich-text nodes="{{system.wxapp_sys}}"></rich-text>
+    </scroll-view>
+    <view bindtap="queren" class="queren" style="background:{{system.color}}">确定</view>
+</view>

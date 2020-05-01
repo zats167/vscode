@@ -1,0 +1,117 @@
+<view class="nodaili" wx:if="{{havecode==2}}">
+    <view class="content">
+        <rich-text class="richtext" nodes="{{content}}" type="text"></rich-text>
+    </view>
+    <view style="width:100%; hetght:42px;"></view>
+    <button bindtap="ljyq" class="btn" disabled="{{ifdianji}}" style="{{!ifdianji?'background:'+system.color+'':'background:#eeeeee;color:#999!important;'}}">{{btntxt}}</button>
+</view>
+<view class="yao" wx:if="{{havecode==1}}">
+    <view class="yqbox">
+        <view class="section">
+            <view class="jbbgimjg" style="background:{{system.color}}">
+                <image class="jbbgimjg3" lazyLoad="true" src="{{url}}{{logo}}"></image>
+                <view class="jbbgname">{{appname}}</view>
+            </view>
+            <view bindtap="sett" class="jbbgset flex" id="{{sjinfo.id}}">
+                <image class="jbbgimjg4" lazyLoad="true" src="{{url3}}template/images/applet/set-r.png"></image>
+          设置
+        </view>
+        </view>
+        <view class="section">
+            <view class="hotsec flex">
+                <navigator class="b1" url="sjlist?type=jradd&wxappid={{wxappid}}">
+                    <view class="b2">
+                        <text class="text2" style="color:{{system.color}}">{{jradd}}个</text>
+                        <text class="text1">今日新加</text>
+                    </view>
+                </navigator>
+                <navigator class="b1" url="sjlist?type=jrfw&wxappid={{wxappid}}">
+                    <view class="b2">
+                        <text class="text2" style="color:{{system.color}}">{{jrfw}}个</text>
+                        <text class="text1">今日访问</text>
+                    </view>
+                </navigator>
+                <navigator class="b1" url="sjlist?type=zradd&wxappid={{wxappid}}">
+                    <view class="b2">
+                        <text class="text2" style="color:{{system.color}}">{{zradd}}个</text>
+                        <text class="text1">昨日新加</text>
+                    </view>
+                </navigator>
+                <navigator class="b1" url="sjlist?type=zrfw&wxappid={{wxappid}}">
+                    <view class="b2">
+                        <text class="text2" style="color:{{system.color}}">{{zrfw}}个</text>
+                        <text class="text1">昨日访问</text>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+    <view class="banner">
+        <view class="b-head">
+            <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>数据统计</view>
+    </view>
+    <view class="b-bd">
+        <navigator class="b1" url="sjlist?type=zadd&wxappid={{wxappid}}">
+            <view class="b2">
+                <text class="text2" style="color:{{system.color}}">{{zadd}}人</text>
+                <text class="text1">总添加人数</text>
+            </view>
+        </navigator>
+        <navigator class="b1" url="sjlist?type=zfw&wxappid={{wxappid}}">
+            <view class="b2">
+                <text class="text2" style="color:{{system.color}}">{{zfw}}次</text>
+                <text class="text1">总访问次数</text>
+            </view>
+        </navigator>
+        <view class="b1">
+            <view class="b2">
+                <text class="text2" style="color:{{system.color}}">{{zmoney}}元</text>
+                <text class="text1">总资产</text>
+            </view>
+        </view>
+        <view class="b1">
+            <view class="b2">
+                <text class="text2" style="color:{{system.color}}">{{xmoney}}元</text>
+                <text class="text1">剩余资产</text>
+            </view>
+        </view>
+    </view>
+    <view class="banner">
+        <view class="b-head">
+            <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>工具</view>
+    </view>
+    <view class="b-bd" style="margin-bottom:1px;">
+        <view bindtap="coupon" class="b1" style="width:33.3%">
+            <image lazyLoad="true" src="{{url3}}template/images/applet/s_q.png?v=1" style="width:26px!important; height:18px!important;"></image>
+            <view class="b2">
+                <text class="text1">优惠券管理</text>
+            </view>
+        </view>
+        <view bindtap="fwjl" class="b1" style="width:33.3%">
+            <image lazyLoad="true" src="{{url3}}template/images/applet/dingdan-fill@2x.png?v=1" style="width:18px!important; height:18px!important;"></image>
+            <view class="b2">
+                <text class="text1">访问记录</text>
+            </view>
+        </view>
+        <view bindtap="nadd" class="b1" style="width:33.3%">
+            <image lazyLoad="true" src="{{url3}}template/images/applet/t-qz.png?v=1"></image>
+            <view class="b2">
+                <text class="text1">新加用户</text>
+            </view>
+        </view>
+    </view>
+    <view class="b-bd">
+        <navigator class="b1" style="width:33.3%" url="/jy_fen/pages/logs/gzh/hexiao?gzid={{wxappid}}">
+            <image lazyLoad="true" src="{{url3}}template/images/applet/y_gzh.png?v=1"></image>
+            <view class="b2">
+                <text class="text1">核销管理</text>
+            </view>
+        </navigator>
+        <navigator class="b1" style="width:33.3%" url="/jy_fen/pages/logs/gzh/hexiaojl?storeid={{wxappid}}">
+            <image lazyLoad="true" src="{{url3}}template/images/applet/gg_bdan.png?v=1"></image>
+            <view class="b2">
+                <text class="text1">核销记录</text>
+            </view>
+        </navigator>
+    </view>
+</view>

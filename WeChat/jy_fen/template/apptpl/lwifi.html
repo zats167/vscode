@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="Hugo 0.21" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit" />
+    <title>一键连WIFI，请先关注公众号</title>
+    <link href="{MODULE_URL}template/bootstrap/vendor.css" rel="stylesheet" type="text/css" />
+    <link href="{MODULE_URL}template/bootstrap/index.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .tl
+        {
+            color: #27f;
+        }
+        .zent-table
+        {
+            margin-bottom: 20px;
+            width:calc(100% - 50px);
+            border-spacing: 0;
+            font-size: 12px;
+            font-family: Helvetica,STHeiti,Microsoft YaHei,Verdana,Arial,Tahoma,sans-serif;
+        }
+        .zent-table a
+        {
+            color: #38f;
+            cursor: pointer;
+        }
+        .zent-table a:hover
+        {
+            color: #27f;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .zent-table .tr
+        {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        .zent-table .tr:last-child
+        {
+            border-bottom: none;
+        }
+        .zent-table .thead .tr
+        {
+            border-top: none;
+            border-bottom: 1px solid #e5e5e5;
+            background: #f2f2f2;
+        }
+        .zent-table .tbody .tr:hover
+        {
+            background: #f8f8f8;
+        }
+        .zent-table .cell
+        {
+            position: relative;
+            display: inline-block;
+            -webkit-box-flex: 1;
+            -ms-flex: auto;
+            flex: auto;
+            -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+            -ms-flex-item-align: center;
+            -ms-grid-row-align: center;
+            align-self: center;
+            
+            text-align: left;
+            font-size: 12px;
+            line-height: 56px;
+            height: 56px;
+        }
+        .zent-table .cell .asc, .zent-table .cell .desc
+        {
+            margin-left: 3px;
+        }
+        .zent-table .cell .desc:after
+        {
+            position: absolute;
+            content: "\2193";
+        }
+        .zent-table .cell .asc:after
+        {
+            position: absolute;
+            content: "\2191";
+        }
+        .zent-table .cell .select-check
+        {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            margin-top: 0;
+        }
+        .zent-table .cell:first-child
+        {
+            padding-left: 10px;
+        }
+        .zent-table .cell:last-child
+        {
+            /*text-align: right;*/
+        }
+        .zent-table .cell.empty-data
+        {
+            line-height: 20px;
+            height: 40px;
+            text-align: center;
+        }
+        .zent-table .cell.cell--selection
+        {
+            padding-left: 34px;
+        }
+        .zent-table .cell.cell--money
+        {
+            text-align: right;
+        }
+        .zent-table .card__thumb
+        {
+            float: left;
+            margin-right: 5px;
+            height: 50px;
+        }
+        .zent-table .card__title
+        {
+            display: block;
+            height: 32px;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 12px;
+            color: #38f;
+        }
+        .zent-table .card__title:hover
+        {
+            text-decoration: none;
+        }
+        .zent-table .card__info
+        {
+            font-size: 12px;
+            color: #f60;
+        }
+        .zent-table .qa-title
+        {
+            color: #333;
+            font-size: 16px;
+            line-height: 56px;
+            height: 56px;
+            display:block;
+            width:calc(100% - 160px);
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            float:left;
+        }
+        .qa-desc
+        {
+            color: #999;
+            line-height: 56px;
+            height: 56px;
+            float: right;
+            width: 140px;
+            font-size: 14px;
+        }
+        .banquan{
+            margin:1rem 10px 4rem 10px;
+        }
+        .banquan p{
+            margin-bottom:.3rem;
+        }
+        .rtoptitle{float:left;margin-bottom:15px;}
+        .sousuo{float:right;}
+        .clearboth{clear:both;}
+    </style>
+</head>
+<body class=" pace-done" mycollectionplug="bind" youdao="bind">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="content-wrapper">
+        <div id="content">
+        </div>
+    </div>
+    <script src="{MODULE_URL}template/bootstrap/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="{MODULE_URL}template/bootstrap/featherlight.js" type="text/javascript"></script>
+    <script src="{MODULE_URL}template/bootstrap/vendor.js" type="text/javascript"></script>
+    <script src="{MODULE_URL}template/bootstrap/index.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var wifi_id=0;
+        function getCookie(name)
+        {
+            var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+            if(arr=document.cookie.match(reg))
+                return unescape(arr[2]);
+            else
+                return null;
+        }
+        function getID(){
+            if(window.localStorage){
+                var storage=window.localStorage;
+                return storage.getItem("wifi_id");
+            }else{
+                return getCookie("wifi_id");
+            }
+            return null;
+        }
+        $(function () {
+            var getId=getID();
+            if(getId!=null){
+                wifi_id=getId;
+                alert(wifi_id);
+                //处理业务
+            }
+        });
+    </script>
+</body>
+</html>

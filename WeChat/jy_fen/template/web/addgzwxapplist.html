@@ -1,0 +1,461 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #88C200;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #88C200;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+    .none{display:none;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li><a href="{php echo $this->createWebUrl('gzwxapplist')}">返回公众号列表</a></li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                公众号信息
+            </div>
+            <div class="form-group"></div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号名称</label>
+                <div class="col-sm-9">
+                   <input type="text" name="appname" class="form-control" value="{$item['appname']}" />
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号Appid</label>
+                <div class="col-sm-9">
+                    <input type="text" name="appid" value="{$item['appid']}" class="form-control" />
+                    <div class="help-block">
+                    * 请填写公众号的Appid
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号Appsecret</label>
+                <div class="col-sm-9">
+                    <input type="text" name="appsecret" value="{$item['appsecret']}" class="form-control" />
+                    <div class="help-block">
+                    * 请填写公众号的Appsecret
+                    </div>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号原始ID</label>
+                <div class="col-sm-9">
+                    <input type="text" name="appgh" value="{$item['appgh']}" class="form-control" />
+                    <div class="help-block">
+                    * 请填写公众号的原始ID
+                    </div>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系人</label>
+                <div class="col-sm-9">
+                    <input type="text" name="realname" value="{$item['realname']}" class="form-control" />
+                    <div class="help-block">
+                    * 请填写公众号的联系人
+                    </div>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系电话</label>
+                <div class="col-sm-9">
+                    <input type="text" name="utel" value="{$item['utel']}" class="form-control" />
+                    <div class="help-block">
+                    * 请填写公众号的联系电话
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">所属用户ID</label>
+                <div class="col-sm-9">
+                    <input type="text" name="create_uid" value="{$item['create_uid']}" class="form-control" />
+                    <div class="help-block">
+                    * 该用户，可以在小程序端查看该公众号的信息
+                    </div>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店描述</label>
+                <div class="col-sm-10">
+                    <!-- {php echo tpl_ueditor('details',$info['details']);} -->
+                    <span class="frm_textarea_box"><textarea class="frm_textarea userinfo_input" name="miaoshu" rows="3">{$item['miaoshu']}</textarea></span>
+                </div>
+            </div> 
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店公告</label>
+                <div class="col-sm-10">
+                    <!-- {php echo tpl_ueditor('details',$info['details']);} -->
+                    <span class="frm_textarea_box"><textarea class="frm_textarea userinfo_input" name="gonggao" rows="3">{$item['gonggao']}</textarea></span>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店Logo</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('logo', $item['logo'])}
+                    <div class="ygmargin">*建议宽高比例为4：5</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页弹屏广告封面图</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('stgg_img', $item['stgg_img'])}
+                    <div class="ygmargin">*建议尺寸：720*960</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页弹屏广告封面图跳转类型</label>
+                <div class="col-sm-9">
+                    <select name="is_types" id="is_types" class="col-md-4">
+                        <option value="0">选择类型</option>
+                        <option value="0">无跳转</option>
+                        <option value="1" {if $item['is_types']==1}selected{/if}>跳转外链</option>
+                        <option value="2" {if $item['is_types']==2}selected{/if}>跳转小程序</option>
+                        <option value="3" {if $item['is_types']==3}selected{/if}>跳转站内</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group modes modes2 ">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序appid</label>
+                <div class="col-sm-9">
+                    <input type="text" name="xcxappids" class="form-control" value="{$item['xcxappids']}" />
+                </div>
+            </div>
+            <div class="form-group modes modes1 modes2">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页弹屏广告封面图链接地址</label>
+                <div class="col-sm-9">
+                    <input type="text" name="srcs" class="form-control" value="{$item['srcs']}" />
+                </div>
+            </div>
+            <div class="form-group modes modes3">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">跳转路径</label>
+                <div class="col-sm-9">
+                    <input type="text" name="srcs2" class="form-control" value="{$item['srcs2']}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信联系二维码</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('ewm', $item['ewm'])}
+                    <div class="ygmargin">*建议宽高比例为4：5</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店封面图</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_multi_image('goods_pic', $goods_pic)}
+                    <!--<div class="ygmargin">*</div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">跳转类型</label>
+                <div class="col-sm-9">
+                    <select name="is_type" id="is_type" class="col-md-4">
+                        <option value="0">选择类型</option>
+                        <option value="1" {if $item['is_type']==1}selected{/if}>外链</option>
+                        <option value="2" {if $item['is_type']==2}selected{/if}>跳转小程序</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group mode mode2 ">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序appid</label>
+                <div class="col-sm-9">
+                    <input type="text" name="xcxappid" class="form-control" value="{$item['xcxappid']}" />
+                </div>
+            </div>
+            <div class="form-group mode mode1 mode2">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店封面图链接地址</label>
+                <div class="col-sm-9">
+                    <input type="text" name="src" class="form-control" value="{$item['src']}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号状态</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="status1" name="status" value="1" {if $item['status']==1 || empty($item['status'])}checked{/if} />
+                        <label for="status1">开启</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="status2" name="status" value="2" {if $item['status']==2}checked{/if} />
+                        <label for="status2">关闭</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="status3" name="status" value="3" {if $item['status']==3}checked{/if} />
+                        <label for="status3">审核中</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="status4" name="status" value="4" {if $item['status']==4}checked{/if} />
+                        <label for="status4">审核失败</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="status5" name="status" value="5" {if $item['status']==5}checked{/if} />
+                        <label for="status5">欠费中</label>
+                    </label>
+                </div>
+            </div> 
+            <!-- <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">审核失败原因：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="audit_remark" value="{$item['audit_remark']}" class="form-control" />
+                    <div class="help-block">
+                    * 审核失败原因，当状态为审核失败的时候才有效
+                    </div>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启首页广告</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="is_gg1" name="is_gg" value="1" {if $item['is_gg']==1}checked{/if} />
+                        <label for="is_gg1">开启</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="is_gg2" name="is_gg" value="2" {if $item['is_gg']==2 || empty($item['is_gg'])}checked{/if} />
+                        <label for="is_gg2">关闭</label>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店展示选择</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="is_yhj1" name="is_yhj" value="1" {if $item['is_yhj']==1 || empty($item['is_yhj'])}checked{/if} />
+                        <label for="is_yhj1">公众号门店</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="is_yhj2" name="is_yhj" value="2" {if $item['is_yhj']==2 }checked{/if} />
+                        <label for="is_yhj2">wifi提供者门店</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="is_yhj3" name="is_yhj" value="3" {if $item['is_yhj']==3 }checked{/if} />
+                        <label for="is_yhj3">不跳转</label>
+                    </label>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">分佣模式</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_fenyong_type1" name="gz_fenyong_type" value="1" {if $item['gz_fenyong_type']==1 || empty($item['gz_fenyong_type'])}checked{/if} />
+                        <label for="gz_fenyong_type1">关注公众号</label>
+                    </label>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">剩余资产</label>
+                <div class="col-sm-9">
+                    <input type="text" name="gz_gg_zichan" value="{$item['gz_gg_zichan']}" class="form-control" />
+                    <div class="help-block">
+                    * 每笔消耗的金额都从剩余资产这里扣费
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">消耗资金</label>
+                <div class="col-sm-9">
+                    <input type="text" name="gz_gg_xiaohao" value="{$item['gz_gg_xiaohao']}" class="form-control" />
+                    <div class="help-block">
+                    * 累加消耗的金额都会累加到消耗资产这里
+                    </div>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">关注佣金</label>
+                <div class="col-sm-9">
+                    <input type="text" name="gz_gg_danjia" value="{$item['gz_gg_danjia']}" class="form-control" />
+                    <div class="help-block">
+                    * 每个新的用户关注后，消耗的费用，或者说是每笔有效的费用
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号类型</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_type1" name="gz_type" value="1" {if $item['gz_type']==1 || empty($item['gz_type'])}checked{/if} />
+                        <label for="gz_type1">服务号</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_type2" name="gz_type" value="2" {if $item['gz_type']==2}checked{/if} />
+                        <label for="gz_type2">订阅号</label>
+                    </label>
+                    <div class="help-block">
+                    * 公众号的类型(<font color="red">必须是微信认证的公众号才能有效</font>)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启活码</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_huoma1" name="gz_huoma" value="1" {if $item['gz_huoma']==1}checked{/if} />
+                        <label for="gz_huoma1">开启</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_huoma2" name="gz_huoma" value="2" {if $item['gz_huoma']==2 || empty($item['gz_huoma'])}checked{/if} />
+                        <label for="gz_huoma2">关闭</label>
+                    </label>
+                    <div class="help-block">
+                    * 开启活码的话，那么在活码打印或者小程序端生成的二维码，都会是随机的公众号
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号的文章链接</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <input type="text" name="gz_art_url" value="{$item['gz_art_url']}" class="form-control" />
+                        <a href="{php echo $this->createWebUrl('addgzwxapplist',array('op'=>'checkAUrl','wxappid'=>$item['id']))}" class="input-group-addon btn btn-success mpJoin" style="background-color:#5cb85c;color:#FFF;margin-right: 20px;">检验链接是否正确</a>
+                    </div>
+                    <div class="help-block">
+                    * 如果<font color="red">“选择订阅号”</font>，则必须要填写该地址,并且先检验一下是否正确
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">关注领红包</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="is_red1" name="is_red" value="1" {if $item['is_red']==1}checked{/if} />
+                        <label for="is_red1">开启</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="is_red2" name="is_red" value="2" {if $item['is_red']==2 || empty($item['is_red'])}checked{/if} />
+                        <label for="is_red2">关闭</label>
+                    </label>
+                </div>
+            </div>
+         </div>
+            
+
+        <div class="form-group">
+            <input type="submit" name="submit" value="提交" class="btn col-sm-3" style="color: white;background-color: #88C200;"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+             <input type="hidden" name="id" value="{$item['id']}" />
+        </div>
+    </form>
+</div>
+<script src="../addons/jy_fen/template/layui/layui.js"></script>
+<script>
+//一般直接写在一个js文件中
+layui.use(['layer'], function(){
+  var layer = layui.layer;
+});
+</script> 
+<script type="text/javascript">
+　　function GetUrlParam(url,paraName) {
+// 　　　　var url = document.location.toString();
+　　　　var arrObj = url.split("?");
+
+　　　　if (arrObj.length > 1) {
+　　　　　　var arrPara = arrObj[1].split("&");
+　　　　　　var arr;
+
+　　　　　　for (var i = 0; i < arrPara.length; i++) {
+　　　　　　　　arr = arrPara[i].split("=");
+
+　　　　　　　　if (arr != null && arr[0] == paraName) {
+　　　　　　　　　　return arr[1];
+　　　　　　　　}
+　　　　　　}
+　　　　　　return "";
+　　　　}
+　　　　else {
+　　　　　　return "";
+　　　　}
+　　}
+    $(function(){
+        $("#frame-26").show();
+        $("#yframe-26").addClass("wyactive");
+        $('.mpJoin').click(function(){
+            var obj=$(this);
+            var url = obj.attr('href');
+            obj.addClass('disabled').html('检验中');
+            var jy_url=$("input[name='gz_art_url']").val();
+            if(jy_url==null||jy_url==""){
+                layer.msg("请先输入链接！",function(){
+                    obj.removeClass('disabled').html('检验链接是否正确');
+                });
+                return false;
+            }
+            var biz=GetUrlParam(jy_url,'__biz');
+            console.log(biz);
+            if(biz==undefined||biz==null||biz==""){
+                layer.msg("链接有误，请检查链接或重新添加一篇文章后复制链接！",function(){
+                    obj.removeClass('disabled').html('检验链接是否正确');
+                });
+                return false;
+            }
+            layer.msg("链接正确！",function(){
+                obj.removeClass('disabled').html('检验链接是否正确');
+            });
+            return false;
+        });
+        $(".mode").hide();
+        "{if $list}"
+        "{if $list['type']=='1'}"
+                $('.mode1').show();
+            "{/if}"
+            "{if $list['type']=='2'}"
+                $('.mode2').show();
+            "{/if}" 
+                    
+        "{else}"
+             $('.mode1').show();
+        "{/if}"
+
+        $("#is_type").change(function(){
+            $(".mode").hide();
+            $(".mode"+$(this).val()).show();           
+         })
+
+        $("#is_type").change();
+        $(".modes").hide();
+        "{if $list}"
+        "{if $list['types']=='1'}"
+                $('.modes1').show();
+            "{/if}"
+            "{if $list['types']=='2'}"
+                $('.modes2').show();
+            "{/if}" 
+                    
+        "{else}"
+             $('.modes1').show();
+        "{/if}"
+
+        $("#is_types").change(function(){
+            $(".modes").hide();
+            $(".modes"+$(this).val()).show();           
+         })
+
+        $("#is_types").change();
+    })
+</script>

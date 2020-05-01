@@ -1,0 +1,44 @@
+<view class="font ">
+    <view class="list">
+        <view class="list_imgbk2" hidden="{{list.length!=0}}">
+            <image class="list_imgbk" lazyLoad="true" src="{{url3}}template/images/applet/list.png"></image>
+            <view class="list_imgbk3" style="margin-top:-110rpx;">还没有广告哦！</view>
+        </view>
+        <view class="list_margin" wx:for="{{list}}">
+            <view class="flex list_order">
+                <view class="list_pay" style="color:{{system.color}};" wx:if="{{item.type=='1'}}">展示位置：首页新闻头部Banner</view>
+                <view class="list_pay" style="color:{{system.color}};" wx:if="{{item.type=='2'}}">展示位置：新闻流广告</view>
+                <view class="list_pay" style="color:{{system.color}};" wx:if="{{item.jftype=='1'}}">按月计费</view>
+                <view class="list_pay" style="color:{{system.color}};" wx:if="{{item.jftype=='2'}}">按点击计费</view>
+            </view>
+            <navigator url="ggclick?yyid={{item.id}}">
+                <view bindtap="ggclick" class="list_info">
+                    <image class="list_img" lazyLoad="true" src="{{url}}{{item.ggimg}}" style="background:{{system.color}}"></image>
+                    <view>
+                        <view class="list_seller">{{item.name}}</view>
+                        <view class="list_time" wx:if="{{item.zstype=='1'}}">展示模式：新闻模式</view>
+                        <view class="list_time" wx:if="{{item.zstype=='2'}}">展示模式：小程序模式</view>
+                        <view class="list_time" wx:if="{{item.zstype=='3'}}">展示模式：图文模式</view>
+                        <view class="list_time" wx:if="{{item.zstype=='4'}}">展示模式：H5单图模式</view>
+                        <view class="list_time" wx:if="{{item.zstype=='5'}}">展示模式：外部网页跳转</view>
+                        <view class="list_time" wx:if="{{item.jftype=='1'}}">广告费用：{{item.money}}元</view>
+                        <view class="list_time" wx:else>广告费用：{{item.ggmoney}}元</view>
+                        <view class="list_time" wx:if="{{item.jftype=='2'}}">每日点击费用：{{item.daymoney}}元</view>
+                        <view class="list_time" wx:if="{{item.jftype=='2'}}">每次点击费用：{{item.djmoney}}元</view>
+                        <view class="list_time" wx:if="{{item.jftype=='2'}}">今日消费金额：{{item.jrmoney*item.djmoney}}元</view>
+                        <view class="list_time" wx:if="{{item.jftype=='2'}}">今日点击次数：{{item.jrmoney}}次</view>
+                        <view class="list_time" wx:if="{{item.jftype=='1'}}">展示时间：{{item.start_time}}-{{item.end_time}}</view>
+                        <view class="list_time">今日曝光次数：{{item.viewcount}}次</view>
+                        <view class="list_zuo">总点击次数：{{item.zclick}}次</view>
+                    </view>
+                </view>
+            </navigator>
+            <view class="place flex">
+                <view class="list_cancel">
+                    <view bindtap="qxyy" class="list_surplus2" data-ggid="{{item.id}}">消费明细</view>
+                    <view bindtap="ckxq" class="list_surplus1" data-index="{{index}}" style="color:#666666;border: 1rpx solid #eeeeee};">效果预览</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

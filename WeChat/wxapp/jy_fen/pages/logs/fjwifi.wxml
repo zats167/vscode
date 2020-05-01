@@ -1,0 +1,40 @@
+<view class="hydlzhezhao" wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定 </button>
+</view>
+<view class="font">
+    <view class="recommed">
+        <view class="recommed_list" wx:for="{{xqlist}}" wx:key="xqlist">
+            <view class="recommed_imgwarp">
+                <image class="recommed_img" lazyLoad="true" src="{{url}}{{item.store_logo}}"></image>
+                <button bindtap="tel_tap" class="btn saoma-btn" data-index="{{index}}" style="background:{{system.color}}" type="primary">联系商家</button>
+            </view>
+            <view bindtap="sel_tap" class="recommed_content" data-index="{{index}}">
+                <view class="recommed_title">
+                    <view class="title_right">{{'商家：'+item.store_name}}</view>
+                    <view class="title_left">{{'距离 '+item.distancetxt}}</view>
+                </view>
+                <view class="recommed_dizhi">
+            {{''+item.address}}
+          </view>
+            </view>
+            <view bindtap="sel_tap" class="recommed_right flex" data-index="{{index}}">
+                <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/huise@3x.png"></image>
+            </view>
+        </view>
+        <view class="jzz" hidden="{{loadstaue}}">
+            <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+            <view>加载中...</view>
+        </view>
+        <view class="kong" hidden="{{isloadtis}}">
+            <view>{{loadtis}}</view>
+        </view>
+        <view class="kong" style="margin-top:0px;" wx:if="{{loadstaue&&xqlist.length==0}}">
+            <view>暂无数据！</view>
+        </view>
+    </view>
+</view>

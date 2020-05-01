@@ -1,0 +1,498 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcsslist.css">
+<style type="text/css">
+    .yg9_content{padding:0px;font-size: 14px;}
+    .yg9_content>li{padding-left: 0px;}
+    .yg9_content>li:nth-child(2)>.col-md-12{
+        border:1px solid #eee;
+    }
+    .gkfour,.gkthree{
+        padding: 8px 0px;
+        border:1px solid #eee;
+    }
+    .gkfour{margin-top: 10px;}
+    
+    .vipbanner{padding:0px;}
+    .vipbox{
+        background-color: white;
+        box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .vipbig1{padding-left: 0px;} 
+    .vipbig2{padding-right: 0px;}
+    .vipcontent{
+        border-bottom: 1px solid #E4EAEC;
+        height: 60px;
+        line-height: 60px;
+        padding:0px;
+    }  
+    .vipright{float: right;}
+    .vipleft{float: left;}
+    .vipleft>img{
+        width: 20px;
+        height: 20px;
+    }
+    .vipadd{
+        height: 210px;
+        text-align: center;
+    }
+    .vipadd>li{
+        padding-top: 50px;
+    }
+    .font1{font-size: 30px;color: #333;}
+    .font2{font-size: 15px;color: #666;margin-top: 15px;}
+    .vipsell{padding:0px;}
+    .vipsell>li:nth-child(1){padding-left: 0px;}
+    .vipsell>li:nth-child(2){padding-right: 0px;}
+    .vipsell{
+        height: 210px;
+        padding: 25px 0px;
+    }
+    .vipsell>li{height: 100%;}
+    .vipsell>li>div{
+        background-color: #F7F7F7;
+        height: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .xuni{color: #666;text-align: center;}
+    .xuni>span{color: #ff6363;}
+    .viptitle{
+        color: #333;
+        border-bottom:1px solid #DEDEDE;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+        width: 50%;
+        font-size: 16px;
+    }
+    .botul{
+        display: flex;
+        margin-left: 15px;
+    }
+    .botul>li{
+        width: 13%;
+        margin-right: 1.5%;
+        height: 190px;
+        background-color: white;
+        padding: 50px 0px;
+    }
+    .botul>li:last-child{
+        margin-right:0px;
+        box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+    }
+    .boxcon{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .boxcon>img{
+        margin-bottom: 10px;
+        width: 55px;
+        height: 55px;
+    }
+    .bfont1{
+        color: #666;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+    .bfont2{
+        color: #ED5D5D;
+        font-size: 20px;
+    }
+    .gkbackimg,.backimg{text-align: center;}
+    .backimg>img{
+        width: 31px;
+        height: 35px;
+        margin-top: 17px;
+    }
+    .gkbackimg>img{
+        width: 31px;
+        height: 35px;
+        margin-top: 20px;
+    }
+    .datanum{line-height: 23px;}
+    .datanum2{line-height: 35px;font-size: 15px;text-align: center;}
+    .datanum3{padding: 15px 15px 0px;border:1px solid #eee;}
+    .tmoney{font-size: 26px;text-align: center;}
+    .today{font-size: 14px;text-align: center;cursor: pointer;}    
+    .todaybox2,.todaybox3,.todaybox4,.todaybox1{position: absolute;left: -10%;top: -22px;z-index: 10;width: 200px;height: 65px;padding: 10px;
+        background-color: rgba(0,0,0,0.7);border-radius: 6px;color: white;font-size: 12px;text-indent: 1em;display: none;}
+    .arrow-down{width: 0;height: 0;border-bottom: 10px solid rgba(0,0,0,0.7);  border-left: 10px solid transparent;transform: rotate(45deg);
+        position: absolute;left: 50%;top: 60px;
+    }
+    .gkborder{margin-top: 15px;}
+    .gkborder2{margin-top: 16px;}
+    .gkborder2,.gkborder{border-top: 1px solid #eee;padding: 20px 0px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
+    .gkborder>li{padding: 10px 5px 10px 5px;text-align: center;}
+    .gkborder2>li{padding: 9px 5px;text-align: center;}
+    .gkborder2>li:nth-child(3),.gkborder>li:nth-child(1){border-right: 1px solid #eee;}
+    .gkborder2>li:nth-child(1),.gkborder2>li:nth-child(2),.gkborder>li:nth-child(2){border-right: 1px solid #eee;}
+    .gkfont1{line-height: 30px;font-weight: bold;}
+    .gkfont2{line-height: 30px;font-size: 12px;}
+    .gktitle{padding-left: 30px;font-size: 12px;}
+    .ygxian{width: 3px;height: 17px;float:left;background-color: #88C200;margin-top: 6px;border:none;}
+    .new{width:100%;height: 104px;padding: 20px;display: flex;align-items: center;margin-right: 15px;color: #333}
+
+    /*统计自定义的*/
+    .block-title {
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        line-height: 1.2;
+    }.block-content p, .block-content .push, .block-content .block, .block-content .items-push > div {
+        margin-bottom: 20px;
+    }.pull-right {
+        float: right!important;
+    }.progress.progress-mini {
+        height: 5px;
+    }.progress.progress-mini .progress-bar {
+        line-height: 5px;
+    }.progress-bar-success {
+        background-color: #46c37b;
+    }.progress-bar {
+        font-weight: 600;
+        box-shadow: none;
+    }.block {
+        margin-bottom: 30px;
+        background-color: #fff;
+        -webkit-box-shadow: 0 2px rgba(0, 0, 0, 0.01);
+        box-shadow: 0 2px rgba(0, 0, 0, 0.01);
+    }.block-header {
+        padding: 15px 20px;
+        -webkit-transition: opacity 0.2s ease-out;
+        transition: opacity 0.2s ease-out;
+    }.block-content {
+        margin: 0 auto;
+        padding: 20px 20px 1px;
+        max-width: 100%;
+        overflow-x: visible;
+        -webkit-transition: opacity 0.2s ease-out;
+        transition: opacity 0.2s ease-out;
+    }
+    @media screen and (min-width: 768px)
+    .content p, .content .push, .content .block, .content .items-push > div {
+        margin-bottom: 30px;
+    }
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li class="active"><a href="{php echo $this->createWebUrl('gaikuangdata')}">数据总览</a></li>
+</ul>
+<div class="main" style="height: 270px;margin-left: 15px;">
+    <div class="col-md-12 vipbanner">
+        <a href="{php echo $this->createWebUrl('user');}">
+            <div class="col-md-6 vipbig1">
+                <div class="col-md-12 vipbox">
+                    <div class="col-md-12 vipcontent">
+                        <div class="vipleft">
+                            <img src="../addons/jy_fen/template/images/ygrz.png">
+                            <span>会员统计</span>
+                        </div>
+                        <div class="vipright">(单位：人)</div>
+                    </div>
+                    <ul class="col-md-12 vipadd">
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['user']['jinCount']|0}</p>
+                            <p class="font2">今日新增</p>
+                        </li>
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['user']['zuoCount']|0}</p>
+                            <p class="font2">昨日新增</p>
+                        </li>
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['user']['yueCount']|0}</p>
+                            <p class="font2">本月新增</p>
+                        </li>
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['user']['totalCount']|0}</p>
+                            <p class="font2">会员总数</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+        <a href="{php echo $this->createWebUrl('gzuserviewslist');}">
+            <div class="col-md-6 vipbig1">
+                <div class="col-md-12 vipbox">
+                    <div class="col-md-12 vipcontent">
+                        <div class="vipleft">
+                            <img src="../addons/jy_fen/template/images/6.png">
+                            <span>访问统计</span>
+                        </div>
+                        <div class="vipright">(单位：次)</div>
+                    </div>
+                    <ul class="col-md-12 vipadd">
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['view']['jinCount']|0}</p>
+                            <p class="font2">今日访问</p>
+                        </li>
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['view']['zuoCount']|0}</p>
+                            <p class="font2">昨日访问</p>
+                        </li>
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['view']['yueCount']|0}</p>
+                            <p class="font2">本月访问</p>
+                        </li>
+                        <li class="col-md-3">
+                            <p class="font1">{php echo $tongji['view']['totalCount']|0}</p>
+                            <p class="font2">访问总数</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="main">
+    <div class="">
+
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">               
+                    <div class="col-lg-4">
+                        <div class="block">
+                            <div class="block-header">
+                                <h3 class="block-title">新增会员分析</h3>
+                            </div>
+                            <div class="block-content">
+                                <p class="pull-right">{php echo $gl['user']['jinCount']|0}%</p>
+                                <p>今日会员({php echo $tongji['user']['jinCount']|0}人)</p>                    
+                                <div class="progress progress-mini">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{php echo $gl['user']['jinCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['user']['jinCount']|0}%"></div>
+                                </div>
+                                <p class="pull-right">{php echo $gl['user']['zuoCount']|0}%</p>
+                                <p>昨日({php echo $tongji['user']['zuoCount']|0}人)</p>                 
+                                <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['user']['zuoCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['user']['zuoCount']|0}%"></div>
+                                </div>
+                                <p class="pull-right">{php echo $gl['user']['zhouCount']|0}%</p>
+                                <p>本周({php echo $tongji['user']['zhouCount']|0}人)</p>                    
+                                <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{php echo $gl['user']['zhouCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['user']['zhouCount']|0}%"></div>
+                                </div>
+                                <p class="pull-right">{php echo $gl['user']['yueCount']|0}%</p>
+                                <p>本月({php echo $tongji['user']['yueCount']|0}人)</p>                    
+                                <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{php echo $gl['user']['yueCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['user']['yueCount']|0}%"></div>
+                                </div>
+                            </div>                          
+                        </div>      
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="block">
+                         <div class="block-header">
+                           <h3 class="block-title">访问分析</h3>
+                           </div>
+                           <div class="block-content">
+                              <p class="pull-right">{php echo $gl['view']['jinCount']|0}%</p>
+                              <p>今日访问次数({php echo $tongji['view']['jinCount']|0}次)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['view']['jinCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['view']['jinCount']|0}%"></div>
+                             </div>
+                              <p class="pull-right">{php echo $gl['view']['zuoCount']|0}%</p>
+                              <p>昨日访问次数({php echo $tongji['view']['zuoCount']|0}次)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['view']['zuoCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['view']['zuoCount']|0}%"></div>
+                             </div>
+                              <p class="pull-right">{php echo $gl['view']['zhouCount']|0}%</p>
+                              <p>本周访问次数({php echo $tongji['view']['zhouCount']|0}次)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['view']['zhouCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['view']['zhouCount']|0}%"></div>
+                             </div>
+                              <p class="pull-right">{php echo $gl['view']['yueCount']|0}%</p>
+                              <p>本月访问次数({php echo $tongji['view']['yueCount']|0}次)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['view']['yueCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['view']['yueCount']|0}%"></div>
+                             </div>
+                            </div>                          
+                        </div>      
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="block">
+                         <div class="block-header">
+                           <h3 class="block-title">公众号分析</h3>
+                           </div>
+                           <div class="block-content">
+                              <p class="pull-right">{php echo $gl['gz']['jinCount']|0}%</p>
+                              <p>今日关注数({php echo $tongji['gz']['jinCount']|0}个)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['gz']['jinCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['gz']['jinCount']|0}%"></div>
+                             </div>
+                              <p class="pull-right">{php echo $gl['gz']['totalCount']|0}%</p>
+                              <p>总关注数({php echo $tongji['gz']['totalCount']|0}个)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['gz']['totalCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['gz']['totalCount']|0}%"></div>
+                             </div>
+                              <p class="pull-right">{php echo $gl['wxapp']['jinCount']|0}%</p>
+                              <p>今日新增公众号({php echo $tongji['wxapp']['jinCount']|0}个)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['wxapp']['jinCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['wxapp']['jinCount']|0}%"></div>
+                             </div>
+                              <p class="pull-right">{php echo $gl['wxapp']['totalCount']|0}%</p>
+                              <p>公众号总数({php echo $tongji['wxapp']['totalCount']|0}个)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{php echo $gl['wxapp']['totalCount']|0}" aria-valuemin="0" aria-valuemax="100" style="width: {php echo $gl['wxapp']['totalCount']|0}%"></div>
+                             </div>
+                            </div>                          
+                        </div>      
+                    </div>
+
+                    <!-- <div class="col-lg-4">
+                        <div class="block">
+                         <div class="block-header">
+                           <h3 class="block-title">WIFI分析</h3>
+                           </div>
+                           <div class="block-content">
+                              <p class="pull-right">22.06%</p>
+                              <p>今日新增数(15个)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="22.06" aria-valuemin="0" aria-valuemax="100" style="width: 22.06%"></div>
+                             </div>
+                              <p class="pull-right">22.06%</p>
+                              <p>总WIFI数(15个)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="22.06" aria-valuemin="0" aria-valuemax="100" style="width: 22.06%"></div>
+                             </div>
+                             <p class="pull-right">2.94%</p>
+                              <p>今日新增用户数(15个)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2.94" aria-valuemin="0" aria-valuemax="100" style="width: 2.94%"></div>
+                             </div>
+                             <p class="pull-right">2.94%</p>
+                              <p>WIFI总用户数(15个)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2.94" aria-valuemin="0" aria-valuemax="100" style="width: 2.94%"></div>
+                             </div>
+                            </div>                          
+                        </div>      
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="block">
+                         <div class="block-header">
+                           <h3 class="block-title">二维码分析(总计：68个)</h3>
+                           </div>
+                           <div class="block-content">
+                              <p class="pull-right">22.06%</p>
+                              <p>今日预打印(15个)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="22.06" aria-valuemin="0" aria-valuemax="100" style="width: 22.06%"></div>
+                             </div>
+                              <p class="pull-right">22.06%</p>
+                              <p>预打印总数(15个)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="22.06" aria-valuemin="0" aria-valuemax="100" style="width: 22.06%"></div>
+                             </div>
+                             <p class="pull-right">2.94%</p>
+                              <p>今日贴码数(15个)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2.94" aria-valuemin="0" aria-valuemax="100" style="width: 2.94%"></div>
+                             </div>
+                             <p class="pull-right">2.94%</p>
+                              <p>贴码总数(15个)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2.94" aria-valuemin="0" aria-valuemax="100" style="width: 2.94%"></div>
+                             </div>
+                            </div>                          
+                        </div>      
+                    </div> -->
+
+                    <!-- <div class="col-lg-4">
+                        <div class="block">
+                         <div class="block-header">
+                           <h3 class="block-title">扫码分析(总计：68次)</h3>
+                           </div>
+                           <div class="block-content">
+                              <p class="pull-right">22.06%</p>
+                              <p>今日扫码次数(15次)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="22.06" aria-valuemin="0" aria-valuemax="100" style="width: 22.06%"></div>
+                             </div>
+                              <p class="pull-right">22.06%</p>
+                              <p>昨日扫码次数(15次)</p>                    
+                              <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="22.06" aria-valuemin="0" aria-valuemax="100" style="width: 22.06%"></div>
+                             </div>
+                             <p class="pull-right">2.94%</p>
+                              <p>本周扫码次数(15次)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2.94" aria-valuemin="0" aria-valuemax="100" style="width: 2.94%"></div>
+                             </div>
+                             <p class="pull-right">2.94%</p>
+                              <p>本月扫码次数(15次)</p>           
+                             <div class="progress progress-mini">
+                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2.94" aria-valuemin="0" aria-valuemax="100" style="width: 2.94%"></div>
+                             </div>
+                            </div>                          
+                        </div>      
+                    </div> -->
+
+
+                </div>
+            </div>
+        </div>      
+
+
+    </div>
+<!-- </div>
+ <div class="main"> -->
+    <ul class="botul" style="padding-bottom: 30px;">
+        <li>
+        <a href="{php echo $this->createWebUrl('user');}">
+            <div class="boxcon">
+                <img src="../addons/jy_fen/template/images/gkdata1.png">
+                <p class="bfont1">会员管理</p>
+            </div>
+            </a>
+        </li>
+        <li>
+        <a href="{php echo $this->createWebUrl('gglist');}">
+            <div class="boxcon">
+                <img src="../addons/jy_fen/template/images/gkdata3.png">
+                <p class="bfont1">广告管理</p>
+            </div>
+            </a>
+        </li>
+        <li>
+         <a href="{php echo $this->createWebUrl('gzwxapplist');}">
+            <div class="boxcon">
+                <img src="../addons/jy_fen/template/images/gkdata4.png">
+                <p class="bfont1">公众号管理</p>
+            </div>
+            </a>
+        </li>
+        <li>
+        <a href="{php echo $this->createWebUrl('wifitxlist');}">
+            <div class="boxcon">
+                <img src="../addons/jy_fen/template/images/gkdata6.png">
+                <p class="bfont1">提现管理</p>
+            </div>
+            </a>
+        </li>
+        <li>
+         <a href="{php echo $this->createWebUrl('settings');}">
+            <div class="boxcon">
+                <img src="../addons/jy_fen/template/images/gkdata7.png">
+                <p class="bfont1">系统设置</p>
+            </div>
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-22").show();
+        $("#yframe-22").addClass("wyactive");
+    })
+</script>

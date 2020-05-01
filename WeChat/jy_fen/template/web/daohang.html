@@ -1,0 +1,288 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    .store_td1{height: 45px;}
+    .store_list_img{width: 60px;height: 60px;}
+    .yg5_tabel{border-color: #e5e5e5;outline: 1px solid #e5e5e5;}
+    .yg5_tr2>td{padding: 15px;border: 1px solid #e5e5e5;text-align: center;}
+    .yg5_tr1>th{
+        border: 1px solid #e5e5e5;
+        padding: 15px;
+        background-color: #FAFAFA;
+        font-weight: bold;
+        text-align: center;
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('daohang', array('op' => 'display'))}">栏目管理</a></li>
+    <li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('daohang', array('op' => 'post'))}">添加栏目</a></li>    
+</ul>
+{if $operation == 'post'}
+<div class="main wymain">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <!--<input type="hidden" name="parentid" value="{$parent['id']}" />-->
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                添加栏目
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">栏目名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" value="{$list['name']}" class="form-control" placeholder="请输入标题" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">副标题</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="vice_name" value="{$list['vice_name']}" class="form-control" placeholder="请输入标题" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">栏目图标（选中时）</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('img', $list['img'])}
+                    <div class="ygmargin">* 案例小图标：&nbsp;&nbsp;
+                        <a href="http://wq.jiyongstore.com/attachment/images/34/2019/03/d6MHcHE37MRZ0aIZuih0rcEz3uHUe3.png" target="_blank"> <img style="width:32px;height:32px" src="http://wq.jiyongstore.com/attachment/images/34/2019/03/d6MHcHE37MRZ0aIZuih0rcEz3uHUe3.png"> 首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="http://wq.jiyongstore.com/attachment/images/34/2019/03/XozKrKLprCRvQrKrY1rA21esAOaY1L.png" target="_blank"><img style="width:32px;height:32px" src="http://wq.jiyongstore.com/attachment/images/34/2019/03/XozKrKLprCRvQrKrY1rA21esAOaY1L.png">入驻</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="http://wq.jiyongstore.com/attachment/images/34/2019/03/mQ3RJ06N00QcHQMhwRT6OB43XOOyRO.png" target="_blank"><img style="width:32px;height:32px" src="http://wq.jiyongstore.com/attachment/images/34/2019/03/mQ3RJ06N00QcHQMhwRT6OB43XOOyRO.png">我的</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+
+                        <a href="https://wq.jiyongstore.com/attachment/images/34/2019/04/V3PwUFpB5wuGUupuPGF28w85P5j8EU.png" target="_blank"><img style="width:32px;height:32px" src="https://wq.jiyongstore.com/attachment/images/34/2019/04/V3PwUFpB5wuGUupuPGF28w85P5j8EU.png">附近wifi</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+
+                        <a href="https://wq.jiyongstore.com/attachment/images/34/2019/04/c8MmwzZB9I3KIzb8wZmoi9m8lhI6Bb.png" target="_blank"><img style="width:32px;height:32px" src="https://wq.jiyongstore.com/attachment/images/34/2019/04/c8MmwzZB9I3KIzb8wZmoi9m8lhI6Bb.png">商家优惠券</a> 
+                   </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">栏目图标（未选中时）</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('img2', $list['img2'])}
+                    <div class="ygmargin">* 案例小图标：&nbsp;&nbsp;
+                        <a href="http://wq.jiyongstore.com/attachment/images/34/2019/03/GINVlVzlpCPnvbfl20G34vf4ZM0mNl.png" target="_blank"> <img style="width:32px;height:32px" src="http://wq.jiyongstore.com/attachment/images/34/2019/03/GINVlVzlpCPnvbfl20G34vf4ZM0mNl.png"> 首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="http://wq.jiyongstore.com/attachment/images/34/2019/03/urRpIv3F9Qpvpro5mRi93IeAq93ki3.png" target="_blank"><img style="width:32px;height:32px" src="http://wq.jiyongstore.com/attachment/images/34/2019/03/urRpIv3F9Qpvpro5mRi93IeAq93ki3.png">入驻</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="http://wq.jiyongstore.com/attachment/images/34/2019/03/Vk9f8fbK18469McN9m62pbXp411F89.png" target="_blank"><img style="width:32px;height:32px" src="http://wq.jiyongstore.com/attachment/images/34/2019/03/Vk9f8fbK18469McN9m62pbXp411F89.png">我的</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+
+                        <a href="https://wq.jiyongstore.com/attachment/images/34/2019/04/H2aeoo2YY96Mre3wZNoAr6yWcXV3N2.png" target="_blank"><img style="width:32px;height:32px" src="https://wq.jiyongstore.com/attachment/images/34/2019/04/H2aeoo2YY96Mre3wZNoAr6yWcXV3N2.png">附近wifi</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+                        
+                        <a href="https://wq.jiyongstore.com/attachment/images/34/2019/04/iDCdwIZ7WCF4MxFlkCecPKYhY5lE7n.png" target="_blank"><img style="width:32px;height:32px" src="https://wq.jiyongstore.com/attachment/images/34/2019/04/iDCdwIZ7WCF4MxFlkCecPKYhY5lE7n.png">商家优惠券</a> 
+                   </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">类型</label>
+                <div class="col-sm-9">
+                    <select name="type" id="type" class="col-md-4">
+                        <option value="1" {if $list['type']==1}selected{/if}>站内跳转</option>
+                        <option value="2" {if $list['type']==2}selected{/if}>网页跳转</option>
+                        <option value="3" {if $list['type']==3}selected{/if}>小程序跳转</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="panel-body mode mode1">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label ">站内跳转</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="url1" value="{$list['url1']}" class="form-control" placeholder="请输入地址" />
+    <p class="help-block">这里是块级帮助文本的实例。</p>
+                        <div class="ygmargin">小程序路径如下：</div>
+                        <div class="ygmargin">*首页：jy_fen/pages/wifi/wifi </div>
+                        <div class="ygmargin">*个人中心：jy_fen/pages/logs/logs </div>
+                        <div class="ygmargin">*我的资产：jy_fen/pages/logs/wallet </div>
+                        <div class="ygmargin">*帮助中心：jy_fen/pages/logs/bzzx </div>
+                        <div class="ygmargin">*wifi入驻：jy_fen/pages/logs/wifi/wifi </div>
+                        <div class="ygmargin">*广告主：jy_fen/pages/logs/tuiguang/tuiguang </div>
+                        <div class="ygmargin">*公众号入驻：jy_fen/pages/logs/gzh/gzh </div>
+                        <div class="ygmargin">*我的代金券：jy_fen/pages/logs/mine_coupons </div>
+                        <div class="ygmargin">*附近wifi：jy_fen/pages/fjwifi/fjwifi </div>
+                        <div class="ygmargin">*商家优惠券：jy_fen/pages/store_coupons/store_coupons </div>
+                    </div>
+                </div>
+            </div>            
+
+            <div class="panel-body mode mode3">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序appid：</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="appid" value="{$list['appid']}" class="form-control" placeholder="请输入小程序appid" />
+                        <div class="ygmargin">*小程序跳转的appid </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="panel-body mode mode2 mode3">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label ">跳转地址：</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="url" value="{$list['url']}" class="form-control" placeholder="请输入地址" />
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否显示</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="emailwy1" name="state" value="0" {if $list['state']==0 || $list['state']==""}checked{/if} />
+                        <label for="emailwy1">不显示</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="emailwy2" name="state" value="1" {if $list['state']==1}checked{/if} />
+                        <label for="emailwy2">显示</label>
+                    </label>    
+                </div>
+            </div>
+               
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+                <div class="col-sm-9">
+                    <input type="number" name="orderby" placeholder="99" class="form-control" value="{$list['orderby']}" />
+                </div>
+            </div>
+           
+        <div class="form-group" style="margin-top: 20px;">
+            <input type="submit" name="submit" value="保存设置" class="btn col-lg-3" style="color: white;background-color: #88C200;"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+		<div>&#22823;&#37327;&#28304;&#30721;&#65292;&#25345;&#32493;&#26356;&#26032;&#65306;&#119;&#119;&#119;&#46;&#108;&#97;&#110;&#114;&#101;&#110;&#122;&#104;&#105;&#106;&#105;&#97;&#46;&#99;&#111;&#109;</div>
+    </form>
+</div>
+{elseif $operation == 'display'}
+<div class="main" style="background-color: #F5F7F9;">
+    <!-- <div class="panel panel-default">
+        <div class="panel-body">
+            <a class="btn btn-primary" href="javascript:location.reload()"><i class="fa fa-refresh"></i>刷新</a>
+        </div>
+    </div> -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+                栏目列表
+            </div>
+        <form action="" method="post" class="form-horizontal form" >
+            <input type="hidden" name="storeid" value="{$storeid}" />
+            <div class="table-responsive">
+                <table class="col-md-12">
+                    <tr class="yg5_tr1">
+                        <th class="store_td1">排序</th>
+                        <th>标题</th>
+                        <th>图标</th>
+                        <th>跳转方式</th>
+                    
+                        <th>跳转地址</th>
+                        <th>状态</th>
+                    
+                        <th>操作</th>
+                    </tr>
+                    {loop $list $row}
+                    <tr class="yg5_tr2">
+                        <td><div class="type-parent">{$row['orderby']}&nbsp;&nbsp;</div></td>
+                        <td>
+                            <div class="type-parent">{$row['name']}&nbsp;&nbsp;</div>
+                        </td>
+                        <td>
+                            <img class="store_list_img" src="{media $row['img']}" alt="{media $row['img']}">
+                        </td>
+                        <td><div class="type-parent">
+                            {if $row['type']==1}站内跳转
+                            {elseif $row['type']==2}网页跳转
+                            {elseif $row['type']==3}小程序跳转
+                            {/if}
+                        &nbsp;&nbsp;</div></td>
+                      
+                        {if $row['type']==1}<td>{$row['url1']}</td>
+                        {elseif $row['type']==2}<td>{$row['url']}</td>
+                        {elseif $row['type']==3}<td>{$row['url']}</td>
+                        {/if}
+
+                        {if $row['state']==0}
+                            <td><div class="type-parent">未显示&nbsp;&nbsp;</div></td>
+                        {else}
+                            <td><div class="type-parent">已显示&nbsp;&nbsp;</div></td>
+                        {/if}
+                        <td>
+                            {if $row['state']==0}
+                            <a href="{php echo $this->createWebUrl('daohang', array('op' => 'xuan', 'id' => $row['id'],'state'=>1))}" class="storespan btn btn-xs" onclick="return confirm('确认显示吗？');return false;">
+                                <span style="color:#88C200">显示</span>
+                                <span class="bianji">显示
+                                    <span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            {else}
+                            <a href="{php echo $this->createWebUrl('daohang', array('op' => 'buxuan', 'id' => $row['id'],'state'=>0))}" class="storespan btn btn-xs" onclick="return confirm('确认取消显示吗？');return false;">
+                                <span style="color:#2421B4">取消显示</span>
+                                <span class="bianji">取消显示
+                                    <span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            {/if}
+                            <a href="{php echo $this->createWebUrl('daohang', array('op' => 'post', 'id' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-pencil"></span>
+                                <span class="bianji">编辑
+                                    <span class="arrowdown"></span>
+                                </span>
+                            
+                            </a>
+                            <a href="{php echo $this->createWebUrl('daohang', array('op' => 'delete', 'id' => $row['id']))}" class="storespan btn btn-xs" onclick="return confirm('确认删除吗？');return false;">
+                                <span class="fa fa-trash-o"></span>
+                                <span class="bianji">删除
+                                    <span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            <!-- <a class="btn btn-info btn-xs" href="{php echo $this->createWebUrl('help', array('op' => 'post', 'id' => $row['id']))}" title="编辑">改</a>&nbsp;&nbsp;<a class="btn btn-danger btn-xs" href="{php echo $this->createWebUrl('help', array('op' => 'delete', 'id' => $row['id']))}" onclick="return confirm('确认删除吗？');return false;" title="删除">删</a></td> -->
+                    </tr>
+                    {/loop}
+                    {if !$list}
+                    <tr class="yg5_tr2">
+                        <td colspan="5">暂无信息</td>
+                    </tr>
+                    {/if}
+                </table>
+            </div>
+        </form>
+    </div>
+    
+</div>
+<div class="text-right we7-margin-top">{$pager}</div>
+{/if}
+<script type="text/javascript">
+    $(function(){
+        // $("#frame-14").addClass("in");
+        $("#frame-14").show();
+        $("#yframe-14").addClass("wyactive");
+
+        $(".mode").hide();
+        "{if $list}"
+        "{if $list['type']=='1'}"
+                $('.mode1').show();
+            "{/if}"
+            "{if $list['type']=='2'}"
+                $('.mode2').show();
+            "{/if}"
+            "{if $list['type']=='3'}"
+                $('.mode3').show();
+            "{/if}" 
+                    
+        "{else}"
+             $('.mode1').show();
+        "{/if}"
+
+        $("#type").change(function(){
+            $(".mode").hide();
+            $(".mode"+$(this).val()).show();           
+         })
+
+        $("#type").change();
+    })
+</script>

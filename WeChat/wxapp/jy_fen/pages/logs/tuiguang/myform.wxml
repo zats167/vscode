@@ -1,0 +1,53 @@
+<view class="list">
+    <view class="{{index==0?'djdtop':'djd'}}" wx:for="{{list}}">
+        <view class="djdh">
+            <view class="dpsh2">
+                <view>
+                    <text>提交时间:</text>
+                    <text>{{item.created_time}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="djdb">
+            <view class="djdb1">
+                <view class="djdb1-left">
+          所属广告
+        </view>
+                <view class="djdb1-right">
+          {{item.gname}}
+        </view>
+            </view>
+            <view class="djdb1">
+                <view class="djdb1-left">
+          联系人
+        </view>
+                <view class="djdb1-right">
+          {{item.name}}
+        </view>
+            </view>
+            <view class="djdb1">
+                <view class="djdb1-left">
+          联系电话
+        </view>
+                <view class="djdb1-right">
+          {{item.phone}}
+        </view>
+            </view>
+            <view class="djdb1">
+                <view class="djdb1-left">
+          需求描述
+        </view>
+                <view class="djdb1-right">
+          {{item.feed}}
+        </view>
+            </view>
+            <view class="djdb1" style="border-top:1px solid #f2f2f2; margin-top:18px; padding-top:5px;">
+                <view class="djdb1-left"></view>
+                <view class="djdb1-right">
+                    <image bindtap="tel" data-tel="{{item.phone}}" lazyLoad="true" src="{{url3}}template/images/applet/gztdh.png"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="mygd" wx:if="{{list.length>0}}">没有更多了哦~</view>
+</view>

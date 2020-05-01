@@ -1,0 +1,161 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    .yg5_key>div{float: left;line-height: 34px;}
+    .store_td1{height: 45px;}
+    .store_list_img{width: 60px;height: 60px;}
+    .yg5_tabel{border-color: #e5e5e5;outline: 1px solid #e5e5e5;}
+    .yg5_tr2>td{padding: 10px 3px;border: 1px solid #e5e5e5;text-align:center;}
+    .yg5_tr1>th{
+        border: 1px solid #e5e5e5;
+        padding-left: 15px;
+        background-color: #FAFAFA;
+        font-weight: bold;
+        text-align: center;
+    }
+    .yg5_btn{background-color: #EEEEEE;color: #333;border: 1px solid #E4E4E4;border-radius: 6px;width: 100px;height: 34px;}
+    .none{display: none;}
+    .fa-recycle{margin: 0px;}
+    /*#frame-2{display: block;visibility: visible;}*/
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li class="active"><a href="{php echo $this->createWebUrl('gzwxapplist')}">公众号列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('addgzwxapplist')}">添加公众号</a></li>
+</ul>
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            样式列表
+        </div>
+        <div class="panel-body" style="padding: 0px 15px;">
+            <div class="row">
+                <table class="yg5_tabel col-md-12">
+                    <tr class="yg5_tr1">
+                        <th class="store_td1 col-md-1">id</th>                      
+                        <th class="col-md-1">公众号名称</th>
+                        <th class="col-md-1">APPID</th>
+                        <th class="col-md-2">公众号状态</th>
+                        <th class="col-md-2">接入状态</th>
+                        <th class="col-md-2">广告状态</th>
+                        <th class="col-md-1">打印数</th>
+                        <th class="col-md-1">贴码数</th>
+                        <th class="col-md-1">关注数</th>
+                        <th class="col-md-1">扫码数</th>
+                        <th class="col-md-2">操作</th>
+                    </tr>
+                    {loop $list $row}
+                    <tr class="yg5_tr2">
+                        <td><div class="type-parent">{$row['id']}&nbsp;&nbsp;</div></td>  
+                        <td>{$row['appname']}</td>
+                        <td>{$row['appid']}</td>
+                        <td>
+                            {if $row['status']==1}
+                                <a href="" type="" class="btn btn-info" style="background-color: #5CB85C"><span class="">已开启</span></a>
+                                <a href="{php echo $this->createWebUrl('gzwxapplist',array('status'=>2,'id'=>$row['id'],'op'=>status))}" type="button" class="btn " style="background-color: #D83B27;color:#fff"><span class="" >关闭</span></a>
+                            {elseif $row['status']==2}
+                                <a href="#" type="" class="btn " style="background-color: #636C72;color:#fff"><span class="" >已关闭</span></a>
+                                <a href="{php echo $this->createWebUrl('gzwxapplist',array('status'=>1,'id'=>$row['id'],'op'=>status))}" type="button" class="btn btn-info" style="background-color: #88C200"><span class="">开启</span></a>
+                            {elseif $row['status']==3}
+                                <span class="label storered">审核中</span>
+                                <a class="btn ygyouhui2 btn-xs" href="{php echo $this->createWebUrl('gzwxapplist',array('status'=>1,'id'=>$row['id'],'op'=>status))}" title="通过">通过</a>
+                                <a class="btn storegrey2 btn-xs" href="{php echo $this->createWebUrl('gzwxapplist',array('status'=>4,'id'=>$row['id'],'op'=>status))}" title="拒绝">拒绝</a>
+                            {elseif $row['status']==4}
+                                <span class="label storegrey">已拒绝</span>
+                                <a class="btn ygyouhui2 btn-xs" href="{php echo $this->createWebUrl('gzwxapplist',array('status'=>1,'id'=>$row['id'],'op'=>status))}" title="通过">通过</a>
+                            {elseif $row['status']==5}
+                                <span class="label storewarning">欠费中</span>
+                                <a href="{php echo $this->createWebUrl('gzwxapplist',array('status'=>1,'id'=>$row['id'],'op'=>status))}" type="button" class="btn btn-info" style="background-color: #88C200"><span class="">开启</span></a>
+                            {/if}
+                        </td>
+                        <td>
+                            <span class="status1 label label-success {if $row['is_yz']!=1}none{/if}">已接入</span>
+                            <span class="status2 label label-danger {if $row['is_yz']==1}none{/if}">未接入</span>
+                            <span class="link-group">
+                                <a href="{php echo $this->createWebUrl('gzwxappjieru',array('wxappid'=>$row['id']))}">配置</a>
+                            </span>
+                        </td>
+                        <td>
+                            {if $row['is_gg']==1}
+                                <a href="" type="" class="btn btn-info" style="background-color: #5CB85C"><span class="">已开启</span></a>
+                                <a href="{php echo $this->createWebUrl('gzwxapplist',array('is_gg'=>2,'id'=>$row['id'],'op'=>is_gg))}" type="button" class="btn " style="background-color: #D83B27;color:#fff"><span class="" >关闭</span></a>
+                            {elseif $row['is_gg']==2}
+                                <a href="#" type="" class="btn " style="background-color: #636C72;color:#fff"><span class="" >已关闭</span></a>
+                                <a href="{php echo $this->createWebUrl('gzwxapplist',array('is_gg'=>1,'id'=>$row['id'],'op'=>is_gg))}" type="button" class="btn btn-info" style="background-color: #88C200"><span class="">开启</span></a>
+                            {/if}
+                        </td>
+                        <td>{$row['gz_prints']}</td>
+                        <td>{$row['gz_wifis']}</td>
+                        <td>{$row['gz_users']}</td>
+                        <td>{$row['gz_views']}</td>
+                        <td>
+                            <a href="{php echo $this->createWebUrl('addgzwxapplist', array('id' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-pencil"></span>
+                                <span class="bianji">编辑<span class="arrowdown"></span>
+                                </span>                            
+                            </a>
+                            <a href="javascript:void(0);" class="storespan btn btn-xs" data-toggle="modal" data-target="#myModal{$row['id']}">
+                                <span class="fa fa-trash-o"></span>
+                                <span class="bianji">删除<span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            <a href="{php echo $this->createWebUrl('gzsf', array('wxappid' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-recycle"></span>
+                                <span class="bianji">第三方平台<span class="arrowdown"></span>
+                                </span>                            
+                            </a>
+                            <a href="{php echo $this->createWebUrl('gzmenu', array('wxappid' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-th-large"></span>
+                                <span class="bianji">自定义菜单<span class="arrowdown"></span>
+                                </span>                            
+                            </a>
+                            <a href="{php echo $this->createWebUrl('gztspz', array('wxappid' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-rocket"></span>
+                                <span class="bianji">推送设置<span class="arrowdown"></span>
+                                </span>                            
+                            </a>
+                            <a href="{php echo $this->createWebUrl('gzsylist', array('wxappid' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-list-ul"></span>
+                                <span class="bianji">数据统计<span class="arrowdown"></span>
+                                </span>                            
+                            </a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="myModal{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                            确定删除么？
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('gzwxapplist', array('op' => 'delete', 'id' => $row['id']))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    {/loop}
+                              {if empty($list)}
+          <tr class="yg5_tr2">
+            <td colspan="14">
+              暂无公众号
+          </td>
+      </tr> 
+      {/if} 
+                </table>
+            </div>
+    </div>
+    {$pager}
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-26").show();
+        $("#yframe-26").addClass("wyactive");
+    })
+</script>

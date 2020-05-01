@@ -1,0 +1,49 @@
+<view class="font index" wx:if="{{model!=null}}">
+    <view class="content">
+        <image class="img " lazyLoad="true" mode="aspectFill" src="{{url+model.logo}}"></image>
+    </view>
+    <view class=" box none" style=" width:92%; margin:0px auto 20px auto; " wx:if="{{model.djtype==5}}">
+        <form bindsubmit="formSubmit">
+            <view class="section section-pay">
+                <view class="item">
+                    <view class="section-money">
+                        <view class="l">
+                            <text>联系姓名：</text>
+                        </view>
+                        <view class="r">
+                            <input class="paytxt" maxlength="20" name="user_name" placeholder="请输入联系姓名" placeholderClass="plpaytxt" type="text"></input>
+                        </view>
+                    </view>
+                </view>
+                <view class="item ">
+                    <view class="section-money">
+                        <view class="l">
+                            <text>联系方式：</text>
+                        </view>
+                        <view class="r">
+                            <input class="paytxt" maxlength="11" name="user_tel" placeholder="请输入手机号码" placeholderClass="plpaytxt" type="number"></input>
+                        </view>
+                    </view>
+                </view>
+                <view class="item ">
+                    <view class="section-money">
+                        <view class="l">
+                            <text>需求描述：</text>
+                        </view>
+                        <view class="r">
+                            <input class="paytxt" maxlength="250" name="user_tel" placeholder="写下你的需求吧" placeholderClass="plpaytxt" type="text"></input>
+                        </view>
+                    </view>
+                </view>
+                <view class="item pay-i">
+                    <button class="btn pay-btn" disabled="{{con.isload}}" formType="submit" loading="{{con.isload}}" type="primary">提交</button>
+                </view>
+            </view>
+        </form>
+    </view>
+    <view class="phonebox">
+        <button bindtap="tel_tap" class="btn" type="primary">
+            <image class="img" lazyLoad="true" mode="scaleToFill" src="{{url3}}template/images/applet/ad-tel.png"></image>
+        </button>
+    </view>
+</view>

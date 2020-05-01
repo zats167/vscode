@@ -1,0 +1,2 @@
+<?php
+ defined('IN_IA') or exit('Access Denied'); class Jy_fenModule extends WeModule { public function welcomeDisplay() { goto Lq0A3; Lq0A3: global $_GPC, $_W; goto oHPHu; WYaNW: Header('Location: ' . $url); goto O_Pvw; oHPHu: $url = $this->createWebUrl('gaikuangdata'); goto WYaNW; O_Pvw: } } ?>

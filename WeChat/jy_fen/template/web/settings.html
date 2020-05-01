@@ -1,0 +1,725 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    .storeset{border-bottom: 1px solid #eee;padding-bottom: 10px;}
+    .storesetfont{font-size: 14px;font-weight: bold;}
+    .ygstoreimg>.input-group:nth-child(1){float: left;width: 50%;margin-right: 30px;}
+    .ygstoreimg>.input-group:nth-child(2){float: left;width: 50px;}
+    .btn{padding: 7px 12px;}
+    .ygstoreimg>.input-group:nth-child(2)>img{width: 45px;height: 35px;margin-top: -7px;}
+    .wyheader{height: 40px;}
+</style>
+<style type="text/css">
+    .ygmargin{margin-top: 10px;color: #999;}
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #88C200;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #88C200;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .none{display:none;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li class="active"><a href="javascript:void(0);">基本配置</a></li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                <span class="ygxian"></span>
+                <div class="ygdangq storesetfont">基本配置</div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">平台名称</label>
+                    <div class="col-sm-9">
+                       <input type="text" name="pt_name" class="form-control" value="{$item['pt_name']}" />
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">平台风格颜色</label>
+                    <div class="col-sm-9">
+                       {php echo tpl_form_field_color('color', $item['color'])} 
+                        <div class="ygmargin">*不填写会默认选中蓝色</div>
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">平台电话</label>
+                    <div class="col-sm-9">
+                       <input type="number" name="tel" class="form-control" value="{$item['tel']}" />
+                    </div>
+                </div>  
+               
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">平台简介</label>
+                    <div class="col-sm-9">
+                         {php echo tpl_ueditor('details',$item['details']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#myModalb2"><span >***点击查看案例***</span> </a>
+                       
+                    </div>
+                </div>
+			</div>
+            <div class="panel-heading wyheader">
+                <span class="ygxian"></span>
+                <div class="ygdangq storesetfont">小程序端配置</div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序入口页面欢迎描述</label>
+                    <div class="col-sm-9">
+                       <input type="text" name="wfms" class="form-control" value="{$item['wfms']}" />
+                       <div class="ygmargin">*比如：微信扫一扫 一键连接wifi #line#免费WIFI 即扫即连(#line# 字符串可换行)</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序首页入口封面图</label>
+                    <div class="col-sm-9">
+                        <?php $ym = $_SERVER['SERVER_NAME']; ?>
+                        {php echo tpl_form_field_image('wifihomeimg', $item['wifihomeimg'])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                        <div class="ygmargin">
+                            <?php $ym = $_SERVER['SERVER_NAME']; ?>
+                            <a href="https://wq.jiyongstore.com/attachment/images/9/2018/10/MaDu298ds0w03F8P2PIsdDwB39zdd8.png" target="_blank" style="color: #88C200; margin-right: 10px;">封面案例下载</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启门店审核</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="is_storesh1" name="is_storesh" value="1" {if $item['is_storesh']==1 || empty($item['is_storesh'])}checked{/if} />
+                            <label for="is_storesh1">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="is_storesh2" name="is_storesh" value="2" {if $item['is_storesh']==2}checked{/if} />
+                            <label for="is_storesh2">关闭</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启WIFI入驻</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="emailwy9" name="is_wifi" value="1" {if $item['is_wifi']==1 || empty($item['is_wifi'])}checked{/if} />
+                            <label for="emailwy9">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="emailwy10" name="is_wifi" value="2" {if $item['is_wifi']==2}checked{/if} />
+                            <label for="emailwy10">关闭</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">默认公众号</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="default_wxapp"> 
+                            <option value="0" >选择公众号</option>
+                            {loop $wxapplist $key $items}
+                                {if $items['id']==$item['default_wxapp']}
+                                    <option value="{$items['id']}" selected="selected">{$items['appname']}</option>
+                                {else}
+                                    <option value="{$items['id']}">{$items['appname']}</option>
+                                {/if}
+                            {/loop}
+                        </select>
+                        <div class="ygmargin">*选择公众号的话，小程序端生成的WIFI海报图绑定的公众号则是指定的，如果没有选择的话，前端生成的WIFI海报图出现的公众号则随机的</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订阅号是否开启推送连接WIFI</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="is_huosong1" name="is_huosong" value="1" {if $item['is_huosong']==1 || empty($item['is_huosong'])}checked{/if} />
+                            <label for="is_huosong1">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="is_huosong2" name="is_huosong" value="2" {if $item['is_huosong']==2}checked{/if} />
+                            <label for="is_huosong2">关闭</label>
+                        </label>
+                        <div class="ygmargin">*极力建议开启，极少部分用户不开启而已；如果关闭则，公众号类型为订阅号的打印出来的二维码，都不会推送连接WIFI的推送</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">添加公众号教程</label>
+                    <div class="col-sm-9">
+                         {php echo tpl_ueditor('wxapp_sys',$item['wxapp_sys']);}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号入驻说明</label>
+                    <div class="col-sm-9">
+                         {php echo tpl_ueditor('wxapp_shuoming',$item['wxapp_shuoming']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">门店入驻说明</label>
+                    <div class="col-sm-9">
+                         {php echo tpl_ueditor('store_shuoming',$item['store_shuoming']);}
+                    </div>
+                </div>
+
+			</div>
+            <div class="panel-heading wyheader">
+                <span class="ygxian"></span>
+                <div class="ygdangq storesetfont">提现配置</div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现方式</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="is_zfb1" name="is_zfb" value="1" {if $item['is_zfb']==1}checked{/if} />
+                            <label for="is_zfb1">支付宝</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="is_zfb2" name="is_zfb" value="2" {if $item['is_zfb']==2 || empty($item['is_zfb'])}checked{/if} />
+                            <label for="is_zfb2">微信</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额首次最低提现金额<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                       <input type="number" name="onetx" class="form-control" value="{$item['onetx']}" />
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额再次最低提现金额<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                       <input type="number" name="ggtx" class="form-control" value="{$item['ggtx']}" />
+                    </div>
+                </div>  
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额提现手续费<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <p class="input-group">
+                            <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="txservice" value="{$item['txservice']}" id="points" class="form-control" />
+                            <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="ygmargin">*不填写，则提现不需要手续费</div>
+                    </div>
+                </div>  
+                <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额提现手续费</label>
+                    <div class="col-sm-9">
+                       <input type="number" name="txservice" class="form-control" value="{$item['txservice']}" />
+                       <span class="input-group-addon">%</span>
+                       <div class="ygmargin">*不填写，则提现不需要手续费</div>
+                    </div>
+                </div>  -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">余额提现协议</label>
+                    <div class="col-sm-9">
+                         {php echo tpl_ueditor('txagreement',$item['txagreement']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#myModalb"><span >***点击查看案例***</span> </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModalb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">可直接复制以下案例</h4>
+                      </div>
+                      <div class="modal-body" style="font-size:20px;height:300px">
+                        <p>
+                        平台规定每次提现佣金必须大于100元，提现审核时间两到三天，如有不明白的请联系我们
+                        </p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="myModalb2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+              <div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel2" style="font-size: 20px;">可直接复制以下案例</h4>
+                      </div>
+                      <div class="modal-body" style="font-size:20px;height:300px">
+                            <p>
+            即用WiFi是一个连接平台运营者、线下门店、广告投放者、用户为一体的闭环综合性平台，平台运营者（以下简称平台）通过代理商加盟推广或自推广门店方式发展线下门店入驻，门店入住后，可自行发布、下载、打印门店wifi二维码放至店内供到店用户扫码连接wifi，大大方便了用户使用店内wifi能力，用户连接wifi后，被引至浏览平台提供热点新闻。此外，平台提供广告主入驻并发布广告系统，用户在使用该小程序时点击广告产生的广告佣金由系统自动统计分配到平台、商家、代理商三方，整个流程方便了用户，平台、商家、代理商分到佣金，广告主推广了产品，各方之前达到一个双赢的局面，形成了一个完美的闭环系统。
+                            </p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+			
+            <div class="panel-heading wyheader">
+                <span class="ygxian"></span>
+                <div class="ygdangq storesetfont">广告设置</div>
+            </div>
+            <div class="panel-body">
+            	<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启入驻功能</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="emailwy1" name="is_ggruzhu" value="1" {if $item['is_ggruzhu']==1 || empty($item['is_ggruzhu'])}checked{/if} />
+                            <label for="emailwy1">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="ggemailwy2" name="is_ggruzhu" value="2" {if $item['is_ggruzhu']==2}checked{/if} />
+                            <label for="ggemailwy2">关闭</label>
+                        </label>
+                        <div class="ygmargin">(*关闭后小程序端不显示入驻入口)</div>    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启广告展示功能</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="ggemailwy3" name="is_zhanshi" value="1" {if $item['is_zhanshi']==1 || empty($item['is_zhanshi'])}checked{/if} />
+                            <label for="ggemailwy3">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="ggemailwy4" name="is_zhanshi" value="2" {if $item['is_zhanshi']==2}checked{/if} />
+                            <label for="ggemailwy4">关闭</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启小程序流量主（首页轮播图广告）</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="ggemailwy5" name="is_txggsy" value="1" {if $item['is_txggsy']==1 }checked{/if} />
+                            <label for="ggemailwy5">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="ggemailwy6" name="is_txggsy" value="2" {if $item['is_txggsy']==2 || empty($item['is_txggsy'])}checked{/if} />
+                            <label for="ggemailwy6">关闭</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序广告主id</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="txgg_id" value="{$item['txgg_id']}" id="points" class="form-control" />
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页轮播图广告</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="is_banner1" name="is_banner" value="1" {if $item['is_banner']==1 || empty($item['is_banner'])}checked{/if} />
+                            <label for="is_banner1">流量主广告</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="is_banner2" name="is_banner" value="2" {if $item['is_banner']==2 }checked{/if} />
+                            <label for="is_banner2">站内广告</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+                {if $is_share==1}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页弹屏广告</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="is_tanping1" name="is_tanping" value="1" {if $item['is_tanping']==1 || empty($item['is_tanping'])}checked{/if} />
+                            <label for="is_tanping1">流量主广告</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="is_tanping2" name="is_tanping" value="2" {if $item['is_tanping']==2 }checked{/if} />
+                            <label for="is_tanping2">站内广告</label>
+                        </label>
+                        <div class="ygmargin"></div>    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">流量主弹屏广告id</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="tanping_id" value="{$item['tanping_id']}" id="points" class="form-control" />
+                    </div>
+                </div>
+                {/if}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">流量主banner广告id</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="txgg_id" value="{$item['txgg_id']}" id="points" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">WIFI提供者广告收益<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <p class="input-group">
+                            <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="ggsy" value="{$item['ggsy']}" id="points" class="form-control" />
+                            <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="ygmargin">*用户点击广告后，WIFI提供者的收益比</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">WIFI提供者新用户关注收益<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <p class="input-group">
+                            <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="gzsy" value="{$item['gzsy']}" id="points" class="form-control" />
+                            <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="ygmargin">*用户关注公众号后，WIFI提供者的收益比</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">入驻须知</label>
+                    <div class="col-sm-9">
+                    	{php echo tpl_ueditor('ggrzxy',$item['ggrzxy']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#ggmyModalb"><span >***点击查看案例***</span> </a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">平台优势</label>
+                    <div class="col-sm-9">
+                       {php echo tpl_ueditor('ggcjwt',$item['ggcjwt']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#ggmyModalb2"><span >***点击查看案例***</span> </a>
+                    </div>
+                </div>
+			</div>
+            
+            <div class="modal fade" id="ggmyModalb" tabindex="-1" role="dialog" aria-labelledby="ggmyModalLabel">
+            	<div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+            		<div class="modal-content">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            				<h4 class="modal-title" id="ggmyModalLabel" style="font-size: 20px;">可直接复制以下案例</h4>
+            			</div>
+            			<div class="modal-body" style="font-size:20px;height:300px">
+            				<p>
+            				1、平台有权在申请入驻及后续经营阶段要求客户提供其他资质；并且将结合各行业发展动态、国家相关规定及消费者购买需求，不定期更新招商标准；
+            				</p>
+                            <p>
+                            2、申请企业须确保其申请入驻及后续经营阶段提供的相关资质的真实性（若企业提供的相关资质如商标注册证、授权书等由第三方提供，请务必先行核实文件的真实有效性），一旦发现虚假资质，申请企业将被平台列入非诚信客户名单，并不再进行合作；
+                            </p>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+            
+            <div class="modal fade" id="ggmyModalb2" tabindex="-1" role="dialog" aria-labelledby="ggmyModalLabel2">
+            	<div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+            		<div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="ggmyModalLabel2" style="font-size: 20px;">可直接复制以下案例</h4>
+                        </div>
+                        <div class="modal-body" style="font-size:20px;height:300px">
+                            <p>
+                            凭借强大的智能算法优势，自动定位意向用户群体，广告可定点投放，提供打开小程序、打开网页、打开新闻资讯、打开图文，打开图片等多种模式展示，为客户提供全系列产品广告资源，覆盖用户生活十大场景。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-heading wyheader">
+                <span class="ygxian"></span>
+                <div class="ygdangq storesetfont">代理设置</div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启代理</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy1" name="is_open" value="1" {if $fxitem['is_open']==1 || empty($fxitem['is_open'])}checked{/if} />
+                            <label for="dlemailwy1">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy2" name="is_open" value="2" {if $fxitem['is_open']==2}checked{/if} />
+                            <label for="dlemailwy2">关闭</label>
+                        </label>
+                        <div class="ygmargin">(*开启后小程序端显示代理中心入口)</div> 
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启代理商审核</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy3" name="is_fx" value="1" {if $fxitem['is_fx']==1 || empty($fxitem['is_fx'])}checked{/if} />
+                            <label for="dlemailwy3">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy4" name="is_fx" value="2" {if $fxitem['is_fx']==2}checked{/if} />
+                            <label for="dlemailwy4">关闭</label>
+                        </label>
+                        <div class="ygmargin">(*开启后需要申请代理并后台审核通过才能成为代理商)</div>    
+                    </div>
+                    
+                </div>
+                <div class="form-group none">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启分类代理</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy5" name="is_type" value="1" {if $fxitem['is_type']==1 || empty($fxitem['is_type'])}checked{/if} />
+                            <label for="dlemailwy5">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy6" name="is_type" value="2" {if $fxitem['is_type']==2}checked{/if} />
+                            <label for="dlemailwy6">关闭</label>
+                        </label>
+                        <div class="ygmargin">(*开启后佣金会根据商家分类设置的佣金来算)</div>    
+                    </div>
+                    
+                </div>
+                <div class="form-group none">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启二级代理</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy7" name="is_ej" value="1" {if $fxitem['is_ej']==1 || empty($fxitem['is_ej'])}checked{/if} />
+                            <label for="dlemailwy7">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="dlemailwy8" name="is_ej" value="2" {if $fxitem['is_ej']==2}checked{/if} />
+                            <label for="dlemailwy8">关闭</label>
+                        </label>    
+                    </div>
+                </div>
+                {if $is_zhuanyi==1}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启转让WIFI</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="is_zhuanwifi1" name="is_zhuanwifi" value="1" {if $item['is_zhuanwifi']==1}checked{/if} />
+                            <label for="is_zhuanwifi1">开启</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="is_zhuanwifi2" name="is_zhuanwifi" value="2" {if $item['is_zhuanwifi']==2 || empty($item['is_zhuanwifi'])}checked{/if} />
+                            <label for="is_zhuanwifi2">关闭</label>
+                        </label>
+                        <div class="ygmargin">开启转让WIFI之后，会在小程序端的WIFI管理右下角有进入转让WIFI的按钮，当前只有代理才能有权限</div>    
+                    </div>
+                </div>
+                {/if}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">代理中心图片</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('img', $fxitem['img'])}
+                        <div class="ygmargin">*建议宽高比例 2:1   **<a href="https://<?php echo $ym ?>/addons/jy_fen/template/images/applet/X58jJppq2uZjKPh4fuf2pz8p2uP8j1.png" target="_blank" style="color: #88C200; margin-right: 10px;">案例下载</a></div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">申请代理商图片</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('img2', $fxitem['img2'])}
+                        <div class="ygmargin">*建议宽高比例 2:1   **<a href="https://<?php echo $ym ?>/addons/jy_fen/template/images/applet/X58jJppq2uZjKPh4fuf2pz8p2uP8j1.png" target="_blank" style="color: #88C200; margin-right: 10px;">案例下载</a></div>
+                    </div>
+                </div> 
+                
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告佣金</label>
+                  <div class="col-sm-9">
+                        <p class="input-group">
+                             <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="commission" value="{$fxitem['commission']}" id="points" class="form-control" />
+                             <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="help-block">*一级下线消费时,代理商可获得佣金比例</div>
+                  </div>
+                </div>
+                <div class="form-group none">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">二级广告佣金</label>
+                  <div class="col-sm-9">
+                        <p class="input-group">
+                             <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="commission2" value="{$fxitem['commission2']}" id="points" class="form-control" />
+                             <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="help-block">*二级下线消费时,代理商可获得佣金比例</div>
+                  </div>
+                </div>
+            
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">新用户佣金</label>
+                  <div class="col-sm-9">
+                        <p class="input-group">
+                             <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="g_commission" value="{$fxitem['g_commission']}" id="points" class="form-control" />
+                             <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="help-block">*一级下线消费时,代理商可获得佣金比例</div>
+                  </div>
+                </div>
+                <div class="form-group none">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">二级新用户佣金</label>
+                  <div class="col-sm-9">
+                        <p class="input-group">
+                             <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="g_commission2" value="{$fxitem['g_commission2']}" id="points" class="form-control" />
+                             <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="help-block">*二级下线消费时,代理商可获得佣金比例</div>
+                  </div>
+                </div>
+            
+                <div class="form-group none">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">最低提现金额</label>
+                    <div class="col-sm-9">
+                        <p class="input-group">
+                             <input type="text" name="tx_money" value="{$fxitem['tx_money']}" id="points" class="form-control" />
+                             <span class="input-group-addon">元</span>
+                        </p>
+                        <div class="help-block">*最低提现金额不能小于1元，建议填写整数，不填写为不限制</div>
+                 </div>
+                </div>
+                <div class="form-group none">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现费率</label>
+                  <div class="col-sm-9">
+                        <p class="input-group">
+                             <input type="number" name="tx_rate" value="{$fxitem['tx_rate']}" id="points" class="form-control" />
+                             <span class="input-group-addon">%</span>
+                        </p>
+                        <div class="help-block">*用户申请提现时，每笔申请提现扣除的费用，默认为空，即提现不扣费</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">代理商申请协议</label>
+                  <div class="col-sm-9">
+                       {php echo tpl_ueditor('fx_details',$fxitem['fx_details']);}
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#dlmyModalb"><span >***点击查看案例***</span> </a>
+                    </div>
+                </div>
+                <div class="form-group none">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">佣金提现协议</label>
+                  <div class="col-sm-9">
+                       {php echo tpl_ueditor('tx_details',$fxitem['tx_details']);}
+                  </div>
+                </div>
+                <div class="form-group none">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#dlmyModalb2"><span >***点击查看案例***</span> </a>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">代理商说明</label>
+                  <div class="col-sm-9">
+                       {php echo tpl_ueditor('instructions',$fxitem['instructions']);}
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9">
+                       <a href="javascript:void(0);" data-toggle="modal" data-target="#dlmyModalb3"><span >***点击查看案例***</span> </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="dlmyModalb" tabindex="-1" role="dialog" aria-labelledby="dlmyModalLabel">
+                <div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dlmyModalLabel" style="font-size: 20px;">可直接复制以下案例</h4>
+                        </div>
+                        <div class="modal-body" style="font-size:20px;height:300px">
+                            <p>
+                                <span >代理商必须遵守本平台规章制度和发展规划，如有违规，平台有权取消双方合作方式。</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="dlmyModalb2" tabindex="-1" role="dialog" aria-labelledby="dlmyModalLabel2">
+                <div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="dlmyModalLabel2" style="font-size: 20px;">可直接复制以下案例</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:20px;height:300px">
+                        222222222
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="dlmyModalb3" tabindex="-1" role="dialog" aria-labelledby="dlmyModalLabel3">
+                <div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="dlmyModalLabel3" style="font-size: 20px;">可直接复制以下案例</h4>
+                        </div>
+                        <div class="modal-body" style="font-size:20px;height:300px">
+                            <p>
+                            代理商区域代理推广，共享平台广告分佣
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit" value="提交" class="btn col-lg-3" style="color: white;background-color: #88C200;"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$item['id']}" />
+            <input type="hidden" name="fxid" value="{$fxitem['id']}" />
+        </div>
+		<div>&#25042;&#20154;&#28304;&#30721;&#119;&#119;&#119;&#46;&#108;&#97;&#110;&#114;&#101;&#110;&#122;&#104;&#105;&#106;&#105;&#97;&#46;&#99;&#111;&#109;&#32;&#20840;&#31449;&#36164;&#28304;&#50;&#48;&#22359;&#20219;&#24847;&#19979;&#36733;</div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $("#frame-14").show();
+        $("#yframe-14").addClass("wyactive");
+    })
+</script>

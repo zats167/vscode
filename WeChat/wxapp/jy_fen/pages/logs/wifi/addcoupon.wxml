@@ -1,0 +1,54 @@
+<view class="bottom-bar">
+    <view bindtap="saveAddress" style="background:{{system.color}}">保存</view>
+</view>
+<view>
+    <view class="flex-row flex-y-center edit-row">
+        <view class="flex-grow-0 row-label">优惠券名称：</view>
+        <view class="flex-grow-1">
+            <input bindinput="inputBlur" data-name="name" placeholder="" value="{{name}}"></input>
+        </view>
+    </view>
+    <view class="flex-row flex-y-center edit-row">
+        <view class="flex-grow-0 row-label">优惠金额：</view>
+        <view class="flex-grow-1">
+            <input bindinput="inputBlur" data-name="preferential" placeholder="" type="number" value="{{preferential}}"></input>
+        </view>
+    </view>
+    <view class="flex-row flex-y-center edit-row">
+        <view class="flex-grow-0 row-label">满多少元可用：</view>
+        <view class="flex-grow-1">
+            <input bindinput="inputBlur" data-name="conditions" placeholder="" value="{{conditions}}"></input>
+        </view>
+    </view>
+    <view class=" flex-row flex-y-center edit-row bd">
+        <view class=" flex-grow-0 row-label">开始时间：</view>
+        <view class="right flex-grow-1">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd picker">
+                    <picker bindchange="bindDateChange1" mode="date" start="{{start_time}}">
+                        <view class="weui-input">{{start_time}}</view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class=" flex-row flex-y-center edit-row bd">
+        <view class=" flex-grow-0 row-label">结束时间：</view>
+        <view class="right flex-grow-1">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__bd picker">
+                    <picker bindchange="bindDateChange2" mode="date" start="{{end_time}}">
+                        <view class="weui-input">{{end_time}}</view>
+                    </picker>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="flex-row flex-y-center edit-row">
+        <view class="flex-grow-0 row-label">使用说明：</view>
+        <view class="flex-grow-1">
+            <input bindinput="inputBlur" data-name="instruction" placeholder="" value="{{instruction}}"></input>
+        </view>
+    </view>
+</view>
+<include src="/area-picker/area-picker.wxml"></include>

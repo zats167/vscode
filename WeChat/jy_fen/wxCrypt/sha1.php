@@ -1,0 +1,2 @@
+<?php
+ include_once "\145\x72\x72\157\162\103\x6f\144\145\x2e\x70\150\x70"; class SHA1 { public function getSHA1($token, $timestamp, $nonce, $encrypt_msg) { try { goto o4aJV; Z1rYb: $str = implode($array); goto mIHcv; o4aJV: $array = array($encrypt_msg, $token, $timestamp, $nonce); goto LiMv6; LiMv6: sort($array, SORT_STRING); goto Z1rYb; mIHcv: return array(ErrorCode::$OK, sha1($str)); goto CWDRc; CWDRc: } catch (Exception $e) { return array(ErrorCode::$ComputeSignatureError, null); } } }

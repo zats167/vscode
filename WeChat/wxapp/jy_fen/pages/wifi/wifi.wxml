@@ -1,0 +1,251 @@
+<view class="hydlzhezhao " wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定</button>
+</view>
+<view class="font kaipin flex3" wx:if="{{isindex==0}}">
+    <image class="img-londing" lazyLoad="true" src="{{url3}}template/images/applet/loading.gif?v=1"></image>
+</view>
+<view class="font kaipin" wx:if="{{isindex==1}}">
+    <image class="wifihomeimg" lazyLoad="true" src="{{system.wifihomeimg==''?'../images/wifibg.png':url+system.wifihomeimg}}"></image>
+    <view class="name " wx:if="{{entrance==1}}">{{ssid}}</view>
+    <view class="load " wx:if="{{entrance==1&&lianjieing}}">
+        <image class="img-londing" lazyLoad="true" src="{{url3}}template/images/applet/loading.gif?v=1"></image>
+    </view>
+    <view class="index1-tis" wx:if="{{entrance==2}}">
+        <text>{{system.wfms}}</text>
+    </view>
+    <view class="index1-tis" style="color:#f00;" wx:if="{{entrance==3}}">{{startError}}</view>
+    <view class="index1-tis" style="color:#f00;" wx:if="{{entrance==4||entrance==0}}">{{startError}}</view>
+    <view class="tool flex">
+        <button bindtap="op_saoma_tap" class="btn saoma-btn" type="primary" wx:if="{{entrance==4}}">扫码连接</button>
+        <button bindtap="op_chonglian_tap" class="btn saoma-btn" type="primary" wx:if="{{entrance==3}}">点击重连</button>
+        <button bindtap="op_fzmm_tap" class="btn fujin-btn" style=" width:100%" type="primary" wx:if="{{entrance==4}}">复制密码</button>
+        <button bindtap="op_fujin_tap" class="btn fujin-btn" type="primary" wx:if="{{entrance==2||entrance==3}}">附近wifi</button>
+    </view>
+</view>
+<view class="font index " wx:if="{{isindex==2}}">
+    <view class="conbox ">
+        <view class="lianjied " style="background:{{system.color}};" wx:if="{{islianjied}}">
+            <view style=" background-image: url(\"{{url3}}template/images/applet/b_logsbg.png?v=4\");background-size: auto 80%;  background-repeat: no-repeat;  background-position: right bottom; padding: 20px 0 10px 0;">
+                <view class="name">
+                    <image class="img-wifi" lazyLoad="true" src="../images/islj.png"></image>
+                </view>
+                <view class="tis flex">
+                    <view class="l">
+                        <view style="font-size:36rpx;">已连接</view>
+                        <view>{{ssid}}</view>
+                    </view>
+                    <view class="r" wx:if="{{system.is_wifi==1}}">
+                        <text bindtap="tozz" class="zzbtn" style="color:{{system.color}};">我要制作</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="wifibox">
+            <view class="ad1-tengxun" wx:if="{{isgg&&system.is_zhanshi==1&&system.is_banner==1&&system.txgg_id!=''&&isad1sc}}">
+                <ad binderror="ad1sb" bindload="ad1cg" class="txad" unitId="{{system.txgg_id}}"></ad>
+            </view>
+            <view class="ad-swiper" wx:if="{{isgg&&system.is_zhanshi==1&&system.is_banner==2&&swiperAdList.length>0}}">
+                <swiper autoplay="true" circular="true" class="swiper" duration="500" indicatorActiveColor="#fff" indicatorColor="rgba(0, 0, 0, .3)" indicatorDots="false" interval="5000">
+                    <swiper-item wx:for="{{swiperAdList}}" wx:key="swiperAdList">
+                        <navigator appId="{{item.appid}}" class="nar-adbg" openType="navigate" path="{{item.src}}" target="miniProgram" version="release" wx:if="{{item.zstype==2}}">
+                            <image class="image-adbg" lazyLoad="true" mode="scaleToFill" src="{{url+item.ggimg}}"></image>
+                        </navigator>
+                        <image bindtap="ad_tap" class="image-adbg" data-index="{{index}}" lazyLoad="true" mode="scaleToFill" src="{{url+item.ggimg}}" wx:else></image>
+                    </swiper-item>
+                </swiper>
+            </view>
+            <view class="lianjino">
+                <view class="tis">搜索到
+          <text style="color:{{system.color}};">{{wifiList.length}}</text> 个附近WIFI</view>
+            </view>
+            <view class="jzz" hidden="{{loadstaue2}}">
+                <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+                <view>加载中...</view>
+            </view>
+            <view class="wifiList" wx:for="{{wifiList}}" wx:key="wifiList">
+                <view bindtap="op_sel_tap" class="item flex" data-index="{{index}}" style="border-bottom:1px solid #f9f9f9!important;">
+                    <view class="il flex3">
+                        <view class="t">
+              {{item.SSID}}
+            </view>
+                        <view class="b">
+              {{item.dj==0?'未知信号强弱':item.dj==1?'信号质量很好':item.dj==2?'信号质量较好':item.dj==3?'信号质量一般':'信号质量较差'}}
+            </view>
+                    </view>
+                    <view class="ir flex3" wx:if="{{item.dj>0}}">
+                        <image class="img-wblogo" lazyLoad="true" src="{{url3}}template/images/applet/wifi_b{{item.dj}}.png"></image>
+                    </view>
+                    <view class="ir  flex3" wx:else>
+                        <text class="txt">{{item.distancetxt}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wifiListge"></view>
+        </view>
+    </view>
+</view>
+<view class="font index store" wx:if="{{isindex==3}}">
+    <view class="ad-swiper" wx:if="{{mdModel.goods_piclist.length>0}}">
+        <swiper autoplay="true" circular="true" class="swiper" duration="500" indicatorActiveColor="#fff" indicatorColor="rgba(0, 0, 0, .3)" indicatorDots="false" interval="5000" style="height:168px;">
+            <swiper-item wx:for="{{mdModel.goods_piclist}}" wx:key="goods_piclist">
+                <navigator appId="{{mdModel.xcxappid}}" class="nar-adbg" openType="navigate" path="{{mdModel.src}}" target="miniProgram" version="release" wx:if="{{mdModel.is_type==2}}">
+                    <image bindtap="previewImage" class="image-adbg" lazyLoad="true" mode="scaleToFill" src="{{url+item}}"></image>
+                </navigator>
+                <image bindtap="previewImage" class="image-adbg" data-index="{{index}}" data-src="{{url+item}}" lazyLoad="true" mode="scaleToFill" src="{{url+item}}"></image>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view class="info flex3">
+        <view class="i_item flex" style="height:auto; padding:10px 0;">
+            <view class="txt flex3">
+                <view class=" flex">
+                    <image class="left_img" lazyLoad="true" src="{{url+mdModel.logo}}" style=" border-radius: 50%; "></image>
+                    <view style=" font-size:34rpx; flex:1; width:100%;">{{gzhModel.is_yhj==1?mdModel.appname:mdModel.store_name}}</view>
+                    <view class="count">
+                        <text style="color: {{system.color}};">{{ljnum}}</text> 次连接
+          </view>
+                </view>
+                <view style="  color:#999; margin-top:4px; padding-left:50rpx; line-height: 42rpx;">{{mdModel.miaoshu}}</view>
+            </view>
+        </view>
+        <view bindtap="gg_tap" class="i_item flex">
+            <image class="left_img" lazyLoad="true" src="{{url3}}template/images/applet/s_gg.png"></image>
+            <view class="txt" style="overflow: hidden;">
+        {{mdModel.gonggaosub}}
+      </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+        <view class="i_item tool ">
+            <view class="flex">
+                <view class="v1 flex3">
+                    <button bindtap="tel_tap" class="btn tel flex">
+                        <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/s_lx.png"></image>
+            联系店主
+          </button>
+                    <button bindtap="erweima_tap" class="btn weixin flex" wx:if="{{mdModel.ewm&&mdModel.ewm!=''}}">
+                        <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/20190422173630.png"></image>联系微信
+          </button>
+                </view>
+                <view class="v2">
+                    <button bindtap="daohang_tap" class="btn daohang daohang2 flex3" wx:if="{{mdModel.ewm&&mdModel.ewm!=''}}">
+                        <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/s_dh.png"></image>
+            地图导航
+          </button>
+                    <button bindtap="daohang_tap" class="btn daohang flex " wx:else>
+                        <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/s_dh.png"></image>
+            地图导航
+          </button>
+                </view>
+            </view>
+        </view>
+        <view class="i_item ad3 ">
+            <view class="ad1-tengxun" style="margin:0 auto;  overflow: hidden;" wx:if="{{isgg&&system.is_zhanshi==1&&system.is_banner==1&&system.txgg_id!=''&&isad1sc}}">
+                <ad binderror="ad1sb" bindload="ad1cg" class="txad" unitId="{{system.txgg_id}}"></ad>
+            </view>
+            <view class="ad-swiper" style="margin:6px auto!importamt;  overflow: hidden;" wx:if="{{isgg&&system.is_zhanshi==1&&system.is_banner==2&&swiperAdList.length>0}}">
+                <swiper autoplay="true" circular="true" class="swiper" duration="500" indicatorActiveColor="#fff" indicatorColor="rgba(0, 0, 0, .3)" indicatorDots="false" interval="5000">
+                    <swiper-item wx:for="{{swiperAdList}}" wx:key="swiperAdList">
+                        <navigator appId="{{item.appid}}" class="nar-adbg" openType="navigate" path="{{item.src}}" target="miniProgram" version="release" wx:if="{{item.zstype==2}}">
+                            <image class="image-adbg" lazyLoad="true" mode="scaleToFill" src="{{url+item.ggimg}}"></image>
+                        </navigator>
+                        <image bindtap="ad_tap" class="image-adbg" data-index="{{index}}" lazyLoad="true" mode="scaleToFill" src="{{url+item.ggimg}}" wx:else></image>
+                    </swiper-item>
+                </swiper>
+            </view>
+        </view>
+        <view class=" section-meun flex" wx:if="{{sjid==0}}">
+            <view bindtap="selCate" class="item flex3" data-id="2">
+                <view class="bc" style="{{cid==2?'font-weight: bold; ':''}}">优惠券</view>
+                <view class="bt" style="background-color:{{system.color}}" wx:if="{{cid==2}}"></view>
+            </view>
+            <view bindtap="selCate" class="item flex3" data-id="1">
+                <view class="bc" style="{{cid==1?'font-weight: bold; ':''}}">附近wifi</view>
+                <view class="bt" style="background-color:{{system.color}}" wx:if="{{cid==1}}"></view>
+            </view>
+        </view>
+        <view class="t-title" wx:else>
+            <view class="t-bg"></view>
+            <view class="t-con">
+        优惠券
+      </view>
+        </view>
+        <form bindsubmit="receive" class=" " reportSubmit="true" style="width:100%; height:100%;" wx:if="{{cid==2}}">
+            <view class="slist  flex3">
+                <view class="s_item flex" wx:for="{{coupon_list}}">
+                    <view class="m flex3">
+                        <view class="t flex">
+                            <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/s_q.png"></image>￥
+                <text style="color: {{system.color}};margin:0 4rpx;  font-weight: bold;">{{item.preferential}}</text>元券</view>
+                        <view class="s" wx:if="{{item.conditions>0}}">满 {{item.conditions}} 元可使用</view>
+                        <view class="s" wx:else>无门槛</view>
+                        <view class="d">{{item.instruction}}</view>
+                    </view>
+                    <button class="lq_btn" data-index="{{index}}" formType="submit" type="primary">领取</button>
+                </view>
+            </view>
+        </form>
+        <view class="wifibox conbox flex3" wx:if="{{cid==1}}">
+            <view class="lianjino">
+                <view class="tis">搜索到
+          <text style="color:{{system.color}};">{{wifiList.length}}</text> 个附近WIFI</view>
+            </view>
+            <view class="jzz" hidden="{{loadstaue2}}">
+                <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+                <view>加载中...</view>
+            </view>
+            <view class="wifiList" style="width:100%;" wx:for="{{wifiList}}" wx:key="wifiList">
+                <view bindtap="op_sel_tap" class="item flex" data-index="{{index}}" style="border-bottom:1px solid #f9f9f9!important;">
+                    <view class="il flex3">
+                        <view class="t">
+              {{item.SSID}}
+            </view>
+                        <view class="b">
+              {{item.dj==0?'未知信号强弱':item.dj==1?'信号质量很好':item.dj==2?'信号质量较好':item.dj==3?'信号质量一般':'信号质量较差'}}
+            </view>
+                    </view>
+                    <view class="ir flex3" wx:if="{{item.dj>0}}">
+                        <image class="img-wblogo" lazyLoad="true" src="{{url3}}template/images/applet/wifi_b{{item.dj}}.png"></image>
+                    </view>
+                    <view class="ir  flex3" wx:else>
+                        <text class="txt">{{item.distancetxt}}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wifiListge"></view>
+        </view>
+    </view>
+</view>
+<view class="paycontrolsbg" wx:if="{{ishbbg}}"></view>
+<view class="hb_tree" wx:if="{{ishbbg}}">
+    <view class="bao" wx:if="{{isshhb}}">
+        <button bindtap="hb_ophb_tap" class="share-bottom" style="height:100%">
+            <image class="img-new " lazyLoad="true" mode="aspectFit" src="{{redSet.gz_redimg1==''?'../images/hb_c.png':url+redSet.gz_redimg1}}"></image>
+        </button>
+    </view>
+    <view class="bao2" wx:if="{{isophb}}">
+        <image bindtap="hb_close_tap" class="img-new " lazyLoad="true" mode="aspectFit" src="{{redSet.gz_redimg2==''?'../images/hb_o.png':url+redSet.gz_redimg2}}"></image>
+        <view class="hbao">￥{{hbmoney}}元</view>
+    </view>
+</view>
+<view class="paycontrolsbg" style="z-index:999;" wx:if="{{is_sygg}}"></view>
+<view class="hb_tree" style="z-index:999;" wx:if="{{is_sygg}}">
+    <view class="bao">
+        <navigator appId="{{mdModel.xcxappids}}" class="share-bottom" openType="navigate" path="{{mdModel.srcs}}" target="miniProgram" version="release" wx:if="{{mdModel.is_types==2}}">
+            <image class="img-new " lazyLoad="true" mode="aspectFit" src="../images/hb_o.png"></image>
+        </navigator>
+        <view class="share-bottom" wx:elif="{{mdModel.is_types==0}}">
+            <image class="img-new " lazyLoad="true" mode="aspectFit" src="{{url+mdModel.stgg_img}}"></image>
+        </view>
+        <button bindtap="djgg" class="share-bottom" style="height:100%" wx:else>
+            <image class="img-new " lazyLoad="true" mode="aspectFit" src="{{url+mdModel.stgg_img}}"></image>
+        </button>
+        <image bindtap="closelq2" class="close_btn" lazyLoad="true" src="../images/close.png" style="width:24px;height:24px"></image>
+    </view>
+</view>
+<import src="/jy_fen/pages/templates/templates.wxml"></import>
+<template is="footer" data="{{...muenList}}" wx:if="{{muenList.data.length>0}}"></template>

@@ -1,0 +1,25 @@
+<view class="no_coupons" wx:if="{{symx.length==0}}">
+    <view class="noe_coupons_img">
+        <image lazyLoad="true" mode="widthFix" src="{{url3}}template/images/applet/integral.png"></image>
+    暂无明细
+  </view>
+</view>
+<view wx:else>
+    <view class="integral" wx:for="{{symx}}" wx:key="symx">
+        <image lazyLoad="true" src="{{item.img}}" wx:if="{{item.img&&item.img!=''}}"></image>
+        <image lazyLoad="true" src="{{url3}}template/images/applet/nopic.png" wx:else></image>
+        <view class="integral-left">
+            <view wx:if="{{item.name&&item.name!=''}}">{{item.name}}</view>
+            <view wx:else>无昵称</view>
+            <view wx:if="{{item.addtime}}">时间：{{item.addtime}}</view>
+            <view wx:if="{{item.zhanghao}}">wifi名称：{{item.zhanghao}}</view>
+        </view>
+    </view>
+    <view class="jzz" hidden="{{loadstaue}}">
+        <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+        <view>加载中...</view>
+    </view>
+    <view class="kong" hidden="{{isloadtis}}">
+        <view>{{loadtis}}</view>
+    </view>
+</view>

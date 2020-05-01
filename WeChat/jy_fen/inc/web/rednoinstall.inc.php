@@ -1,0 +1,2 @@
+<?php
+ goto bpGLV; DNXRt: $GLOBALS["\x66\x72\141\155\145\163"] = $this->getMainMenu(); goto Bmc7k; bpGLV: global $_GPC, $_W; goto DNXRt; Bmc7k: include $this->template("\x77\145\x62\x2f\162\145\144\x6e\x6f\151\x6e\x73\x74\x61\x6c\x6c");

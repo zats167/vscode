@@ -1,0 +1,42 @@
+<view class="djd">
+    <view class="djdh">
+        <view class="djdh2">
+            <text>优惠券名称：</text>
+            <text>{{orderinfo.name}}</text>
+        </view>
+    </view>
+    <view class="djdd">
+        <view class="djdd1">
+            <view class="djdd-left">
+                <view>开始时间：{{orderinfo.start_time}}</view>
+            </view>
+            <view class="djdd-right"></view>
+        </view>
+    </view>
+    <view class="djdd">
+        <view class="djdd1">
+            <view class="djdd-left">
+                <view>到期时间：{{orderinfo.end_time}}</view>
+            </view>
+            <view class="djdd-right"></view>
+        </view>
+    </view>
+    <view class="djdd">
+        <view class="djdd1">
+            <view class="djdd-left">
+                <view>用户昵称：{{orderinfo.uname}}</view>
+            </view>
+            <view class="djdd-right"></view>
+        </view>
+    </view>
+    <view class="djdd">
+        <view class="djdd1">
+            <view class="djdd-left" style="width:100%;">
+                <view>使用说明：{{orderinfo.instruction}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<button bindtap="clerk" class="btn flex-y-center flex-x-center" style="background:{{system.color}}">
+  立即核销
+</button>

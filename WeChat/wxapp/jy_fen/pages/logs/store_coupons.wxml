@@ -1,0 +1,43 @@
+<view class="hydlzhezhao " wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定</button>
+</view>
+<view class="no_coupons" wx:if="{{Vouchers==''||Vouchers==null}}">
+    <view class="noe_coupons_img">
+    暂无可用的优惠券
+  </view>
+</view>
+<view class=" fon">
+    <view bindtap="select" class="not_user" wx:if="{{totalPrice>0}}">
+        <text>不使用优惠券</text>
+        <view class="rel">
+            <image class="ab udlr" lazyLoad="true" src="{{url3}}template/images/applet/mark.png"></image>
+        </view>
+    </view>
+    <view class="coupon-item unreceive" id="{{item.id}}" wx:for="{{Vouchers}}" wx:key="{{item.value}}">
+        <view class="item-left">
+            <text class="num">{{item.preferential}}</text>
+            <text class="unit">元</text>
+        </view>
+        <view class="item-right" data-types="{{item.type}}" id="{{item.id}}">
+            <view class="deta"></view>
+            <text class="name" wx:if="{{item.conditions>0}}">满{{item.conditions}}元使用</text>
+            <text class="name" wx:else>无门槛</text>
+            <text class="prefer">{{item.instruction}}</text>
+            <text class="prefer">{{item.start_time}}至{{item.end_time}}</text>
+            <view class="receive_one ab " wx:if="{{states!=0}}">
+                <view class="butt">
+                    <view>
+                        <view bindtap="receive" id="{{item.id}}">点击领取</view>
+                    </view>
+                </view>
+            </view>
+            <view class="label">优惠券</view>
+            <view class="haha"></view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,20 @@
+<view class="address-list">
+    <view class="address-item" wx:for="{{address_list}}">
+        <view class="userinfo flex-row">
+            <view class="flex-grow-1">优惠券名称：{{item.name}}</view>
+        </view>
+        <view class="address-detail">优惠金额：￥{{item.preferential}}</view>
+        <view class="address-detail">核销人员：{{item.hxname}}</view>
+        <view class="address-detail">核销时间：{{item.hxtime}}</view>
+    </view>
+</view>
+<view class="jzz" hidden="{{loadstaue}}">
+    <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+    <view>加载中...</view>
+</view>
+<view class="kong" hidden="{{isloadtis}}">
+    <view>— 亲 我也是有底线的哦 —</view>
+</view>
+<view class="kong" style="margin-top:50px;" wx:if="{{loadstaue&&address_list.length==0}}">
+    <view>暂无核销记录！</view>
+</view>

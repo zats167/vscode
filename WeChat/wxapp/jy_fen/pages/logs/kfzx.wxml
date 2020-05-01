@@ -1,0 +1,10 @@
+<view class="container">
+    <button class="kf" openType="contact">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/zxkf1.png" style="height:90rpx;"></image>
+        <view>在线客服</view>
+    </button>
+    <button bindtap="tel" class="kf">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/telephone.png"></image>
+        <view>联系电话</view>
+    </button>
+</view>

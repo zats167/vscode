@@ -1,0 +1,28 @@
+<view class="bottom-bar">
+    <navigator class="address-edit" style="background:{{system.color}}" url="addcoupon?wxappid={{wxappid}}">添加优惠券</navigator>
+</view>
+<view class="no-data-tip" wx:if="{{show_no_data_tip}}">暂无优惠券</view>
+<view class="address-list">
+    <view class="address-item" wx:for="{{address_list}}">
+        <view class="userinfo flex-row">
+            <view class="flex-grow-1">优惠券名称：{{item.name}}</view>
+        </view>
+        <view class="address-detail" data-index="{{index}}">优惠金额：￥{{item.preferential}}</view>
+        <view class="address-detail" data-index="{{index}}">满减条件：￥{{item.conditions}}</view>
+        <view class="address-detail" data-index="{{index}}">开使用始：{{item.start_time}} 至 {{item.end_time}}</view>
+        <view class="address-detail" data-index="{{index}}" style="border-bottom: 1px solid #eee; margin-bottom: 10rpx;">使用说明：{{item.instruction}}</view>
+        <view class="flex-row">
+            <view class="flex-grow-1"></view>
+            <view class="flex-grow-0 flex-row">
+                <navigator class="address-option flex-y-center" openType="navigate" url="addcoupon?id={{item.id}}&wxappid={{wxappid}}">
+                    <image lazyLoad="true" src="{{url3}}template/images/applet/icon-edit.png"></image>
+                    <text>编辑</text>
+                </navigator>
+                <view bindtap="deleteAddress" class="address-option flex-y-center" data-id="{{item.id}}" data-index="{{index}}">
+                    <image lazyLoad="true" src="{{url3}}template/images/applet/icon-delete.png"></image>
+                    <text>删除</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

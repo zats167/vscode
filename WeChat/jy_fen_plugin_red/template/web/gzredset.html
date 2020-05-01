@@ -1,0 +1,138 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #44ABF7;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #44ABF7;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+    .none{display:none;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li class="active"><a href="javascript:void(0);">公众号红包</a></li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                公众号红包设置
+            </div>
+            <div class="panel-body">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_status1" name="gz_status" value="1" {if $item['gz_status']==1 || empty($item['gz_status'])}checked{/if} />
+                        <label for="gz_status1">开启</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="gz_status2" name="gz_status" value="2" {if $item['gz_status']==2 || empty($item['gz_status'])}checked{/if} />
+                        <label for="gz_status2">关闭</label>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包最大比例<font color="red">**</font></label>
+                <div class="col-sm-9">
+                    <p class="input-group">
+                        <input type="text" onkeyup="value=value.replace(/[^\d.]/g,'')" name="gz_maxmoney" value="{$item['gz_maxmoney']}" id="points" class="form-control" />
+                        <span class="input-group-addon">%</span>
+                    </p>
+                    <div class="ygmargin">*新用户关注公众号后，获取的红包金额占平台总收益的最大比例，例如：公众号每个关注的金额-WIFI提供者占的收益=平台总收益，红包最大金额=平台总收益*红包最大比例，红包金额0-最大金额之间随机出现，比如：平台收取每个关注公众号的新用户是1块钱，WIFI提供者占比了50%，那么WIFI提供者拿到0.5元，平台拿0.5元，如果你设置的新用户最大红包是60%，那么新用户出现的红包金额在0-0.3元之间</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包封面图</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('gz_redimg1', $item['gz_redimg1'])}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="ygmargin">
+                        <a href="https://wq.jiyongstore.com/attachment/images/9/2018/10/MaDu298ds0w03F8P2PIsdDwB39zdd8.png" target="_blank" style="color: blue; margin-right: 10px;">图片案例下载</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包弹出图</label>
+                <div class="col-sm-9">
+                    {php echo tpl_form_field_image('gz_redimg2', $item['gz_redimg2'])}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                    <div class="ygmargin">
+                        <a href="https://wq.jiyongstore.com/attachment/images/9/2018/10/MaDu298ds0w03F8P2PIsdDwB39zdd8.png" target="_blank" style="color: blue; margin-right: 10px;">图片案例下载</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-3 col-md-2 control-label">规则</label>
+              <div class="col-sm-9">
+                   {php echo tpl_ueditor('gz_rule',$item['gz_rule']);}
+              </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-9">
+                   <a href="javascript:void(0);" data-toggle="modal" data-target="#myModalb"><span >***点击查看案例***</span> </a>
+                </div>
+            </div>
+         </div>
+
+         <div class="modal fade" id="myModalb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document" style="min-width: 600px!important;width: 300px;">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">可直接复制以下案例</h4>
+                      </div>
+                      <div class="modal-body" style="font-size:20px;height:300px">
+                         <p>
+                            “关注公众号领红包”是指每个新用户首次扫码关注公众号之后，进入WIfi小程序之后，会弹出一个0-**元的红包，红包金额系统随机发放，领取的金额最终存入用户的余额，余额可以提现，微信秒到账。
+                        </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit" value="提交" class="btn col-sm-3" style="color: white;background-color: #44ABF7;"/>
+			<div style="color: red !important;">&#x6B64;&#x6E90;&#x7801;&#x7531;&#xFF1A;&#x65B0;&#x777F;&#x793E;&#x533A;&#x53D1;&#x5E03;</div>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+             <input type="hidden" name="id" value="{$item['id']}" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-4").show();
+        $("#yframe-4").addClass("wyactive");
+    })
+</script>

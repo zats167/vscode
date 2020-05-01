@@ -1,0 +1,15 @@
+<view class="font index">
+    <view class="top">选择你喜欢的样式制作吧</view>
+    <view class="list" style=" height: {{scrollheight}}rpx;">
+        <scroll-view scrollX class="scroll-view-list">
+            <view bindtap="toxx" class="item" data-id="{{item.id}}" wx:for="{{yangshilist}}" wx:key="yangshilist">
+                <view class="t">
+            {{item.name}}
+          </view>
+                <view class="p" style=" height: {{scrollheight-80}}rpx;">
+                    <image class="img" lazyLoad="true" src="{{url}}{{item.zst}}"></image>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+</view>

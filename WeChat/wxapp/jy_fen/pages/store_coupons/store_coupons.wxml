@@ -1,0 +1,63 @@
+<view class="hydlzhezhao " wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定</button>
+</view>
+<scroll-view scrollX class="section-meun" wx:if="{{storetype.length>0}}">
+    <view bindtap="selCate" class="item flex3" data-id="0">
+        <view class="bc" style="{{cid==0?'font-weight: bold; ':''}}">全部</view>
+        <view class="bt" style="background-color:{{system.color}}" wx:if="{{cid==0}}"></view>
+    </view>
+    <view bindtap="selCate" class="item flex3" data-id="{{item.id}}" wx:for="{{storetype}}">
+        <view class="bc" style="{{cid==item.id?'font-weight: bold; ':''}}">{{item.name}}</view>
+        <view class="bt" style="background-color:{{system.color}}" wx:if="{{cid==item.id}}"></view>
+    </view>
+</scroll-view>
+<view class=" fon">
+    <view class="slist flex3">
+        <view class="s_item" wx:for="{{Vouchers}}" wx:key="Vouchers">
+            <view bindtap="tosj" class="sj flex" data-id="{{item.id}}">
+                <view class="sj_l">
+                    <image class="img2" lazyLoad="true" src="{{url}}{{item.store_logo}}"></image>
+                </view>
+                <view class="sj_r">
+                    <view class="t flex">{{item.store_name}}</view>
+                    <view class="d flex">{{item.address}}
+            </view>
+                    <view class="j flex">
+                        <image class="img3" lazyLoad="true" src="{{url3}}template/images/applet/xiangqingdizhi@2x.png"></image>{{'距离商家'+item.distancetxt}}</view>
+                </view>
+                <view class="sj_rr flex3">
+                    <image class="img4" lazyLoad="true" src="{{url3}}template/images/applet/huise@3x.png"></image>
+                </view>
+            </view>
+            <view class="qlist flex3 ">
+                <view class="qitem flex" wx:for="{{item.yhj}}">
+                    <view class="m flex3">
+                        <view class="t flex">
+                            <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/s_q.png"></image>￥
+                <text style="color: {{system.color}};margin:0 4rpx;">{{item.preferential}}</text>元券</view>
+                        <view class="s">满 {{item.conditions}} 元可使用</view>
+                        <view class="d">{{item.instruction}}</view>
+                    </view>
+                    <button bindtap="receive" class="lq_btn" formType="submit" id="{{item.id}}" type="primary">领取</button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="jzz" hidden="{{loadstaue}}">
+        <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+        <view>加载中...</view>
+    </view>
+    <view class="kong" hidden="{{isloadtis}}">
+        <view>— 亲 我也是有底线的哦 —</view>
+    </view>
+    <view class="kong" style="margin-top:50px;" wx:if="{{loadstaue&&Vouchers.length==0}}">
+        <view>暂无优惠券！</view>
+    </view>
+</view>
+<import src="/jy_fen/pages/templates/templates.wxml"></import>
+<template is="footer" data="{{...muenList}}" wx:if="{{muenList.data.length>0}}"></template>

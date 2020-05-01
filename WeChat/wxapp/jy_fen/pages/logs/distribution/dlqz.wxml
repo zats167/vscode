@@ -1,0 +1,62 @@
+<view class="list_header" wx:if="{{iserji==1}}">
+    <view bindtap="tabClick" class="list_title" id="{{index}}" style="{{activeIndex==index?'color:'+system.color+';':''}}" wx:for="{{tabs}}">
+        <view>{{item}}</view>
+        <view class="list_border" hidden="{{activeIndex!=index}}" style="background-color:{{system.color}};;"></view>
+    </view>
+</view>
+<view class="list {{iserji==2?'list_b':''}}" hidden="{{activeIndex!=0}}">
+    <view class="list_imgbk2" hidden="{{yj.length!=0}}">
+        <image class="list_imgbk" lazyLoad="true" src="{{url3}}template/images/applet/list.png"></image>
+        <view class="list_imgbk3">您暂时没有一级区长哦！</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{yj}}">
+            <view class="weui-cell__hd">
+                <image class="himg" lazyLoad="true" src="{{item.img}}"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view>小区：{{item.qu_name}}</view>
+                <view class="sj">区长：{{item.user_name}}</view>
+                <view class="sj">入驻时间：{{item.addtime}}</view>
+            </view>
+            <view bindtap="spgl2" class="weui-cell__hd sp" id="{{item.id}}" style="color:{{system.color}}" wx:if="{{item.state==1}}">
+通过审核
+            </view>
+            <view bindtap="spgl2" class="weui-cell__hd sp nobor" id="{{item.id}}" wx:if="{{item.state==3}}">
+已拒绝
+            </view>
+        </view>
+    </view>
+    <view class="kong" hidden="{{yj.length==0}}">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/wushuju.png"></image>
+        <view>没有更多了</view>
+    </view>
+</view>
+<view class="list" hidden="{{activeIndex!=1}}">
+    <view class="list_imgbk2" hidden="{{ej.length!=0}}">
+        <image class="list_imgbk" lazyLoad="true" src="{{url3}}template/images/applet/list.png"></image>
+        <view class="list_imgbk3">您暂时没有二级区长哦！</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{ej}}">
+            <view class="weui-cell__hd">
+                <image class="himg" lazyLoad="true" src="{{item.img}}"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view>小区：{{item.qu_name}}</view>
+                <view class="sj">区长：{{item.user_name}}</view>
+                <view class="sj">注册时间：{{item.addtime}}</view>
+            </view>
+            <view bindtap="spgl2" class="weui-cell__hd sp" id="{{item.id}}" style="color:{{system.color}}" wx:if="{{item.state==1}}">
+通过审核
+            </view>
+            <view bindtap="spgl2" class="weui-cell__hd sp nobor" id="{{item.id}}" wx:if="{{item.state==3}}">
+已拒绝
+            </view>
+        </view>
+    </view>
+    <view class="kong" hidden="{{ej.length==0}}">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/wushuju.png"></image>
+        <view>没有更多了</view>
+    </view>
+</view>

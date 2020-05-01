@@ -1,0 +1,220 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    .store_td1{height: 45px;}
+    .store_list_img{width: 60px;height: 60px;}
+    .yg5_tabel{border-color: #e5e5e5;outline: 1px solid #e5e5e5;}
+    .yg5_tr2>td{padding: 15px;border: 1px solid #e5e5e5;text-align: center;}
+    .yg5_tr1>th{
+        border: 1px solid #e5e5e5;
+        padding: 15px;
+        background-color: #FAFAFA;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('banbengl', array('op' => 'display'))}">版本管理</a></li>
+</ul>
+<div class="main" style="background-color: #F5F7F9;">
+    <!-- <div class="panel panel-default">
+        <div class="panel-body">
+            <a class="btn btn-primary" href="javascript:location.reload()"><i class="fa fa-refresh"></i>刷新</a>
+        </div>
+    </div> -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+                帮助列表
+            </div>
+        <form action="" method="post" class="form-horizontal form" >
+            <div class="table-responsive">
+                <table class="col-md-12">
+                    <tr class="yg5_tr1">
+                        <th>id</th>
+                        <th>版本号</th>
+                        <th>时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    {loop $list $row}
+                    <tr class="yg5_tr2">
+                        <td>{$row['id']}</td>
+                        <td>{$row['version']}</td>
+                        <td><?php echo date('Y-m-d H:i:s',$row['time']) ?></td>
+                        <td>
+                            {if $row['status']==1}已上线
+                            {elseif $row['status']==0}
+                            骗审中
+                            {/if}
+                        </td>
+                        
+                        <td>
+                            {if $row['status']==0}
+                                
+                                <a href="{php echo $this->createWebUrl('banbengl',array('status'=>1,'id'=>$row['id'],'op'=>kq))}" type="button" class="btn btn-info" style="background-color: #88C200"><span class="">上线</span></a>
+                            {elseif $row['status']==1}                          
+                                 
+                                 <a href="{php echo $this->createWebUrl('banbengl',array('status'=>0,'id'=>$row['id'],'op'=>gb))}" type="button" class="btn " style="background-color: #D83B27;color:#fff"><span class="" >骗审</span></a>
+                            {/if}
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="{php echo $this->createWebUrl('banbengl',array('id'=>$row['id'],'op'=>delete))}" class="storespan btn btn-xs" class="storespan btn btn-xs" onclick="return confirm('确认删除吗？');return false;">
+                                <span class="fa fa-trash-o"></span>
+                                  <span class="bianji" >删除
+                                      <span class="arrowdown"></span>
+                                  </span>
+                            </a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    {if !$list}
+                    <tr class="yg5_tr2">
+                        <td colspan="5">暂无信息</td>
+                    </tr>
+                    {/if}
+                </table>
+            </div>
+        </form>
+    </div>
+    
+</div>
+<div class="text-right we7-margin-top">{$pager}</div>
+<script type="text/javascript">
+    $(function(){
+        // $("#frame-14").addClass("in");
+        $("#frame-14").show();
+        $("#yframe-14").addClass("wyactive");
+        $("#allselect").on('click',function(){
+            var check = $("input[type=checkbox][class!=allcheck]:checked");
+            if(check.length < 1){
+                alert('请选择要删除的版本!');
+                return false;
+            }else if(confirm("确认要删除此版本?")){
+                var id = new Array();
+                check.each(function(i){
+                    id[i] = $(this).val();
+                });
+               alert(id)
+                $.ajax({
+                    type:"get",
+                    url:"{$_W['siteroot']}/app/index.php?i={$_W['uniacid']}&c=entry&do=UpdUser&m=jy_fen",
+                    dataType:"text",
+                    data:{id:id},
+                    success:function(data){
+                        console.log(data);      
+                        location.reload();
+                    }
+                })
+               
+            }
+        });
+        $(".allcheck").on('click',function(){
+            var checked = $(this).get(0).checked;
+            $("input[type=checkbox]").prop("checked",checked);
+        });
+    })
+</script>
+
+<script type="text/javascript">
+
+    // Custom example logic
+    $(document).ready(function () {
+        var video_picker = $('.video-picker');
+        video_picker.each(function (i) {
+            var picker = this;
+            var el = $(this);
+            var btn = el.find('.video-picker-btn');
+            var url = el.data('url');
+            var input = el.find('.video-picker-input');
+            var view = el.find('.video-preview');
+
+            function uploaderVideo() {
+
+                var el_id = $.randomString(32);
+                btn.attr("id", el_id);
+
+                var uploader = new plupload.Uploader({
+                    runtimes: 'html5,flash,silverlight,html4',
+                    browse_button: el_id, // you can pass an id...
+                    url: url,
+                    flash_swf_url: '<?=$statics?>/mch/js/Moxie.swf',
+                    silverlight_xap_url: '<?=$statics?>/mch/js/Moxie.xap',
+
+                    filters: {
+                        max_file_size: '50mb',
+                        mime_types: [
+                            {title: "Video files", extensions: "mp4"}
+                        ]
+                    },
+
+                    init: {
+                        PostInit: function () {
+
+                        },
+
+                        FilesAdded: function (up, files) {
+                            $('.form-error').hide();
+                            uploader.start();
+                            btn.btnLoading("正在上传");
+                            uploader.disableBrowse(true);
+
+                            plupload.each(files, function (file) {
+                                console.log(file)
+                                view.html('<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>');
+                            });
+                        },
+                        FileUploaded: function (uploader, file, responseObject) {
+                            if (responseObject.status == undefined || responseObject.status != 200) {
+                                return true;
+                            }
+                            var res = $.parseJSON(responseObject.response);
+                            if (res.code != 0) {
+                                $('.form-error').html(res.msg).show();
+                                return true;
+                            }
+                            $(input).val(res.data.url);
+                            $('.video-check').prop('href', res.data.url);
+                            $('.video-preview').find('span').html('100%');
+                        },
+
+                        UploadProgress: function (up, file) {
+                            var percent = file.percent - 1;
+                            $($("#" + file.id).find('b')[0]).html('<span>' + percent + "%</span>");
+//                            document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                        },
+
+                        Error: function (up, err) {
+                            $('.form-error').html('文件大小超出配置').show();
+//                            document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
+                        },
+                        UploadComplete: function (uploader, files) {
+                            btn.btnReset();
+                            uploader.destroy();
+                            uploaderVideo();
+                        }
+                    }
+                });
+                uploader.init();
+            }
+
+            uploaderVideo();
+        });
+    });
+    $(document).on('change', '.video', function () {
+        $('.video-check').attr('href', this.value);
+    });
+    $('.num').html($("textarea[name='model[content]']").val().length);
+    $(document).on('input propertychange', "textarea[name='model[content]']", function () {
+        var a = $(this).val().length;
+        $('.form-error').hide();
+        if (a > 100) {
+            var num = $(this).val().substr(0, 100);
+            $(this).val(num);
+            $('.form-error').html('详情介绍不能超过100个字').show();
+        } else {
+            $('.num').html(a)
+        }
+    });
+</script>

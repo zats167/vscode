@@ -1,0 +1,341 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #88C200;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #88C200;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li><a href="{php echo $this->createWebUrl('gglist')}">广告列表</a></li>
+    <li class="active"><a href="{php echo $this->createWebUrl('addgglist')}">添加广告</a></li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <!--<input type="hidden" name="parentid" value="{$parent['id']}" />-->
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                内容编辑
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label" style="margin-right: 15px;">广告主<font color="red">**</font></label>
+                    <select class="col-sm-8" name="sid">
+                        <option >请选择广告主</option>
+                        {loop $area $key $item}
+                            <option value="{$item['id']}" {if $item['id'] == $info['ggzid']}selected{/if} >{$item['user_name']}</option>
+                             
+                        {/loop}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">展示位置</label>
+                    <div class="col-sm-9">
+                        <select name="type" id="type" class="col-md-4">
+                            <option value="1" {if $info['type']==1}selected{/if}>首页Banner</option>  
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">计费模式</label>
+                    <div class="col-sm-9">
+                        <select name="jftype" id="jftype" class="col-md-4">
+                            <option value="1" {if $info['jftype']==1}selected{/if}>按月计费</option>
+                            <option value="2" {if $info['jftype']==2}selected{/if}>按点击计费</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">展示模式</label>
+                    <div class="col-sm-9">
+                        <select name="zstype" id="zstype" class="col-md-4">
+                            <!-- <option value="1" {if $info['zstype']==1}selected{/if}>新闻模式</option> -->
+                            <option value="2" {if $info['zstype']==2}selected{/if}>小程序模式</option>
+                            <option value="3" {if $info['zstype']==3}selected{/if}>图文模式</option>
+                            <option value="4" {if $info['zstype']==4}selected{/if}>H5单图模式</option>
+                            <option value="5" {if $info['zstype']==5}selected{/if}>外部网页跳转</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mode mode3 mode4">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">对接模式</label>
+                    <div class="col-sm-9">
+                        <select name="djtype" id="djtype" class="col-md-4">
+                            <option value="1" {if $info['djtype']==1}selected{/if}>电话模式</option>
+                            <option value="2" {if $info['djtype']==2}selected{/if}>表单模式</option>
+                        </select>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择地区</label>
+                    <div class="col-sm-9">
+                       {php echo tpl_form_field_district('address', array('province' => $info['province'],'city' => $info['city'],'district' => $info['district']));}
+                    </div>
+                </div>-->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">行业</label>
+                    <div class="col-sm-9">
+                        <select name="hangye" id="hangye" class="col-md-4" style="margin-right:14px;">
+                            <option value="0">请选择行业</option>
+                            {loop $hangye $key $item}
+                                <option value="{$item['id']}" {if $item['id'] == $info['hangye']}selected{/if} >{$item['title']}</option>
+                            {/loop}
+                        </select>
+                        <div class="ygmargin"><a href="{php echo $this->createWebUrl('hangyelist')}">快速设置行业</a></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告名称<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" class="form-control" value="{$info['name']}" />
+                    </div>
+                </div>
+                <!-- <div class="form-group none">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告地址</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="address" class="form-control" value="{$info['address']}" />
+                        <div class="ygmargin">*不填则不指定区域</div>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地址坐标</label>
+                    <div class="col-sm-9">
+                        <p class="input-group">
+                        	 <input type="text" name="zuobiao" value="{$info['zuobiao']}" class="form-control" autocomplete="off" placeholder="例如:30.527540,114.346430">
+                             <span class="input-group-btn">
+                             	<a class="btn btn-default" target="_blank" href="https://lbs.qq.com/tool/getpoint/index.html">获取坐标</a>
+                             </span>
+                        </p>
+                        <div class="help-block">*点击“获取坐标”，通过“搜索”地址，确定坐标，复制“当前坐标”到该文本框</div>
+                        <div class="ygmargin">*留空则表示不限制范围</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">区域范围</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="fanwei" class="form-control" placeholder="0" value="{$info['fanwei']}" />
+                        <div class="ygmargin">*广告展示区域范围（单位：公里）</div>
+                    </div>
+                </div>
+                <div class="form-group mode mode3 mode4 djmodel1" >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系电话</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="phone" class="form-control" value="{$info['phone']}" />
+                    </div>
+                </div>           
+                <div class="form-group  mode mode4">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">封面图片</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('logo', $info['logo'])}
+                    </div>
+                </div>
+                <div class="form-group mode mode4">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                     <div class="col-sm-9">
+                         <div class="ygmargin">*封面图640*1136</div>
+                         <?php $ym = $_SERVER['SERVER_NAME']; ?>
+                         
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告图片<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('ggimg', $info['ggimg'])}
+                    </div>
+                </div>
+                  <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                     <div class="col-sm-9">
+                         <div class="ygmargin">*首页轮播图广告位：580*80,新闻流广告：580*270</div>                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">总资产<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="money" class="form-control" placeholder="0"  value="{$info['money']}" />
+                        <div class="ygmargin">*广告总费用，只做展示，不参与广告分成计费统计</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告费用<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="ggmoney" class="form-control" placeholder="0" value="{$info['ggmoney']}" />
+                        <div class="ygmargin">*用于广告分成的总费用，参与广告分成计费统计</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每日点击费用<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="daymoney" class="form-control" placeholder="0" value="{$info['daymoney']}" />
+                        <div class="ygmargin">*每天最高消费</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">点击次数</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="zclick" class="form-control" placeholder="0" value="{$info['zclick']}" />
+                        <div class="ygmargin">*只做展示</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每次点击费用<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="djmoney" class="form-control" placeholder="0" value="{$info['djmoney']}" />
+                        <div class="ygmargin">*用户每次点击广告时所消耗的费用</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">今日点击次数</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="jrmoney" class="form-control" placeholder="0" value="{$info['jrmoney']}" />
+                        <div class="ygmargin">*添加时默认为0</div>
+                    </div>
+                </div>
+                <div class="form-group jfmode1">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告起始时间<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_daterange('time',array('start' =>date("Y-m-d H:i:s",$info['start_time']), 'end' =>date('Y-m-d H:i:s',$info['end_time'])),true);}
+                    </div>
+                </div>
+                <div class="form-group mode mode3">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">详情</label>
+                  <div class="col-sm-9">
+                       {php echo tpl_ueditor('details',$info['details']);}
+                  </div>
+                </div>
+                <div class="form-group mode mode2">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">跳转小程序名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="xcx_name" class="form-control" value="{$info['xcx_name']}" />
+                    </div>
+                </div> 
+                <div class="form-group mode mode2 ">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">小程序appid</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="appid" class="form-control" value="{$info['appid']}" />
+                        <div class="ygmargin">*请输入跳转的小程序appid(须同一公众号下的关联的小程序之间才可以相互跳转)</div>
+                    </div>
+                </div>
+                <div class="form-group mode mode1 mode2 mode5 mode6 mode7">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">链接地址</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="src" class="form-control" value="{$info['src']}" />
+                        <div class="ygmargin">*打开网页模式填网址，打开小程序模式填跳转小程序地址</div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="orderby" placeholder="99" class="form-control" value="{$info['orderby']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否禁用</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" id="emailwy1" name="status" value="1" {if $info['status']==1 || $info['status']==""}checked{/if} />
+                            <label for="emailwy1">启用</label>
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" id="emailwy2" name="status" value="2" {if $info['status']==2}checked{/if} />
+                            <label for="emailwy2">禁用</label>
+                        </label>    
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit" value="提交" class="btn col-lg-3" style="color: white;background-color: #88C200;"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$info['id']}" />
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        // $("#frame-2").addClass("in");
+        $("#frame-18").show();
+        $("#yframe-18").addClass("wyactive");        
+        $(".mode").hide();
+        "{if $info}"
+            /*"{if $info['zstype']=='1'}"
+                $('.mode1').show();
+            "{/if}"*/
+            "{if $info['zstype']=='2'}"
+                $('.mode2').show();
+            "{/if}" 
+            "{if $info['zstype']=='3'}"                
+                $('.mode3').show();
+            "{/if}"  
+            "{if $info['zstype']=='4'}"
+                $('.mode4').show();
+            "{/if}"
+            "{if $info['zstype']=='5'}"
+                $('.mode5').show();
+            "{/if}" 
+            "{if $info['zstype']=='6'}"
+                $('.mode6').show();
+            "{/if}"
+            "{if $info['zstype']=='7'}"
+                $('.mode7').show();
+            "{/if}" 
+            "{if $info['djtype']=='1'}"
+                $('.djmodel1').show();               
+            "{/if}"    
+            "{if $info['zstype']=='2'}"
+                $('.djmodel1').hide();              
+            "{/if}"  
+            "{if $info['jftype']=='1'}"
+                $('.jfmode1').show();                
+            "{/if}"         
+        "{else}"
+             $('.mode1').show();
+        "{/if}"
+         $("#djtype").change(function(){
+            $(".djmodel1").hide();
+            if($(this).val()=='1'){
+                $(".djmodel1").show();
+            }
+         })
+        $("#zstype").change(function(){
+            $(".mode").hide();
+            $(".mode"+$(this).val()).show();           
+         })
+        $("#jftype").change(function(){
+            $('.jfmode1').hide();
+            if($(this).val()=='1'){
+                $(".jfmode1").show();
+            }                     
+         })
+        
+        $("#zstype").change();
+        $("#jftype").change();
+    })
+</script>

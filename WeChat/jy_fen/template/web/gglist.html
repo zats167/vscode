@@ -1,0 +1,196 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcsslist.css">
+<style type="text/css">
+    .yg5_key>div{float: left;line-height: 34px;}
+    .store_td1{height: 45px;}
+    .store_list_img{width: 60px;height: 60px;}
+    .yg5_tabel{border-color: #e5e5e5;outline: 1px solid #e5e5e5;}
+    .yg5_tr2>td{padding: 10px 15px;border: 1px solid #e5e5e5;text-align:center;}
+    .yg5_tr1>th{
+        border: 1px solid #e5e5e5;
+        padding-left: 15px;
+        background-color: #FAFAFA;
+        font-weight: bold;
+        text-align: center;
+    }
+    .yg5_btn{background-color: #EEEEEE;color: #333;border: 1px solid #E4E4E4;border-radius: 6px;width: 100px;height: 34px;}
+    /*#frame-2{display: block;visibility: visible;}*/
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li class="active"><a href="{php echo $this->createWebUrl('gglist')}">广告列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('addgglist')}">添加广告</a></li>
+</ul>
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">                    
+                <form action="" method="get">
+                       <input type="hidden" name="c" value="site" />
+                       <input type="hidden" name="a" value="entry" />
+                       <input type="hidden" name="m" value="jy_fen" />
+                       <input type="hidden" name="do" value="gglist" />
+                    <div class="col-md-3 yg5_key" style="width: 200px">
+                        <div>输入关键字：</div>
+                        <div class="input-group">                                
+                            <input type="text" name="keywords" value="{$user_name}" class="form-control" placeholder="请输广告主">
+                        </div>
+                    </div>
+                    <div class="col-md-3 yg5_key" style="width: 200px">
+                        <div>展示位置：</div>
+                        <select class="input-group" style="width:180px" name="type">  
+                            <option value="">不限</option>
+                            <option value="1" {if $type==1}selected{/if}>首页新闻头部Banner</option>
+                            <option value="2" {if $type==2}selected{/if}>新闻信息流广告</option>
+                            <option value="3" {if $type==3}selected{/if}>红包底部广告</option>
+                            <option value="4" {if $type==4}selected{/if}>拼团列表页轮播图</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 yg5_key" style="width: 200px">
+                        <div>行业：</div>
+                        <select class="input-group" style="width:180px" name="hangyeid">  
+                            <option value="0">不限</option>
+                            {loop $hangye $key $item}
+                            <option value="{$item['id']}" {if $item['id'] == $hangyeid}selected{/if} >{$item['title']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                    <div class="col-md-3 yg5_key" style="width: 200px">
+                        <div>计费模式：</div>
+                        <select class="input-group" style="width:180px" name="jftype">  
+                            <option value="">不限</option>
+                            <option value="1" {if $jftype==1}selected{/if}>按月计费</option>
+                            <option value="2" {if $jftype==2}selected{/if}>按点击计费</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 yg5_key" style="width: 200px;margin-top:15px;">
+                        <div class="input-group" style="width: 100px">
+                            <input type="submit" class="btn yg5_btn" name="submit" value="搜索"/>
+                             <input type="hidden" name="token" value="{$_W['token']}"/>
+                        </div><!-- /input-group -->
+                    </div>
+                </form>
+            </div>  
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            广告列表
+        </div>
+        <div class="panel-body" style="padding: 0px 15px;">
+            <div class="row">
+                <table class="yg5_tabel col-md-12">
+                    <tr class="yg5_tr1">
+                        <th class="store_td1 col-md-1">排序</th>                      
+                        <th class="col-md-2">名称</th>
+                        <th class="col-md-1">广告主</th>
+                        <th class="col-md-1">展示模式</th>
+                        <th class="col-md-1">行业</th>
+                        <th class="col-md-1">总资产</th>
+                        <th class="col-md-1">广告费用</th>
+                        <th class="col-md-2">发布时间</th>
+                        <!-- <th class="col-md-1">状态</th> -->
+                        <th class="col-md-2">操作</th>
+                    </tr>
+                    {loop $list $row}
+                    <tr class="yg5_tr2">
+                        <td><div class="type-parent">{$row['orderby']}&nbsp;&nbsp;</div></td>  
+                        <td>{$row['name']}</td>
+                        <td>{$row['user_name']}</td>
+                        <td>{if $row['zstype']==1}新闻模式{elseif $row['zstype']==2}小程序模式{elseif $row['zstype']==3}图文模式{elseif $row['zstype']==4}H5单图模式{elseif $row['zstype']==5}外部网页跳转{/if}</td>
+                        <td>{$row['hanghetitle']}</td>
+                        <td>{$row['money']}元</td>
+                        <td>{$row['ggmoney']}元</td>
+                        <!-- <td><div class="type-parent">{$row['src']}&nbsp;&nbsp;</div></td> -->
+                        <td><?php echo $row['created_time'] ?></td>
+                        
+                        <td>
+                            <a href="{php echo $this->createWebUrl('addgglist', array('id' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-pencil"></span>
+                                <span class="bianji">编辑<span class="arrowdown"></span>
+                                </span>
+                            
+                            </a>
+                            <a href="javascript:void(0);" class="storespan btn btn-xs" data-toggle="modal" data-target="#myModal{$row['id']}">
+                                <span class="fa fa-trash-o"></span>
+                                <span class="bianji">删除<span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            <!-- <a class="btn btn-warning btn-xs" href="{php echo $this->createWebUrl('addad', array('id' => $row['id']))}" title="编辑">改</a>
+                            &nbsp;&nbsp;<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal{$row['id']}">删</button> -->
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="myModal{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                            确定删除么？
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('gglist', array('op' => 'delete', 'id' => $row['id']))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModalb{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                            确定要禁用么？
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('gglist', array('status' => 2, 'id' => $row['id']))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModalc{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                            确定要启用么？
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('gglist', array('status' => 1, 'id' => $row['id']))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    {/loop}
+                              {if empty($list)}
+          <tr class="yg5_tr2">
+            <td colspan="8">
+              暂无广告
+          </td>
+      </tr> 
+      {/if} 
+                </table>
+            </div>
+        </form>
+    </div>
+    {$pager}
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-18").show();
+        $("#yframe-18").addClass("wyactive");
+        // $("#frame-2").addClass("in");
+    })
+</script>

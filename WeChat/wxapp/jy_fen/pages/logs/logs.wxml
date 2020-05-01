@@ -1,0 +1,125 @@
+<view class="hydlzhezhao" wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>欢迎登录</view>
+    </view>
+    <button bindgetuserinfo="bindGetUserInfo" class="hydlqueren" openType="getUserInfo">确定</button>
+</view>
+<view class="font">
+    <view class="logs_header" style="background:{{system.color}};">
+        <view class="logs_bg" style=" background-image: url(\"{{url3}}template/images/applet/logsbg.png?v=6\");background-size: 100% auto;  background-repeat: no-repeat;  background-position: center top;">
+            <view class="logs_img flex3">
+                <image class="logs_imgs" lazyLoad="true" src="{{avatarUrl}}"></image>
+            </view>
+            <view class="logs_toji flex">
+                <view bindtap="wallet" class="b2 flex3">
+                    <text class="text2">{{wallets}}</text>
+                    <text class="text1">总资产</text>
+                </view>
+                <view bindtap="towifi" class="b2 flex3">
+                    <text class="text2">{{wifinum}}</text>
+                    <text class="text1">WIFI数</text>
+                </view>
+                <view bindtap="mine_coupons" class="b2 flex3">
+                    <text class="text2">{{vouchernum}}</text>
+                    <text class="text1">优惠券</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="logs_seller">
+        <view bindtap="wallet" class="logs_center">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_zc.png?v={{v}}"></image>
+                <view>我的资产</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+    </view>
+    <view class="logs_seller">
+        <view bindtap="mine_coupons" class="logs_center ">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_djq.png?v={{v}}"></image>
+                <view>优惠券</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+    </view>
+    <view class="logs_seller">
+        <view bindtap="towifi" class="logs_center ">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_wifi.png?v={{v}}"></image>
+                <view>wifi管理</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+        <view bindtap="gzh" class="logs_center">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_gzh.png?v={{v}}"></image>
+                <view>公众号</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+        <view bindtap="store" class="logs_center">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_md.png?v={{v}}"></image>
+                <view>门店信息</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+    </view>
+    <view class="logs_seller">
+        <view bindtap="tuig" class="logs_center" wx:if="{{system.is_ggruzhu=='1'}}">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_gg.png?v={{v}}"></image>
+                <view>广告主</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+        <view bindtap="fx" class="logs_center" wx:if="{{fxset.is_open=='1'}}">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_dls.png?v={{v}}"></image>
+                <view>代理中心</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+    </view>
+    <view class="logs_seller">
+        <button class="logs_center" openType="contact">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_kf.png?v={{v}}"></image>
+                <view>在线客服</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </button>
+        <view bindtap="bzzx" class="logs_center">
+            <view class="logs_centerimg">
+                <image class="center_map" lazyLoad="true" src="{{url3}}template/images/applet/y_bz.png?v={{v}}"></image>
+                <view>帮助中心</view>
+            </view>
+            <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+        </view>
+    </view>
+    <view class="footer2">
+        <view style="display:none;">
+            <image lazyLoad="true" src="{{dianimg}}" wx:if="{{dianimg!=''}}"></image>
+        </view>
+        <view class="copyright" wx:if="{{system.tz_appid==''}}">
+            <view class="copyright_logo">
+                <image class="copyright_img" lazyLoad="true" mode="aspectFill" src="{{url+system.bq_logo}}" wx:if="{{system.bq_logo!=''}}"></image>
+                <view class="copyright_text">{{system.bq_name}}</view>
+            </view>
+            <view class="copyright_txt">{{system.support}}</view>
+        </view>
+        <navigator appId="{{system.tz_appid}}" class="copyright" openType="navigate" target="miniProgram" version="release" wx:else>
+            <view class="copyright_logo">
+                <image class="copyright_img" lazyLoad="true" mode="aspectFill" src="{{url+system.bq_logo}}" wx:if="{{system.bq_logo!=''}}"></image>
+                <view class="copyright_text">{{system.bq_name}}</view>
+            </view>
+            <view class="copyright_txt">{{system.support}}</view>
+        </navigator>
+    </view>
+</view>
+<import src="/jy_fen/pages/templates/templates.wxml"></import>
+<template is="footer" data="{{...muenList}}" wx:if="{{muenList.data.length>0}}"></template>

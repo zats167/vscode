@@ -1,0 +1,16 @@
+<view class="page__hd"></view>
+<view class="page__bd page__bd_spacing">
+    <view class="kind-list">
+        <view class="kind-list__item" wx:for="{{list}}" wx:key="id">
+            <view bindtap="kindToggle" class="weui-flex kind-list__item-hd {{item.open?'kind-list__item-hd_show':''}}" id="{{index}}">
+                <view class="weui-flex__item">{{item.question}}</view>
+                <image class="kind-list__img" lazyLoad="true" src="{{url3}}template/images/applet/icon_nav_form.png"></image>
+            </view>
+            <view class="kind-list__item-bd {{item.open?'kind-list__item-bd_show':''}}">
+                <view class="weui-cells {{item.open?'weui-cells_show':''}}">
+                    <text class="weui-cell__bd">{{item.answer}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,109 @@
+<view class="nodaili" wx:if="{{havecode==2}}">
+    <view class="yheader">
+        <image class="headerimg" lazyLoad="true" src="{{url}}{{img}}"></image>
+    </view>
+    <view class="youshi">
+        <view class="title">
+            <text>代理商优势</text>
+        </view>
+        <view class="con">
+            <rich-text nodes="{{fxset.instructions}}" style="color:#666"></rich-text>
+        </view>
+    </view>
+    <view style="width:100%; hetght:42px;"></view>
+    <button bindtap="ljyq" class="btn" disabled="{{ifdianji}}" style="{{!ifdianji?'background:'+system.color+'':'background:#eeeeee;color:#999!important;'}}">{{btntxt}}</button>
+</view>
+<view class="yao" wx:if="{{havecode==1}}">
+    <view class="yqbox">
+        <view class="section">
+            <view class="jbbgimjg" style="background:{{system.color}}">
+                <image class="jbbgimjg3" lazyLoad="true" src="{{usersinfo.img}}"></image>
+                <view class="jbbgname">{{wdsq.user_name}}</view>
+            </view>
+        </view>
+        <view class="section">
+            <view class="hotsec flex">
+                <navigator class="b1" url="symx">
+                    <view class="b2">
+                        <text class="text2" style="color:{{system.color}}">{{todayM}}元</text>
+                        <text class="text1">今日收益</text>
+                    </view>
+                </navigator>
+                <navigator class="b1" url="dlwf?tye=2">
+                    <view class="b2">
+                        <text class="text2" style="color:{{system.color}}">{{todayW}}个</text>
+                        <text class="text1">今日wifi</text>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+    <view class="banner">
+        <view class="b-head">
+            <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>数据统计</view>
+    </view>
+    <view class="b-bd">
+        <navigator class="b1" url="symx">
+            <view class="b2">
+                <text class="text2" style="color:{{system.color}}">{{allM}}元</text>
+                <text class="text1">累积收益</text>
+            </view>
+        </navigator>
+        <navigator class="b1" url="dlwf?tye=1">
+            <view class="b2">
+                <text class="text2" style="color:{{system.color}}">{{allW}}个</text>
+                <text class="text1">wifi总数</text>
+            </view>
+        </navigator>
+    </view>
+    <view bindtap="ljyq2" class="yaoq_btn" style="background:{{system.color}}">
+      邀请wifi
+  </view>
+    <view class="banner" style="margin-top:20rpx;">
+        <view class="b-head">
+            <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>最近收益</view>
+        <navigator class="ckgd" style="color:{{system.color}}" url="symx" wx:if="{{symx.length!=0}}">更多</navigator>
+    </view>
+    <view class="integral" wx:if="{{index<10}}" wx:for="{{symx}}">
+        <image lazyLoad="true" src="{{url}}{{link_logo}}" wx:if="{{item.son_id=='0'}}"></image>
+        <image lazyLoad="true" src="{{item.img}}" wx:else></image>
+        <view class="integral-left">
+            <view>{{item.note}}</view>
+            <view>{{item.time}}</view>
+        </view>
+        <view class="integral-right">
+            <text style="color:#6AC20B" wx:if="{{item.type==1}}">+{{item.money}}<text class="integral-right1">元</text>
+            </text>
+            <text style="color:#f44444" wx:if="{{item.type==2}}">-{{item.money}}<text class="integral-right1">元</text>
+            </text>
+        </view>
+    </view>
+    <navigator class="mygd" url="symx" wx:if="{{symx.length!=0}}">点击更多查看哦~</navigator>
+</view>
+<view class="share-modal {{share_modal_active?'active':''}}">
+    <view class="share-modal-body">
+        <view class="share-modal-close flex-y-center flex-x-center" style="background:#fff">选择邀请方式</view>
+        <view class="flex-row">
+            <view class="flex-grow-1 flex-x-center">
+                <button bindtap="shareModalClose" class="share-bottom" openType="share">
+                    <image lazyLoad="true" src="{{url3}}template/images/applet/weixin1.png"></image>
+                    <view>微信</view>
+                </button>
+            </view>
+            <view class="flex-grow-1 flex-x-center">
+                <view bindtap="mdmfx" class="share-bottom">
+                    <image lazyLoad="true" src="{{url3}}template/images/applet/mdm.png"></image>
+                    <view>面对面</view>
+                </view>
+            </view>
+        </view>
+        <view bindtap="shareModalClose" class="share-modal-close flex-y-center flex-x-center">取消</view>
+    </view>
+</view>
+<view bindtap="yczz" class="zhezhao" hidden="{{fwxy}}"></view>
+<view class="kcrzxy" hidden="{{fwxy}}">
+    <view class="kcrzxyhd" style="background:{{system.color}}">扫码入驻</view>
+    <view class="kcrzxybd">
+        <image lazyLoad="true" src="data:image/png;base64,{{code}}"></image>
+    </view>
+</view>

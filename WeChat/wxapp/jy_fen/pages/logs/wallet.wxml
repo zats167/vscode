@@ -1,0 +1,41 @@
+<view class="wallet">
+    <view class="mywallet">
+        <view class="title">我的资产</view>
+        <view class="flex-bet mywallet_info">
+            <view class="flex-center" style="width:100%;">
+                <image class="wallet_img" lazyLoad="true" src="{{url3}}template/images/applet/wallet.png"></image>
+                <view class="wallet_money">¥{{wallet}}</view>
+                <view bindtap="tixian" class="wallet_tx" style="color:#333;">提现管理</view>
+            </view>
+        </view>
+    </view>
+    <view bindtap="tradeinfo" class="list flex-bet none">
+        <view class="flex-center trade">
+            <image class="listimg" lazyLoad="true" src="{{url3}}template/images/applet/order.png"></image>
+            <view class="">资产明细</view>
+        </view>
+        <image class="addright" lazyLoad="true" src="{{url3}}template/images/applet/huise@2x.png"></image>
+    </view>
+</view>
+<view class="banner" style="margin-top:20rpx;">
+    <view class="b-head">
+        <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>最近收益</view>
+    <view bindtap="tradeinfo" class="ckgd" style="color:{{system.color}}" wx:if="{{score.length!=0}}">更多</view>
+</view>
+<view class="integral" wx:if="{{score.length>0}}" wx:for="{{score}}">
+    <view class="integral-left">
+        <view wx:if="{{item.son_id=='0'}}">{{pt_name}}</view>
+        <view wx:else>{{item.note}}</view>
+        <view>{{item.time}}</view>
+    </view>
+    <view class="integral-right">
+        <text style="color:#6AC20B" wx:if="{{item.type==1}}">+{{item.money}}<text class="integral-right1">元</text>
+        </text>
+        <text style="color:#f44444" wx:if="{{item.type==2}}">-{{item.money}}<text class="integral-right1">元</text>
+        </text>
+    </view>
+</view>
+<view bindtap="tradeinfo" class="mygd" wx:if="{{score.length>0}}">点击更多查看哦~</view>
+<view class="mygd" wx:else>
+  没有收益
+</view>

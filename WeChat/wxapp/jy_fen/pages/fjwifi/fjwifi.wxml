@@ -1,0 +1,52 @@
+<view class="hydlzhezhao" wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定 </button>
+</view>
+<scroll-view scrollX class="section-meun" wx:if="{{storetype.length>0}}">
+    <view bindtap="selCate" class="item flex3" data-id="0">
+        <view class="bc" style="{{cid==0?'font-weight: bold; ':''}}">全部</view>
+        <view class="bt" style="background-color:{{system.color}}" wx:if="{{cid==0}}"></view>
+    </view>
+    <view bindtap="selCate" class="item flex3" data-id="{{item.id}}" wx:for="{{storetype}}">
+        <view class="bc" style="{{cid==item.id?'font-weight: bold; ':''}}">{{item.name}}</view>
+        <view class="bt" style="background-color:{{system.color}}" wx:if="{{cid==item.id}}"></view>
+    </view>
+</scroll-view>
+<view class="font">
+    <view class="recommed">
+        <view bindtap="tosj" class="recommed_list" data-id="{{item.id}}" wx:for="{{xqlist}}" wx:key="xqlist">
+            <view class="recommed_imgwarp">
+                <image class="recommed_img" lazyLoad="true" src="{{url}}{{item.store_logo}}"></image>
+            </view>
+            <view class="recommed_content" data-index="{{index}}">
+                <view class="recommed_title">
+                    <view class="title_right">{{item.store_name}}</view>
+                </view>
+                <view class="recommed_dizhi">
+            {{item.address}}
+          </view>
+                <view class="recommed_jl flex">
+                    <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/xiangqingdizhi@2x.png"></image>{{'距离商家'+item.distancetxt}}</view>
+            </view>
+            <view class="recommed_right flex" data-index="{{index}}">
+                <image class="center_img" lazyLoad="true" src="{{url3}}template/images/applet/huise@3x.png"></image>
+            </view>
+        </view>
+        <view class="jzz" hidden="{{loadstaue}}">
+            <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+            <view>加载中...</view>
+        </view>
+        <view class="kong" hidden="{{isloadtis}}">
+            <view>— 亲 我也是有底线的哦 —</view>
+        </view>
+        <view class="kong" style="margin-top:50px;" wx:if="{{loadstaue&&xqlist.length==0}}">
+            <view>附近暂无wifi！</view>
+        </view>
+    </view>
+</view>
+<import src="/jy_fen/pages/templates/templates.wxml"></import>
+<template is="footer" data="{{...muenList}}" wx:if="{{muenList.data.length>0}}"></template>

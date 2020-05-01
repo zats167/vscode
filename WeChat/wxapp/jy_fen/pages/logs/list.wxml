@@ -1,0 +1,23 @@
+<view class="list">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{yj}}" wx:key="yj">
+            <view class="weui-cell__hd">
+                <image class="himg" lazyLoad="true" src="{{item.img}}"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view>{{item.name}}</view>
+                <view class="sj">加入时间：{{item.join_time}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="jzz" hidden="{{loadstaue}}">
+        <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+        <view>加载中...</view>
+    </view>
+    <view class="kong" hidden="{{isloadtis}}">
+        <view>{{loadtis}}</view>
+    </view>
+    <view class="kong" style="margin-top:0px;" wx:if="{{loadstaue&&olist.length==0}}">
+        <view>暂无数据！</view>
+    </view>
+</view>

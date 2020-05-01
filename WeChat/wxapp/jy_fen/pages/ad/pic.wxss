@@ -1,0 +1,201 @@
+page {
+    width: 100%;
+    height: 100%;
+    color: #333;
+}
+
+.index {
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.content .img {
+    width: 100%;
+    height: 100%;
+}
+
+.buytis {
+    width: 100%;
+}
+
+.wxParse {
+    width: 100%;
+}
+
+.section-News {
+    background: #fff;
+}
+
+.section-pay {
+    font-size: 14px;
+    color: #373737;
+}
+
+.section-pay .item {
+    padding: 0 8px;
+    margin-bottom: 1px;
+    min-height: 46px;
+    line-height: 46px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.section-pay .item.mitem .section-money {
+    height: 80px;
+}
+
+.section-pay .item.ckitem .section-money {
+    height: auto;
+}
+
+.section-pay .item.ckitem .r {
+    text-align: right;
+    height: 100%;
+}
+
+.section-pay .item.ckitem .section-money .checkbox {
+    margin-left: 6px;
+}
+
+.section-pay .item.ckitem .section-money .radio {
+    margin-left: 6px;
+}
+
+.section-pay .item .section-money .picker {
+    float: right;
+    width: 80%;
+}
+
+.section-pay .item .btn {
+    padding: 0px;
+    height: 100%;
+    width: auto;
+    display: table;
+    float: left;
+    text-align: left;
+    line-height: 46px;
+    border: 0px;
+    margin-top: 0px;
+    font-size: 14px;
+    background-color: transparent;
+    color: #333;
+}
+
+.section-pay .item .btn.fr {
+    float: right;
+    text-align: right;
+}
+
+.section-pay .item .btn.tis::after {
+    content: "?";
+    color: #999;
+    text-align: center;
+    line-height: 14px;
+    font-size: 10px;
+    background-color: #e8e9e9;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 8px;
+    width: 14px;
+    height: 14px;
+}
+
+.section-pay .item .l {
+    width: 100%;
+    font-size: 14px;
+}
+
+.section-pay .item .r {
+    width: 160px;
+    text-align: right;
+}
+
+.plpaytxt {
+    color: #999;
+    font-size: 14px;
+}
+
+.paytxt {
+    border: 0px;
+    height: 100%;
+    font-size: 14px;
+    color: #41220e;
+    padding: 12rpx;
+    margin: 0px;
+    background-color: white;
+}
+
+.mpaytxt {
+    height: 70%;
+    font-size: 14px;
+    color: #41220e;
+    padding: 12px 0px;
+    margin: 0px;
+    width: 100%;
+    background-color: white;
+    line-height: 18px;
+}
+
+.section-pay .item .section-money {
+    display: flex;
+    border: 0px solid #d7d7d7;
+    height: 48px;
+    line-height: 48px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.section-pay .item .section-money .l {
+    margin-left: 0px;
+    width: 96px;
+    overflow: hidden;
+    text-align: right;
+}
+
+.section-pay .item .section-money .r {
+    width: 100%;
+}
+
+.section-pay .item.pay-i {
+    background-color: transparent;
+    margin-top: 18px;
+}
+
+.section-pay .item .btn.pay-btn {
+    width: 100%;
+    text-align: center;
+    background-color: #50ade6;
+    color: white;
+}
+
+.phonebox {
+    width: 86%;
+    margin: 0px auto 20px auto;
+}
+
+.phonebox .btn {
+    width: 68px;
+    height: 68px;
+    text-align: center;
+    color: white;
+    font-size: 32rpx;
+    line-height: 100rpx;
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    padding: 0px;
+    background-color: transparent;
+    border: 0px;
+}
+
+.phonebox .img {
+    display: block;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+}

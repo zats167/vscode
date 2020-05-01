@@ -1,0 +1,135 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #88C200;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #88C200;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li><a href="{php echo $this->createWebUrl('ggzhu')}">广告主列表</a></li>
+    <li class="active"><a href="{php echo $this->createWebUrl('addggzhu')}">添加广告主</a></li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <!--<input type="hidden" name="parentid" value="{$parent['id']}" />-->
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                内容编辑
+            </div>
+            <div class="panel-body">
+
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">广告主名称<font color="red">**</font></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="user_name" class="form-control" value="{$info['user_name']}" />
+                    </div>
+                </div>
+                
+               
+               
+                <div class="form-group" >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系电话</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="user_tel" class="form-control" value="{$info['user_tel']}" />
+                    </div>
+                </div>           
+                <div class="form-group none">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">详细地址</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="addr" class="form-control" value="{$info['addr']}" />
+                        <div class="ygmargin"></div>
+                    </div>
+                </div>
+               
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="submit" value="提交" class="btn col-lg-3" style="color: white;background-color: #88C200;"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$info['id']}" />
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        // $("#frame-2").addClass("in");
+        $("#frame-18").show();
+        $("#yframe-18").addClass("wyactive");        
+        $(".mode").hide();
+        "{if $info}"
+            "{if $info['zstype']=='1'}"
+                $('.mode1').show();
+            "{/if}"
+            "{if $info['zstype']=='2'}"
+                $('.mode2').show();
+            "{/if}" 
+            "{if $info['zstype']=='3'}"                
+                $('.mode3').show();
+            "{/if}"  
+            "{if $info['zstype']=='4'}"
+                $('.mode4').show();
+            "{/if}"
+            "{if $info['zstype']=='5'}"
+                $('.mode5').show();
+            "{/if}"  
+            "{if $info['djtype']=='1'}"
+                $('.djmodel1').show();               
+            "{/if}"    
+            "{if $info['zstype']=='2'}"
+                $('.djmodel1').hide();              
+            "{/if}"  
+            "{if $info['jftype']=='1'}"
+                $('.jfmode1').show();                
+            "{/if}"         
+        "{else}"
+             $('.mode1').show();
+        "{/if}"
+         $("#djtype").change(function(){
+            $(".djmodel1").hide();
+            if($(this).val()=='1'){
+                $(".djmodel1").show();
+            }
+         })
+        $("#zstype").change(function(){
+            $(".mode").hide();
+            $(".mode"+$(this).val()).show();           
+         })
+        $("#jftype").change(function(){
+            $('.jfmode1').hide();
+            if($(this).val()=='1'){
+                $(".jfmode1").show();
+            }                     
+         })
+        
+        $("#zstype").change();
+        $("#jftype").change();
+    })
+</script>

@@ -1,0 +1,107 @@
+<template name="hbdesc">
+    <view class="hbzhezhao" wx:if="{{ifzhao}}"></view>
+    <view class="hb_desc">
+        <view class="bao">
+            <view class="hb_t">
+        红包领取攻略
+      </view>
+            <scroll-view scrollY class="hbcontent">
+                <view class="b" wx:if="{{seting.lian_status==1}}">
+                    <view class="t">{{seting.lian_title}}玩法</view>
+                    <rich-text class="richtext" nodes="{{seting.lian_rule}}" type="text"></rich-text>
+                </view>
+                <view class="b" wx:if="{{seting.ding_status==1}}">
+                    <view class="t">{{seting.ding_title}}玩法</view>
+                    <rich-text class="richtext" nodes="{{seting.ding_rule}}" type="text"></rich-text>
+                </view>
+            </scroll-view>
+        </view>
+        <button bindtap="hb_close_tap3" class="hb_close">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/close.png"></image>
+        </button>
+    </view>
+</template>
+<template name="wifihb">
+    <view class="hbzhezhao" wx:if="{{ifzhao}}"></view>
+    <view class="hb_tree" wx:if="{{num>2}}">
+        <view bindtap="hb_tree_tap" class="bao" wx:if="{{num==3}}">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/b_tree.png"></image>
+        </view>
+        <view class="bao2" wx:if="{{num==4}}">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/b_four.png"></image>
+            <view class="hbao3">恭喜你</view>
+            <view class="hbao2">领取了{{title}}</view>
+            <view class="hbao">
+                <text>￥</text>{{four.money}}<text>元</text>
+            </view>
+        </view>
+        <view class="hb_ad">
+            <view class="ad ad3-tengxun" wx:if="{{ad.ifzhanshi==1&&ad.istype==1&&ad.txggid!=''&&isad3sc}}">
+                <ad binderror="ad3sb" bindload="ad3cg" class="txad" unitId="{{ad.txggid}}"></ad>
+            </view>
+            <view bindtap="ad_tap4" class="ad" wx:if="{{ad.ifzhanshi==1&&ad.istype==2&&ad.admodel.length>0}}">
+                <image class="img-ad" lazyLoad="true" src="{{url+ad.admodel[0].ggimg}}"></image>
+            </view>
+        </view>
+        <button bindtap="hb_close_tap2" class="hb_close">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/close.png"></image>
+        </button>
+    </view>
+</template>
+<template name="hb">
+    <view class="hb_one" wx:if="{{num==1}}">
+        <view bindtap="hb_play_tap" class="bao">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/b_one.png"></image>
+        </view>
+        <view class="time">
+      {{one.hb_time}}
+    </view>
+    </view>
+    <view bindtap="hb_er_tap" class="hb_two" wx:if="{{num==2}}">
+        <view class="bao">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/b_two.png"></image>
+        </view>
+    </view>
+    <view class="hbzhezhao" wx:if="{{ifzhao}}"></view>
+    <view class="hb_tree" wx:if="{{num>2}}">
+        <view bindtap="hb_tree_tap" class="bao" wx:if="{{num==3}}">
+            <image class="img-new " lazyLoad="true" mode="aspectFit" src="/jy_fen/pages/images/b_tree.png"></image>
+        </view>
+        <view class="bao2" wx:if="{{num==4}}">
+            <image class="img-new " lazyLoad="true" mode="aspectFit" src="/jy_fen/pages/images/b_four.png"></image>
+            <view class="hbao3">恭喜你</view>
+            <view class="hbao2">领取了{{title}}</view>
+            <view class="hbao">
+                <text>￥</text>{{four.money}}<text>元</text>
+            </view>
+        </view>
+        <view class="hb_ad">
+            <view class="ad ad3-tengxun" wx:if="{{ad.ifzhanshi==1&&ad.istype==1&&ad.txggid!=''&&isad3sc}}">
+                <ad binderror="ad3sb" bindload="ad3cg" class="txad" unitId="{{ad.txggid}}"></ad>
+            </view>
+            <view bindtap="ad_tap3" class="ad" wx:if="{{ad.ifzhanshi==1&&ad.istype==2&&ad.admodel.length>0}}">
+                <image class="img-ad" lazyLoad="true" src="{{url+ad.admodel[0].ggimg}}"></image>
+            </view>
+        </view>
+        <button bindtap="hb_close_tap" class="hb_close">
+            <image class="img-new " lazyLoad="true" mode="aspectFill" src="/jy_fen/pages/images/close.png"></image>
+        </button>
+    </view>
+</template>
+<template name="footer">
+    <view class="footerbg"></view>
+    <view class="footer flex1">
+        <block wx:for="{{data}}" wx:key="m1">
+            <button bindtap="r_tap" class="btn flex3" data-index="{{index}}" type="primary" wx:if="{{item.type!=3}}">
+                <image class="img" lazyLoad="true" mode="scaleToFill" src="{{url+item.img}}" wx:if="{{item.sel}}"></image>
+                <image class="img" lazyLoad="true" mode="scaleToFill" src="{{url+item.img2}}" wx:else></image>
+                <view class="txt" style="{{item.sel?'color:'+color:''}}">{{item.name}}</view>
+            </button>
+            <navigator appId="{{item.appid}}" class="btn flex3" extraData="" openType="navigate" path="{{item.url}}" target="miniProgram" version="release" wx:if="{{item.type==3}}">
+                <image class="img" lazyLoad="true" mode="scaleToFill" src="{{url+item.img}}" wx:if="{{item.sel}}"></image>
+                <image class="img" lazyLoad="true" mode="scaleToFill" src="{{url+item.img2}}" wx:else></image>
+                <view class="txt" style="{{item.sel?'color:'+color:''}}">{{item.name}}</view>
+            </navigator>
+        </block>
+    </view>
+</template>

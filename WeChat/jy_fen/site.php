@@ -1,0 +1,2 @@
+<?php
+ goto D2mie; kXyvi: require IA_ROOT . '/addons/jy_fen/inc/func/core.php'; goto BuWvk; D2mie: defined('IN_IA') or exit('Access Denied'); goto kXyvi; BuWvk: class Jy_fenModuleSite extends Core { } ?>

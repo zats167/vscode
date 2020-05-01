@@ -1,0 +1,53 @@
+<view class="hydlzhezhao" wx:if="{{hydl==true}}"></view>
+<view class="hydlbd" wx:if="{{hydl==true}}">
+    <view class="hydl">
+        <icon size="50" type="success"></icon>
+        <view>授权获取地理位置</view>
+    </view>
+    <button bindopensetting="bindGetUserInfo" class="hydlqueren" openType="openSetting">确定   </button>
+</view>
+<form bindsubmit="formSubmit" reportSubmit="true">
+    <view class="font index">
+        <view class="bbox">
+            <view class="item flex">
+                <view class="il flex3">
+                    <view class="t">
+                        <picker bindchange="bindSSPickerChange" mode="selector" range="{{SSarray}}" rangeKey="SSID" value="{{SSindex}}">
+                            <view class="picker">
+                {{SSarray[SSindex].SSID}}
+              </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="ir flex3">
+                    <image class="img-wblogo" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+                </view>
+            </view>
+            <view class="item flex">
+                <view class="il flex3">
+                    <view class="t">
+                        <input class="itxt" maxlength="20" name="pass" placeholder="输入WIFI密码 (不可不填)" value="{{pass}}"></input>
+                    </view>
+                </view>
+            </view>
+            <view class="item flex">
+                <view class="il flex3">
+                    <view class="t">
+                        <input class="itxt" maxlength="30" name="miaoshu" placeholder="个性标语 (免费连接WIFI)" value="{{miaoshu}}"></input>
+                    </view>
+                </view>
+            </view>
+            <navigator class="item flex" url="yangshi?id={{yangshi.id}}">
+                <view class="il flex3">
+                    <view class="t">
+            {{yangshi.name}}
+          </view>
+                </view>
+                <view class="ir flex3">
+                    <image class="img-wblogo" lazyLoad="true" src="{{url3}}template/images/applet/Path@2x.png"></image>
+                </view>
+            </navigator>
+            <button class="sut_tijiao" disabled="{{tjdisabled}}" formType="submit" loading="{{tjloading}}" style="background-color:{{system.color}};" type="primary"> 保存 </button>
+        </view>
+    </view>
+</form>

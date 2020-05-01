@@ -1,0 +1,49 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #88C200;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #88C200;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li class="active"><a href="{php echo $this->createWebUrl('rednoinstall')}">公众号红包</a></li>
+</ul>
+<div class="main">
+    <div>您当前已购买过插件，但还未安装，请点击该链接安装：</div>
+    <div>
+    	<a href="{$_W['siteroot']}web/index.php?c=module&a=manage-system&do=not_installed&support=wxapp_support" target="_blank" style="color:red;font-size:18px;">
+        	{$_W['siteroot']}web/index.php?c=module&a=manage-system&do=not_installed&support=wxapp_support
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $("#frame-4").show();
+        $("#yframe-4").addClass("wyactive");        
+    })
+</script>

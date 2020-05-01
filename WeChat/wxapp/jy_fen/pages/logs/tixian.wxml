@@ -1,0 +1,95 @@
+<form bindreset="formReset" bindsubmit="formSubmit" reportSubmit="true">
+    <view class="head" style="background:{{system.color}}">
+        <navigator class="text" openType="redirect" url="txmx">提现明细</navigator>
+        <view>{{userinfo.wallet}}</view>
+        <view>现有金额（元）</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">可提现金额</view>
+            <view class="weui-cell__ft" style="color:{{system.color}}">{{wdyj.ke}}元</view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell none">
+            <view class="weui-cell__bd">代理累计金额</view>
+            <view class="weui-cell__ft" style="color:{{system.color}}" wx:if="{{wdyj.lei==null}}">0元</view>
+            <view class="weui-cell__ft" style="color:{{system.color}}" wx:else>{{wdyj.lei}}元</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">已申请金额</view>
+            <view class="weui-cell__ft" wx:if="{{wdyj.sq==null}}">0元</view>
+            <view class="weui-cell__ft" wx:else>{{wdyj.sq}}元</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">成功提现金额</view>
+            <view class="weui-cell__ft" wx:if="{{wdyj.cg==null}}">0元</view>
+            <view class="weui-cell__ft" wx:else>{{wdyj.cg}}元</view>
+        </view>
+    </view>
+    <view class="list flex-bet">
+        <view class="flex-center trade">
+            <view class="">用户须知</view>
+        </view>
+    </view>
+    <view class="czhd1">
+        <view>注意：可用金额满
+      <text style="color:{{system.color}}">{{ggtx}}元</text>后才能申请提现</view>
+    </view>
+    <view class="weui-cells__title" style="font-weight: bold;" wx:if="{{system.is_zfb==2}}">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/weixin.png" style="margin-right: 15rpx;vertical-align: middle;width:14px; height: 14px;"></image>提现到微信零钱
+  </view>
+    <view class="weui-cells__title" style="font-weight: bold;" wx:if="{{system.is_zfb==1}}">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/zfb.png" style="margin-right: 15rpx;vertical-align: middle;width:14px; height: 14px;"></image>提现到支付宝
+  </view>
+    <view class="weui-cells weui-cells_after-title" style="margin-top:0;">
+        <view class="txbd">
+            <view class="weui-cells weui-cells_after-title" style="margin-top:0;">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">提现金额</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="je" placeholder="请输入提现金额" type="digit"></input>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input" hidden="{{system.is_zfb==2}}">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">支付宝账号</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="zh" placeholder="{{zhtstext}}" type="{{zhtype}}"></input>
+                    </view>
+                </view>
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__hd">
+                        <view class="weui-label">联系方式</view>
+                    </view>
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" name="user_tel" type="{{zhtype}}" value="{{userinfo.user_tel}}"></input>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title" style="margin-top:0;border-top:1rpx solid #e6e6e6;">提现手续费为{{txservice}}%</view>
+    <view class="read">
+        <checkbox-group name="checkbox">
+            <checkbox color="#ff6161" style="zoom:80%" value="1"></checkbox>
+        </checkbox-group>
+        <view>我已阅读并同意
+      <text bindtap="lookck" class="readfont">《用户提现协议》</text>
+        </view>
+    </view>
+    <view class="weui-btn-area">
+        <button class="weui-btn" disabled="{{disabled}}" formType="submit" style="background:{{disabled?'#87CEFF':system.color}};" type="primary">{{logintext}}</button>
+    </view>
+</form>
+<view class="zhezhao" hidden="{{fwxy}}"></view>
+<view class="kcrzxy" hidden="{{fwxy}}">
+    <view class="kcrzxyhd">用户提现协议</view>
+    <scroll-view scrollY class="kcrzxybd" style="height: 600rpx;">
+        <rich-text nodes="{{txagreement}}"></rich-text>
+    </scroll-view>
+    <view bindtap="queren" class="queren">确定</view>
+</view>

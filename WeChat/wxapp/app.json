@@ -1,0 +1,73 @@
+{
+  "pages": [
+    "jy_fen/pages/wifi/wifi",
+    "jy_fen/pages/fxjs/fxjs",
+    "jy_fen/pages/ad/tw",
+    "jy_fen/pages/ad/pic",
+    "jy_fen/pages/ad/wy",
+    "jy_fen/pages/logs/logs",
+    "jy_fen/pages/logs/wallet",
+    "jy_fen/pages/logs/walletmx",
+    "jy_fen/pages/logs/cash",
+    "jy_fen/pages/logs/tixian",
+    "jy_fen/pages/logs/txmx",
+    "jy_fen/pages/logs/kfzx",
+    "jy_fen/pages/logs/bzzx",
+    "jy_fen/pages/logs/wifi/wifi",
+    "jy_fen/pages/logs/wifi/xiangxi",
+    "jy_fen/pages/logs/wifi/bainji",
+    "jy_fen/pages/logs/wifi/yangshi",
+    "jy_fen/pages/logs/wifi/coupon",
+    "jy_fen/pages/logs/wifi/addcoupon",
+    "jy_fen/pages/logs/wifi/hexiao",
+    "jy_fen/pages/logs/wifi/hexiaojl",
+    "jy_fen/pages/logs/wifi/store",
+    "jy_fen/pages/logs/distribution/distribution",
+    "jy_fen/pages/logs/distribution/yaoqing",
+    "jy_fen/pages/logs/distribution/wdtd",
+    "jy_fen/pages/logs/distribution/txmx",
+    "jy_fen/pages/logs/distribution/symx",
+    "jy_fen/pages/logs/distribution/dlwf",
+    "jy_fen/pages/logs/distribution/dlqz",
+    "jy_fen/pages/logs/tuiguang/tuiguang",
+    "jy_fen/pages/logs/tuiguang/prise",
+    "jy_fen/pages/logs/tuiguang/mytuiguang",
+    "jy_fen/pages/logs/tuiguang/myform",
+    "jy_fen/pages/logs/tuiguang/datamx",
+    "jy_fen/pages/logs/tuiguang/mygg",
+    "jy_fen/pages/logs/tuiguang/ggclick",
+    "jy_fen/pages/web/web",
+    "jy_fen/pages/heixiao/heixiao",
+    "jy_fen/pages/logs/gzh/gzh",
+    "jy_fen/pages/logs/gzh/hexiao",
+    "jy_fen/pages/logs/gzh/hexiaojl",
+    "jy_fen/pages/logs/gzh/apply",
+    "jy_fen/pages/logs/gzh/sjlist",
+    "jy_fen/pages/logs/gzh/coupon",
+    "jy_fen/pages/logs/gzh/addcoupon",
+    "jy_fen/pages/logs/mine_coupons",
+    "jy_fen/pages/store_coupons/store_coupons",
+    "jy_fen/pages/fjwifi/fjwifi",
+    "jy_fen/pages/logs/store",
+    "jy_fen/pages/logs/sjlist",
+    "jy_fen/pages/logs/wifi/list"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "以为您提供最近的服务信息"
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 120
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://lanrenzhijia.com" versionCode="0.8,1.0">
+	<application setting="false">
+		<name><![CDATA[公众号关注消粉红包]]></name>
+		<identifie><![CDATA[jy_fen_plugin_red]]></identifie>
+		<version><![CDATA[1.0.0]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[公众号关注消粉红包]]></ability>
+		<description><![CDATA[公众号关注消粉红包，主要是为了沉淀客户，让用户留下来关注公众号之后来领取红包，商家可以通过用户领取红包来增加用户粘性]]></description>
+		<author><![CDATA[懒人源码]]></author>
+		<url><![CDATA[https://lanrenzhijia.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<supports>
+			<item type="wxapp" />
+		</supports>
+		<plugin-main name="jy_fen" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="后台管理" do="admin" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+insert into ims_jyfen_plugin(title,addtime) values('jy_fen_plugin_red',unix_timestamp(now()));
+	]]></install>
+	<uninstall><![CDATA[
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

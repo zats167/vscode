@@ -1,0 +1,202 @@
+{template '../../jy_fen/template/public/header-base'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/header.css">
+
+{php $res=pdo_get('jyfen_system',array('uniacid'=>$_W['uniacid']))}
+<div style="position: fixed; bottom: 0px; left: 260px; width: calc(100% - 260px); z-index: 999999;">
+	<div class="copyright">{if empty($_W['setting']['copyright']['footerleft'])}Powered by <a href="http://www.we7.cc"><b>微擎</b></a> v{IMS_VERSION} © 2014-2015 <a href="http://www.we7.cc">www.we7.cc</a>{else}{$_W['setting']['copyright']['footerleft']}{/if}</div>
+</div>
+<div class="top-hover-menus">
+    <div class="top-hover-menu person-mes">
+        <div class="hover-header">
+            {if $_W['role'] == 'founder'}系统管理员{elseif $_W['role'] == 'manager'}小程序管理员{else}小程序操作员{/if}：
+            <span>{$_W['user']['username']}</span>
+        </div>
+        <ul class="hover-dropdown">
+            <li>
+				{if $_W['role'] == 'founder'}
+        		<?php
+        			$res = pdo_get('wxapp_versions',array('uniacid'=>$_W['uniacid']));
+        			$version_id = $res['id'];
+
+        		?>
+                <a href="index.php?c=miniapp&a=version&do=home&version_id={$version_id}">
+					<i class="iconfont icon-fanhui1 mr10 cor-green"></i>
+					<span>返回系统</span>
+				</a>
+				{/if}
+            </li>
+            <li>
+				<a href="{url 'user/logout'}">
+					<i class="iconfont icon-zhuxiao mr10 cor-green"></i>
+					<span>退出系统</span>
+				</a>
+            </li>
+        </ul>
+    </div>
+    <div class="top-hover-menu inform-mes" style="display: none">
+        <div class="hover-header">
+            <i class="iconfont icon-tongzhi"></i>
+        </div>
+        <ul class="hover-dropdown"></ul>
+    </div>
+</div>
+<!-- <div class="header">
+	<div class="wheaderbox">
+		<img class="header_logo" src="{if $res['link_logo']}{php echo tomedia($res['link_logo'])}{else}../addons/jy_fen/template/images/bac.png{/if}" alt=""/>
+		<span class="header_title">
+			{if $res['link_name']}{$res['link_name']}
+			{else}吸粉神器{/if}
+		</span>
+	</div>
+    <div class="header_left">        
+        {if $_W['role'] == 'founder'}
+        <a href="index.php?c=site&a=entry&do=gaikuangdata&m=jy_fen"><div class="header_btn">返回首页</div></a>
+        {/if}  
+    </div>
+    <ul class="header_right">       
+        <li>
+			<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="display:block; max-width:185px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; "><i class="fa fa-user"></i>{$_W['user']['username']} ({if $_W['role'] == 'founder'}系统管理员{elseif $_W['role'] == 'manager'}小程序管理员{else}小程序操作员{/if}) <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				{if $_W['role'] != 'operator'}
+				<li><a href="{url 'user/profile/profile'}" target="_blank"><i class="fa fa-weixin fa-fw"></i> 我的账号</a></li>
+				<li class="divider"></li>
+				<li><a href="{url 'home/welcome/system'}" target="_blank"><i class="fa fa-sitemap fa-fw"></i> 系统选项</a></li>
+				<li><a href="{url 'cloud/upgrade'}" target="_blank"><i class="fa fa-cloud-download fa-fw"></i> 自动更新</a></li>
+				<li><a href="{url 'system/updatecache'}" target="_blank"><i class="fa fa-refresh fa-fw"></i> 更新缓存</a></li>
+				<li class="divider"></li>
+				{/if}
+			</ul>
+			{if $_W['role'] == 'founder'}
+        	<li>
+        		<?php
+        			$res = pdo_get('wxapp_versions',array('uniacid'=>$_W['uniacid']));
+        			$version_id = $res['id'];
+        		?>
+                <a href="index.php?c=miniapp&a=version&do=home&version_id={$version_id}" class="yyhome">
+                  	<span class="fa fa-home"></span>
+	            	<div class="fanhuihome">返回系统</div>
+                </a>
+            </li>   
+            {/if}  
+        <li>
+            <a href="{url 'user/logout'}" class="yyhome">
+            	<span class="fa fa-power-off"></span>
+            	<div class="fanhuihome">退出系统</div>
+            </a>
+        </li>
+    </ul>
+</div> -->
+<div class="container-fluid col-md-12 col-xs-12 col-sm-12">
+	{if defined('IN_MESSAGE')}
+	<div class="jumbotron clearfix alert alert-{$label}">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-lg-2">
+				<i class="fa fa-5x fa-{if $label=='success'}check-circle{/if}{if $label=='danger'}times-circle{/if}{if $label=='info'}info-circle{/if}{if $label=='warning'}exclamation-triangle{/if}"></i>
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+				{if is_array($msg)}
+				<h2>MYSQL 错误：</h2>
+				<p>{php echo cutstr($msg['sql'], 300, 1);}</p>
+				<p><b>{$msg['error'][0]} {$msg['error'][1]}：</b>{$msg['error'][2]}</p>
+				{else}
+				<h2>{$caption}</h2>
+				<p>{$msg}</p>
+				{/if}
+				{if $redirect}
+				<p><a href="{$redirect}">如果你的浏览器没有自动跳转，请点击此链接</a></p>
+				<script type="text/javascript">
+					setTimeout(function () {
+						location.href = "{$redirect}";
+					}, 3000);
+				</script>
+				{else}
+				<p>[<a href="javascript:history.go(-1);">点击这里返回上一页</a>] &nbsp; [<a href="./?refresh">首页</a>]</p>
+				{/if}
+			</div>
+			{else}
+			<div class="row yg_top">
+    			<div class="wheaderbox">
+					<img class="header_logo" src="{if $res['link_logo']}{php echo tomedia($res['link_logo'])}{else}{php echo tomedia('headimg_'.$_W['uniacid'].'.jpg')}?nocache={php echo time()}{/if}" alt="logo"/>
+					<span class="header_title">{if $res['link_name']}
+							{$res['link_name']}
+						{else}<?php
+			        			$uni_account = pdo_get('uni_account',array('uniacid'=>$_W['uniacid']));
+			        			if($uni_account){
+									echo $uni_account['name'];
+				        		}else{
+					        		echo $_W['current_module']['title'];
+					        	}
+			        		?>{/if}</span>
+				</div>
+				{php $frames = empty($frames) ? $GLOBALS['frames'] : $frames; _calc_current_frames($frames);}
+				{if !empty($frames)}
+				<div class="big-menu">									
+        			<div class="navback"></div>
+					{loop $frames $k $frame}
+					<div class="panel panel-default" style="border:none;margin-bottom: 0px;">
+						<div class="panel-heading navtitle" style="cursor: pointer;height: 50px;">
+							{$frame['title']}							
+							<ul class="therji" id="frame-{$k}">
+								{loop $frame['items'] $link}
+								{if !empty($link['append'])}
+								<li class="mylist-group-item{$link['active']}" onclick="window.location.href = '{$link['url']}';" style="cursor:pointer;" kw="{$link['title']}">
+									{$link['title']}
+									<a class="pull-right" href="{$link['append']['url']}">{$link['append']['title']}</a>
+								</li>
+								{else}
+								<a class="mylist-group-item{$link['active']}" href="{$link['url']}" kw="{$link['title']}" style="padding-left: 40px;">{$link['title']}</a>
+								{/if}
+								{/loop}
+							</ul>
+						</div>						
+					</div>
+					{/loop}
+					<script type="text/javascript">
+						require(['bootstrap'], function(){
+							$('#search-menu input').keyup(function() {
+								var a = $(this).val();
+								$('.big-menu .mylist-group-item, .big-menu .panel-heading').hide();
+								$('.big-menu .mylist-group-item').each(function() {
+									$(this).css('border-left', '0');
+									if(a.length > 0 && $(this).attr('kw').indexOf(a) >= 0) {
+										$(this).parents(".panel").find('.panel-heading').show();
+										$(this).show().css('border-left', '3px #428bca double');
+									}
+								});
+								if(a.length == 0) {
+									$('.big-menu .mylist-group-item, .big-menu .panel-heading').show();
+								}
+							});
+						});
+					</script>
+				</div>
+
+				<div class="yg_back">
+					<style>.topNav{border-bottom-color: rgb(0, 0, 0);border-bottom-width: 0.1em;border-bottom-style: inset;}</style>
+					{if CRUMBS_NAV == 1}
+					{php global $module_types;global $module;global $ptr_title;}
+					{php $frames = empty($frames) ? $GLOBALS['frames'] : $frames; _calc_current_frames($frames);}
+					<script language='javascript'>
+						$(function(){
+							$(".breadcrumb").remove();
+						})
+					</script>
+				</div>
+				</div>
+					{elseif CRUMBS_NAV == 2}
+					{php global $module_types;global $module;global $ptr_title; global $site_urls; $m = $_GPC['m'];}
+					<ul class="nav nav-tabs">
+						<li><a href="{url 'platform/reply' array('m' => $m)}">管理{$module['title']}</a></li>
+						<li><a href="{url 'platform/reply/post' array('m' => $m)}"><i class="fa fa-plus"></i> 添加{$module['title']}</a></li>
+						{if !empty($site_urls)}
+						{loop $site_urls $site_url}
+						<li {if $_GPC['do'] == $site_url['do']} class="active"{/if}><a href="{$site_url['url']}"> {$site_url['title']}</a></li>
+						{/loop}
+						{/if}
+					</ul>
+					{/if}
+					{else}
+					<div>
+					{/if}
+					{/if}
+

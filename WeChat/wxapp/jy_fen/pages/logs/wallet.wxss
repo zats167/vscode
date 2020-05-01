@@ -1,0 +1,166 @@
+page {
+    background: #F5F5F5;
+}
+
+.wallet {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.mywallet {
+    background-color: white;
+    margin-top: 20rpx;
+    padding: 30rpx;
+}
+
+.title {
+    color: #333;
+    font-size: 30rpx;
+}
+
+.mywallet_info {
+    margin-top: 20rpx;
+}
+
+.wallet_img {
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 50%;
+}
+
+.wallet_money {
+    color: #333;
+    font-size: 48rpx;
+    margin-left: 20rpx;
+    flex: 1;
+    width: 100%;
+}
+
+.wallet_tx {
+    width: 160rpx;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    font-size: 32rpx;
+    text-align: center;
+}
+
+.addright {
+    width: 20rpx;
+    height: 30rpx;
+}
+
+.walletcash {
+    font-size: 24rpx;
+    color: #999;
+    margin-right: 20rpx;
+}
+
+.list {
+    margin-top: 20rpx;
+    background-color: white;
+    padding: 0rpx 30rpx;
+    height: 90rpx;
+}
+
+.listimg {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+}
+
+.trade {
+    font-size: 28rpx;
+    color: #666;
+}
+
+.integral {
+    background: #fff;
+    padding: 20rpx 30rpx;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: 微软雅黑;
+    margin: 0 auto 0;
+    font-size: 30rpx;
+    color: #333;
+    border-top: 1rpx solid #e5e5e5;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.integral image {
+    width: 80rpx;
+    height: 80rpx;
+    margin-right: 30rpx;
+    border-radius: 50%;
+}
+
+.integral-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.integral-left view {
+    height: auto;
+    line-height: 18px;
+}
+
+.integral-left view:nth-child(1) {
+    color: #333;
+}
+
+.integral-left view:nth-child(2) {
+    margin-top: 5rpx;
+    color: #999;
+    font-size: 25rpx;
+}
+
+.integral-right {
+    font-weight: bold;
+    font-size: 40rpx;
+}
+
+.integral-right1 {
+    font-weight: 100;
+    font-size: 26rpx;
+    margin-left: 5rpx;
+    color: #999999;
+}
+
+.banner {
+    background-color: white;
+    padding: 20rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.b-head {
+    font-size: 32rpx;
+    padding: 0 10rpx;
+    font-weight: bold;
+}
+
+.secimg {
+    width: 12rpx;
+    height: 25rpx;
+    margin-right: 20rpx;
+}
+
+.ckgd {
+    font-size: 30rpx;
+}
+
+.mygd {
+    border-top: 1rpx solid #e5e5e5;
+    font-size: 28rpx;
+    color: #666;
+    text-align: center;
+    padding: 15rpx;
+    background: #fff;
+}

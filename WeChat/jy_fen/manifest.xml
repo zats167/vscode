@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://lanrenzhijia.com" versionCode="0.8,1.0">
+	<application setting="false">
+		<name><![CDATA[WIFI公众号吸粉神器]]></name>
+		<identifie><![CDATA[jy_fen]]></identifie>
+		<version><![CDATA[1.7.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[WIFI公众号吸粉神器]]></ability>
+		<description><![CDATA[WIFI公众号吸粉神器主要主要是通过用户需要连接WIFI而关注公众号后才能获取连接WIFI的入口，同时有代金券、广告营收等综合性平台，旨在为用户提供免费网络之余，平台与商家可以吸粉又可以赚取广告分成，达到多赢效果]]></description>
+		<author><![CDATA[懒人源码]]></author>
+		<url><![CDATA[https://lanrenzhijia.com/]]></url>
+	</application>
+
+	<platform>
+		<subscribes>
+		</subscribes>
+
+		<handles>
+		</handles>
+
+		<rule embed="false" />
+		<card embed="false" />
+		
+		<supports>
+			<item type="wxapp" />
+		</supports>
+        <plugins>
+			<item name="jy_fen_plugin_red"/>
+			<item name="jy_fen_plugin_store"/>
+			<item name="jy_fen_plugin_share"/>
+			<item name="jy_fen_plugin_zhuanyi"/></plugins> 
+        <plugin-main name="" />
+
+	</platform>
+
+	<bindings>
+		<page>
+			<entry title="首页" do="/jy_fen/pages/wifi/wifi" state="" direct="false"/>
+		</page>
+
+	</bindings>
+
+	<permissions>
+	</permissions>
+
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_jyfen_commission_withdrawal` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '1.支付宝2.银行卡',
+  `state` int(11) NOT NULL COMMENT '1.审核中2.通过3.拒绝',
+  `time` int(11) NOT NULL COMMENT '申请时间',
+  `sh_time` int(11) NOT NULL COMMENT '审核时间',
+  `uniacid` int(11) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `account` varchar(100) NOT NULL,
+  `tx_cost` decimal(10,2) NOT NULL COMMENT '提现金额',
+  `sj_cost` decimal(10,2) NOT NULL COMMENT '实际到账金额',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_distribution` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `user_tel` varchar(20) NOT NULL,
+  `state` int(11) NOT NULL COMMENT '1.审核中2.通过3.拒绝',
+  `uniacid` int(11) NOT NULL,
+  `form_id` varchar(255) DEFAULT NULL,
+  `province` varchar(200) DEFAULT NULL,
+  `city` varchar(200) DEFAULT NULL,
+  `area` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_djgglist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `gg_id` int(11) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `uniacid` int(11) DEFAULT NULL,
+  `wifi_id` int(11) DEFAULT NULL COMMENT 'wifiid',
+  `money` decimal(11,2) DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_earnings` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `son_id` int(11) NOT NULL COMMENT '下线',
+  `money` decimal(11,2) DEFAULT '0.00',
+  `time` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `order` varchar(20) DEFAULT NULL,
+  `type` int(4) DEFAULT '1' COMMENT '1加 2减',
+  `note` varchar(200) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '标题',
+  `feed` varchar(500) NOT NULL COMMENT '反馈',
+  `phone` varchar(500) NOT NULL COMMENT '电话',
+  `uniacid` varchar(50) NOT NULL,
+  `created_time` int(11) NOT NULL,
+  `ggid` int(11) DEFAULT NULL COMMENT '广告id',
+  `ggzid` int(11) DEFAULT NULL COMMENT '广告主id',
+  `state` int(4) DEFAULT '0' COMMENT '0未读  1 已读',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_fxset` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fx_details` text NOT NULL COMMENT '分销商申请协议',
+  `tx_details` text NOT NULL COMMENT '佣金提现协议',
+  `is_fx` int(11) NOT NULL COMMENT '1.开启分销审核2.不开启',
+  `is_ej` int(11) NOT NULL COMMENT '是否开启二级分销1.是2.否',
+  `tx_rate` int(11) NOT NULL COMMENT '提现手续费',
+  `commission` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '一级佣金',
+  `commission2` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '二级佣金',
+  `tx_money` int(11) NOT NULL COMMENT '提现门槛',
+  `img` varchar(100) NOT NULL,
+  `img2` varchar(100) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `is_open` int(11) NOT NULL DEFAULT '1' COMMENT '1.开启2关闭',
+  `instructions` text NOT NULL COMMENT '分销商说明',
+  `is_type` int(11) NOT NULL DEFAULT '2',
+  `addtime` int(10) DEFAULT '0',
+  `updatetime` int(10) DEFAULT '0',
+  `g_commission` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '一级商品佣金',
+  `g_commission2` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '二级商品佣金',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_fxuser` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '一级分销',
+  `fx_user` int(11) NOT NULL COMMENT '二级分销',
+  `time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_gg` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL COMMENT '名称',
+  `fbname` varchar(100) DEFAULT NULL COMMENT '发布人',
+  `logo` varchar(300) NOT NULL COMMENT '封面图片',
+  `src` varchar(300) NOT NULL COMMENT '链接地址',
+  `uniacid` varchar(50) NOT NULL,
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `orderby` int(4) NOT NULL COMMENT '排序',
+  `status` int(4) NOT NULL DEFAULT '1' COMMENT '状态1.启用，2禁用',
+  `type` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `appid` varchar(30) NOT NULL,
+  `xcx_name` varchar(30) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `item` int(11) NOT NULL,
+  `start_time` int(11) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(11) DEFAULT NULL COMMENT '结束时间',
+  `zclick` int(11) DEFAULT NULL COMMENT '总点击次数',
+  `yclick` int(11) DEFAULT NULL COMMENT '已点击次数',
+  `money` decimal(11,2) DEFAULT '0.00' COMMENT '总资产',
+  `jftype` int(6) DEFAULT NULL COMMENT '计费模式  按月 按点击',
+  `zstype` int(6) DEFAULT NULL COMMENT '展示模式  新闻模式  图片模式 表单模式',
+  `ggimg` varchar(500) DEFAULT NULL COMMENT '广告图',
+  `ggmoney` decimal(11,2) DEFAULT '0.00' COMMENT '广告费用',
+  `djmoney` decimal(11,2) DEFAULT '0.00' COMMENT '每点击费用',
+  `daymoney` decimal(11,2) DEFAULT '0.00' COMMENT '每日点击费用',
+  `jrmoney` int(11) DEFAULT NULL COMMENT '今日点击次数',
+  `news_id` int(11) DEFAULT NULL COMMENT '新闻表id',
+  `uptime` int(11) DEFAULT NULL COMMENT '修改时间',
+  `phone` varchar(15) DEFAULT NULL,
+  `details` text,
+  `djtype` int(4) DEFAULT NULL COMMENT '1电话 模式  2表单模式',
+  `ggzid` int(11) DEFAULT NULL COMMENT '广告主id',
+  `province` varchar(50) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `district` varchar(50) DEFAULT NULL,
+  `hangye` int(11) DEFAULT '0',
+  `address` varchar(500) DEFAULT NULL,
+  `coordinates` varchar(50) DEFAULT NULL,
+  `fanwei` int(11) DEFAULT '0',
+  `viewcount` int(11) DEFAULT '0',
+  `longitude` decimal(50,15) DEFAULT '0.000000000000000',
+  `latitude` decimal(50,15) DEFAULT '0.000000000000000',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='广告表';
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_ggusers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `user_tel` varchar(20) NOT NULL,
+  `state` int(11) NOT NULL COMMENT '1.审核中2.通过3.拒绝',
+  `uniacid` int(11) NOT NULL,
+  `addr` varchar(250) DEFAULT NULL COMMENT '地址',
+  `form_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_gzqbmx` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `wxappid` int(11) DEFAULT '0' COMMENT '公众号ID',
+  `userid` int(11) DEFAULT '0',
+  `money` decimal(11,2) DEFAULT '0.00',
+  `time` int(10) DEFAULT '0' COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_gzset` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `status` int(2) DEFAULT '2' COMMENT '1.开启2关闭',
+  `gh1` int(11) DEFAULT '0' COMMENT '第一次的时间间隔',
+  `gh2` int(11) DEFAULT '0' COMMENT '第二次的时间间隔',
+  `gh3` int(11) DEFAULT '0' COMMENT '第三次的时间间隔',
+  `gc1` text COMMENT '第一次的推送内容',
+  `gc2` text COMMENT '第二次的推送内容',
+  `gc3` text COMMENT '第三次的推送内容',
+  `gh4` int(11) DEFAULT '0' COMMENT '第四次的时间间隔',
+  `gh5` int(11) DEFAULT '0' COMMENT '第五次的时间间隔',
+  `gh6` int(11) DEFAULT '0' COMMENT '第六次的时间间隔',
+  `gc4` text COMMENT '第四次的推送内容',
+  `gc5` text COMMENT '第五次的推送内容',
+  `gc6` text COMMENT '第六次的推送内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_gzuser` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `dateline` int(10) DEFAULT '0' COMMENT '创建时间',
+  `ts_index` int(4) DEFAULT '0' COMMENT '第几次推送了',
+  `ts_lasttime` int(10) DEFAULT '0' COMMENT '最后一次推送时间',
+  `ts_starttime` int(10) DEFAULT '0' COMMENT '有效期起始时间',
+  `wxapp_openid` varchar(255) DEFAULT NULL COMMENT '微信公众号的Openid',
+  `wxappid` int(11) DEFAULT NULL COMMENT '微信公众号的id',
+  `gz_time` int(10) DEFAULT '0' COMMENT '关注公众号的时间',
+  `gz_views` int(11) DEFAULT '0' COMMENT '扫码公众号的数量',
+  `wifi_userid` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_gzuser_views` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `dateline` int(10) DEFAULT '0' COMMENT '创建时间',
+  `wifiid` int(11) DEFAULT '0' COMMENT 'wifiid',
+  `wxappid` int(11) DEFAULT '0' COMMENT '公众号id',
+  `userid` int(11) DEFAULT '0' COMMENT '用户ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_gzwxapp` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `status` int(2) DEFAULT NULL COMMENT '状态，1开启，2关闭',
+  `dateline` int(10) DEFAULT '0' COMMENT '创建时间',
+  `img` varchar(255) DEFAULT NULL COMMENT '生成的二维码图片',
+  `appid` varchar(255) DEFAULT NULL COMMENT '公众号appid',
+  `appsecret` varchar(255) DEFAULT NULL COMMENT '公众号appsecret',
+  `appgh` varchar(255) DEFAULT NULL COMMENT '原始ID',
+  `appname` varchar(255) DEFAULT NULL COMMENT '公众号名称',
+  `access_token` varchar(255) DEFAULT NULL COMMENT 'access_token',
+  `token_expire` int(10) DEFAULT NULL COMMENT 'token过期时间',
+  `menu` text COMMENT '自定义菜单数据',
+  `update_time` int(10) DEFAULT NULL COMMENT '修改时间',
+  `click_event` text,
+  `is_gg` int(4) DEFAULT '2' COMMENT '是否开启广告，1开启，2不开启，默认不开启',
+  `audit_remark` varchar(500) DEFAULT NULL COMMENT '审核失败原因',
+  `gh1` int(11) DEFAULT '0' COMMENT '第一次的时间间隔',
+  `gh2` int(11) DEFAULT '0' COMMENT '第二次的时间间隔',
+  `gh3` int(11) DEFAULT '0' COMMENT '第三次的时间间隔',
+  `gh4` int(11) DEFAULT '0' COMMENT '第四次的时间间隔',
+  `gh5` int(11) DEFAULT '0' COMMENT '第五次的时间间隔',
+  `gh6` int(11) DEFAULT '0' COMMENT '第六次的时间间隔',
+  `gc1` text COMMENT '第一次的推送内容',
+  `gc2` text COMMENT '第二次的推送内容',
+  `gc3` text COMMENT '第三次的推送内容',
+  `gc4` text COMMENT '第四次的推送内容',
+  `gc5` text COMMENT '第五次的推送内容',
+  `gc6` text COMMENT '第六次的推送内容',
+  `gz_users` int(11) DEFAULT '0' COMMENT '关注公众号的用户数量',
+  `gz_views` int(11) DEFAULT '0' COMMENT '扫码公众号的数量',
+  `create_uid` int(11) DEFAULT '0' COMMENT '创建公众号的用户ID',
+  `gz_prints` int(11) DEFAULT '0' COMMENT '批量预打印的数量',
+  `gz_wifis` int(11) DEFAULT '0' COMMENT '绑定wifi的数量或者贴码的数量',
+  `gz_fenyong_type` int(4) DEFAULT '1' COMMENT '分佣模式，1关注公众号',
+  `gz_gg_zichan` decimal(14,2) DEFAULT '0.00' COMMENT '投入的广告资产',
+  `gz_gg_danjia` decimal(14,2) DEFAULT '0.00' COMMENT '每笔产生的费用',
+  `gz_gg_xiaohao` decimal(14,2) DEFAULT '0.00' COMMENT '消耗资金',
+  `realname` varchar(255) DEFAULT NULL COMMENT '联系人姓名',
+  `utel` varchar(255) DEFAULT NULL COMMENT '联系电话',
+  `is_yz` int(4) DEFAULT '0' COMMENT '是否接入，0未接入，1已接入',
+  `ims_token` varchar(500) DEFAULT NULL COMMENT '微信公众号的Token',
+  `ims_encodingaeskey` varchar(500) DEFAULT NULL COMMENT '微信公众号的EncodingAESKey',
+  `sf_status` int(4) DEFAULT '2' COMMENT '第三方是否开启',
+  `sf_url` varchar(255) DEFAULT NULL COMMENT '第三方网址',
+  `sf_token` varchar(255) DEFAULT NULL COMMENT '第三方的Token',
+  `sf_name` varchar(255) DEFAULT NULL COMMENT '第三方的名称',
+  `sf_uptime` int(10) DEFAULT '0' COMMENT '修改第三方时间',
+  `gz_type` int(4) DEFAULT '1' COMMENT '公众号类型，1服务号，2订阅号',
+  `gz_art_url` varchar(255) DEFAULT NULL COMMENT '公众号的文章链接',
+  `gz_biz` varchar(255) DEFAULT NULL COMMENT '公众号的唯一标识biz',
+  `gz_huoma` int(4) DEFAULT '2' COMMENT '是否开启活码，1开启，2关闭',
+  `gz_huoma_num` int(11) DEFAULT '0' COMMENT '每天活码出现的次数，每日清零',
+  `gz_huoma_uptime` int(10) DEFAULT '0' COMMENT '修改活码次数的时间',
+  `is_yhj` int(3) DEFAULT '1' COMMENT '1公众号优惠券 2商家优惠券',
+  `is_red` int(4) DEFAULT '2' COMMENT '是否开启红包，1开启，2关闭',
+  `gonggao` varchar(500) DEFAULT NULL COMMENT '公告',
+  `logo` varchar(255) DEFAULT NULL COMMENT '公众号logo',
+  `goods_pic` varchar(500) DEFAULT NULL COMMENT '封面图',
+  `miaoshu` varchar(500) DEFAULT NULL COMMENT '描述',
+  `address` varchar(500) DEFAULT NULL,
+  `latitude` varchar(255) DEFAULT NULL,
+  `longitude` varchar(255) DEFAULT NULL,
+  `ewm` varchar(500) DEFAULT NULL,
+  `is_type` int(3) DEFAULT '0',
+  `src` varchar(200) DEFAULT NULL,
+  `xcxappid` varchar(100) DEFAULT NULL,
+  `is_types` int(3) DEFAULT '0',
+  `srcs` varchar(200) DEFAULT NULL,
+  `xcxappids` varchar(100) DEFAULT NULL,
+  `srcs2` varchar(200) DEFAULT NULL,
+  `stgg_img` varchar(500) DEFAULT NULL COMMENT '广告封面图',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_hangye` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL COMMENT '标题',
+  `uniacid` varchar(50) NOT NULL,
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_help` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(200) NOT NULL COMMENT '标题',
+  `answer` text NOT NULL COMMENT '回答',
+  `sort` int(4) NOT NULL COMMENT '排序',
+  `uniacid` varchar(50) NOT NULL,
+  `created_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_help_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(200) NOT NULL COMMENT '标题',
+  `uniacid` varchar(50) NOT NULL,
+  `created_time` datetime NOT NULL,
+  `cid` int(11) DEFAULT '0' COMMENT '父类别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_hexiao` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `time` int(11) NOT NULL COMMENT '时间',
+  `uniacid` int(11) NOT NULL,
+  `type` int(3) DEFAULT '1' COMMENT '1公众号核销人员 2商家核销人员',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_menu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `img2` varchar(255) DEFAULT NULL COMMENT '灰色图标',
+  `orderby` int(11) DEFAULT '99',
+  `url` varchar(255) DEFAULT NULL COMMENT '网页跳转',
+  `type` int(11) DEFAULT NULL COMMENT '1.站内跳转2.网页3.小程序',
+  `uniacid` int(11) NOT NULL,
+  `appid` varchar(50) DEFAULT NULL,
+  `state` int(4) DEFAULT '0' COMMENT '0否 1是',
+  `url1` varchar(255) DEFAULT NULL COMMENT '站内跳转',
+  `vice_name` varchar(30) DEFAULT NULL COMMENT '副标题',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_pinguservoucher` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `vouchers_id` int(11) NOT NULL COMMENT '代金券id',
+  `state` int(11) NOT NULL COMMENT '1使用  2未使用',
+  `uniacid` varchar(50) NOT NULL,
+  `type` int(3) DEFAULT '1' COMMENT '1公众号 2商家',
+  `hxname` varchar(100) DEFAULT NULL COMMENT '核销人名称',
+  `hxid` int(11) DEFAULT '0' COMMENT '核销人id',
+  `hxtime` int(11) DEFAULT '0' COMMENT '核销时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_pingvoucher` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL COMMENT '名称',
+  `start_time` varchar(20) NOT NULL COMMENT '开始时间',
+  `end_time` varchar(20) NOT NULL COMMENT '结束时间',
+  `preferential` varchar(10) NOT NULL COMMENT '优惠',
+  `uniacid` varchar(50) NOT NULL,
+  `voucher_type` int(4) NOT NULL COMMENT '使用类型1:外卖，2店内,3都可使用',
+  `instruction` varchar(300) NOT NULL COMMENT '使用说明',
+  `store_id` int(11) NOT NULL COMMENT '商家id',
+  `conditions` int(10) DEFAULT '0' COMMENT '满多少钱可使用',
+  `wxapp_id` int(11) DEFAULT NULL,
+  `type` int(3) DEFAULT '1' COMMENT '1公众号 2商家',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_plugin` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL COMMENT '插件标识符',
+  `addtime` int(10) DEFAULT NULL COMMENT '添加时间',
+  `is_tong` int(4) DEFAULT '2' COMMENT '1已开通，2未开通',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_plugin_redlog` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `redmoney` decimal(10,2) DEFAULT NULL COMMENT '红包金额',
+  `redtype` int(2) NOT NULL COMMENT '红包类型，1关注红包',
+  `userid` int(11) NOT NULL COMMENT '用户ID',
+  `status` int(4) DEFAULT '1' COMMENT '是否领取了，1领取了，2未领取',
+  `remark` varchar(500) DEFAULT NULL COMMENT '描述',
+  `addtime` int(10) NOT NULL COMMENT '领取时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_plugin_redset` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `gz_status` int(2) DEFAULT '1' COMMENT '1.开启2关闭',
+  `gz_redimg1` varchar(255) DEFAULT NULL COMMENT '红包图片',
+  `gz_redimg2` varchar(255) DEFAULT NULL COMMENT '红包图片',
+  `gz_maxmoney` decimal(10,2) DEFAULT '0.00' COMMENT '红包最大比例',
+  `gz_rule` text COMMENT '规则',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_qbmx` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `money` decimal(10,2) DEFAULT '0.00',
+  `type` int(11) NOT NULL COMMENT '1.加2减',
+  `note` varchar(20) NOT NULL COMMENT '备注',
+  `time` varchar(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `state` int(11) DEFAULT '8' COMMENT '1、代理广告收益2、WIFI提供者广告收益3、WIFI提供者新用户关注收益4、区长商品佣金收入5、代理商品佣金收入6、用户提现7、商品退货8、其它',
+  `desc` varchar(500) DEFAULT '' COMMENT '描述',
+  `uniacid` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_qrcode_print` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL COMMENT '标题',
+  `path` varchar(200) NOT NULL COMMENT '压缩包路径',
+  `num` int(11) NOT NULL DEFAULT '0' COMMENT '数量',
+  `yangshi` int(11) NOT NULL DEFAULT '0' COMMENT '样式表ID',
+  `uniacid` varchar(50) NOT NULL,
+  `dateline` int(10) DEFAULT '0',
+  `fxid` int(11) DEFAULT '0',
+  `ptype` int(2) DEFAULT '1' COMMENT '打印方式，1代表海报，2代表二维码',
+  `wxappid` int(11) DEFAULT '0' COMMENT '微信公众号ID',
+  `is_zdwifi` int(2) DEFAULT '1' COMMENT '是否指定WIFI，1代表是，2代表否',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_sms` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tid` varchar(100) NOT NULL COMMENT '提现模板ID',
+  `uniacid` varchar(50) NOT NULL,
+  `yy_tid` varchar(50) NOT NULL COMMENT '代理商审核模板ID',
+  `dm_tid` varchar(50) NOT NULL COMMENT 'WIFI入驻成功模板ID',
+  `pt_cg` varchar(50) DEFAULT '' COMMENT '拼团成功模板',
+  `pt_sb` varchar(50) DEFAULT '' COMMENT '拼团失败模板',
+  `order_zf` varchar(50) DEFAULT '' COMMENT '订单支付成功模板',
+  `order_state` varchar(50) DEFAULT '' COMMENT '订单状态变动模板',
+  `djj_tid` varchar(50) DEFAULT '' COMMENT '领取代金券通知',
+  `dlb_tid` varchar(50) DEFAULT '' COMMENT '大礼包通知',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_storetype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL,
+  `state` int(4) DEFAULT '0',
+  `logo` varchar(255) DEFAULT NULL,
+  `orderby` int(11) DEFAULT '99',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_system` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `appid` varchar(100) NOT NULL COMMENT 'appid',
+  `appsecret` varchar(200) NOT NULL COMMENT 'appsecret',
+  `link` varchar(200) NOT NULL COMMENT '网址',
+  `mchid` varchar(20) NOT NULL COMMENT '商户号',
+  `wxkey` varchar(100) NOT NULL COMMENT '商户秘钥',
+  `uniacid` varchar(50) NOT NULL,
+  `url_name` varchar(20) NOT NULL COMMENT '网址名称',
+  `details` text NOT NULL COMMENT '关于我们',
+  `url_logo` varchar(100) NOT NULL COMMENT '网址logo',
+  `bq_name` varchar(50) NOT NULL COMMENT '版权名称',
+  `link_name` varchar(30) NOT NULL COMMENT '网站名称',
+  `link_logo` varchar(100) NOT NULL COMMENT '网站logo',
+  `more` int(11) NOT NULL DEFAULT '1',
+  `default_store` int(11) NOT NULL COMMENT '默认门店id',
+  `support` varchar(20) NOT NULL COMMENT '技术支持',
+  `bq_logo` varchar(100) NOT NULL,
+  `color` varchar(20) NOT NULL,
+  `map_key` varchar(100) NOT NULL COMMENT '腾讯地图key',
+  `tz_appid` varchar(30) NOT NULL,
+  `tz_name` varchar(30) NOT NULL,
+  `pt_name` varchar(30) NOT NULL COMMENT '平台名称',
+  `dada_key` varchar(50) NOT NULL,
+  `dada_secret` varchar(50) NOT NULL,
+  `apiclient_cert` text NOT NULL,
+  `apiclient_key` text NOT NULL,
+  `day` int(11) NOT NULL COMMENT '天数',
+  `username` varchar(20) NOT NULL COMMENT '邮箱用户名',
+  `password` varchar(50) NOT NULL COMMENT '邮箱密码',
+  `type` varchar(10) NOT NULL COMMENT '邮箱类型',
+  `sender` varchar(50) NOT NULL COMMENT '发件人名称',
+  `signature` varchar(200) NOT NULL COMMENT '邮件签名',
+  `is_email` int(11) NOT NULL COMMENT '1开启  2关闭',
+  `tx_money` decimal(10,2) NOT NULL COMMENT '最低提现金额',
+  `tx_rate` int(11) NOT NULL COMMENT '手续费',
+  `tx_details` text NOT NULL COMMENT '提现详情',
+  `tel` varchar(20) NOT NULL COMMENT '平台电话',
+  `dc_name` varchar(20) NOT NULL,
+  `wm_name` varchar(20) NOT NULL,
+  `yd_name` varchar(20) NOT NULL,
+  `typeset` int(11) NOT NULL COMMENT '1开启  2.关闭(分类)',
+  `integral` int(11) NOT NULL COMMENT '评论得积分',
+  `cjwt` text NOT NULL,
+  `rzxy` text NOT NULL,
+  `is_ruzhu` int(11) NOT NULL COMMENT '1.开启2关闭',
+  `is_yue` int(11) NOT NULL DEFAULT '1',
+  `integral2` int(11) NOT NULL COMMENT '消费得积分',
+  `is_jf` int(11) NOT NULL DEFAULT '1' COMMENT '1开启2关闭',
+  `is_jfpay` int(11) NOT NULL DEFAULT '1',
+  `jf_proportion` int(11) NOT NULL DEFAULT '1',
+  `is_zfb` int(11) NOT NULL DEFAULT '1',
+  `is_yhk` int(11) NOT NULL DEFAULT '1',
+  `is_wx` int(11) NOT NULL DEFAULT '1',
+  `ip` varchar(30) NOT NULL,
+  `jfgn` int(11) NOT NULL DEFAULT '1',
+  `fxgn` int(11) NOT NULL DEFAULT '1',
+  `msgn` int(11) NOT NULL DEFAULT '1',
+  `is_img` int(11) NOT NULL DEFAULT '2',
+  `is_psxx` int(11) NOT NULL DEFAULT '2',
+  `kfw_appid` varchar(30) NOT NULL,
+  `kfw_appsecret` varchar(50) NOT NULL,
+  `usertx_money` decimal(10,2) DEFAULT NULL,
+  `usertx_rate` int(11) DEFAULT NULL,
+  `usertx_details` text,
+  `wfms` varchar(500) DEFAULT NULL COMMENT 'wifi描述',
+  `is_ggruzhu` int(11) DEFAULT NULL COMMENT '广告入驻  1 开启 2关闭',
+  `is_zhanshi` int(11) DEFAULT '1' COMMENT '1 开启广告展示  2 关闭',
+  `ggrzxy` text COMMENT '入驻须知',
+  `ggcjwt` text COMMENT '平台优势',
+  `ggsy` decimal(10,2) DEFAULT '0.00' COMMENT '广告收益',
+  `gzsy` decimal(10,2) DEFAULT '0.00' COMMENT '关注公众号收益',
+  `ggtx` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最低提现金额',
+  `txservice` decimal(10,2) DEFAULT '0.00' COMMENT '提现手续费',
+  `txagreement` text COMMENT '提现协议',
+  `is_txggsy` int(4) DEFAULT '2' COMMENT '1 开启 2关闭  首页',
+  `is_txggl` int(4) DEFAULT '2' COMMENT '1开启 2关闭  流',
+  `txgg_id` varchar(255) DEFAULT NULL,
+  `is_newregion` int(4) DEFAULT '1' COMMENT '1开启 2关闭',
+  `is_video` int(4) DEFAULT '2' COMMENT '1开启新闻展示  2关闭',
+  `addtime` int(10) DEFAULT '0',
+  `wifihomeimg` varchar(255) DEFAULT NULL COMMENT 'WIFI封面图',
+  `updatetime` int(10) DEFAULT '0',
+  `is_hongbao` int(4) DEFAULT '2' COMMENT '1开启红包底部广告 2关闭',
+  `is_ptgg` int(4) DEFAULT '2' COMMENT '1开启拼团列表页轮播图2关闭',
+  `onetx` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '首次最低提现金额',
+  `is_wifi` int(4) DEFAULT '1' COMMENT '1开启wwifi入驻  2关闭',
+  `print_type` int(2) DEFAULT '1' COMMENT '二维码打印方式，1微信小程序打印 2微信公众号打印',
+  `default_wxapp` int(11) DEFAULT '0' COMMENT '默认微信公众号',
+  `wxapp_sys` text COMMENT '添加公众号教程',
+  `wxapp_shuoming` text COMMENT '公众号入驻说明',
+  `is_send` int(10) DEFAULT '0',
+  `store_shuoming` text COMMENT '门店入驻说明',
+  `is_huosong` int(11) DEFAULT '1' COMMENT '1 开启活码推送连WIFI  2 关闭',
+  `is_banner` int(4) DEFAULT '1' COMMENT '1 开启 2关闭 Banner广告',
+  `is_tanping` int(4) DEFAULT '1' COMMENT '首页弹屏广告',
+  `tanping_id` varchar(100) DEFAULT NULL COMMENT '流量主弹屏广告id',
+  `is_storesh` int(4) DEFAULT '1' COMMENT '1开启门店审核',
+  `is_zhuanwifi` int(4) DEFAULT '2' COMMENT '1开启 2关闭',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_tx` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '1.支付宝2.微信3银联',
+  `state` int(11) NOT NULL COMMENT '1.审核中2.通过3.拒绝',
+  `time` int(11) NOT NULL COMMENT '申请时间',
+  `sh_time` int(11) NOT NULL COMMENT '审核时间',
+  `uniacid` int(11) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `account` varchar(100) NOT NULL,
+  `tx_cost` decimal(10,2) NOT NULL COMMENT '提现金额',
+  `sj_cost` decimal(10,2) NOT NULL COMMENT '实际到账金额',
+  `form_id` varchar(255) DEFAULT NULL,
+  `user_tel` varchar(20) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `join_time` int(11) NOT NULL,
+  `img` varchar(500) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `uniacid` varchar(50) NOT NULL,
+  `user_name` varchar(50) NOT NULL COMMENT '收货人姓名',
+  `user_tel` varchar(50) NOT NULL COMMENT '收货人电话',
+  `user_address` varchar(100) NOT NULL COMMENT '收货人地址',
+  `total_score` int(11) NOT NULL DEFAULT '0',
+  `wallet` decimal(13,2) DEFAULT '0.00',
+  `commission` decimal(13,2) NOT NULL DEFAULT '0.00',
+  `day` int(11) NOT NULL DEFAULT '0',
+  `order_money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `order_number` int(11) NOT NULL DEFAULT '0',
+  `dailiyongji` decimal(10,2) DEFAULT '0.00' COMMENT '区长佣金',
+  `jifen` int(11) DEFAULT '0' COMMENT '积分',
+  `vip` int(11) DEFAULT '0' COMMENT '会员等级',
+  `kljifen` int(11) DEFAULT '0' COMMENT '可领积分',
+  `daydingnum` int(11) DEFAULT '0' COMMENT '今天定时红包领取次数',
+  `uptime` int(11) DEFAULT '0' COMMENT '修改时间',
+  `isfirst` int(11) DEFAULT '0' COMMENT '是否第一次领取定时红包',
+  `isfrist_tx` int(4) DEFAULT '1' COMMENT '1首次提现 2不是',
+  `qzyongji` decimal(10,2) DEFAULT '0.00' COMMENT '区长佣金',
+  `sjyongjin` decimal(10,2) DEFAULT '0.00' COMMENT '商家佣金',
+  `wifiyongji` decimal(10,2) DEFAULT '0.00' COMMENT '商家wifi佣金',
+  `isfirst_tx` int(4) DEFAULT '1' COMMENT '1首次提现 2不是',
+  `ts_index` int(4) DEFAULT '0' COMMENT '第几次推送了',
+  `ts_lasttime` int(10) DEFAULT '0' COMMENT '最后一次推送时间',
+  `ts_starttime` int(10) DEFAULT '0' COMMENT '有效期起始时间',
+  `wxapp_openid` varchar(255) DEFAULT NULL COMMENT '微信公众号的Openid',
+  `wxappid` int(11) DEFAULT NULL COMMENT '微信公众号的id',
+  `gz_time` int(10) DEFAULT '0' COMMENT '关注公众号的时间',
+  `gz_views` int(11) DEFAULT '0' COMMENT '扫码公众号的数量',
+  `mb_type` varchar(100) DEFAULT NULL COMMENT '手机类型',
+  `wifi_status` int(2) DEFAULT '0' COMMENT '是否连接wifi成功，0未连接成功，1连接成功',
+  `is_wifi` int(11) DEFAULT '0',
+  `store_name` varchar(255) DEFAULT NULL COMMENT '商家名称',
+  `longitude` varchar(255) DEFAULT NULL COMMENT '经度',
+  `latitude` varchar(255) DEFAULT NULL COMMENT '纬度',
+  `address` varchar(500) DEFAULT NULL,
+  `store_logo` varchar(255) DEFAULT NULL,
+  `miaoshu` varchar(500) DEFAULT NULL COMMENT '描述',
+  `store_tel` varchar(20) DEFAULT NULL,
+  `typeid` int(11) DEFAULT '0' COMMENT '门店类型id',
+  `gonggao` varchar(500) DEFAULT NULL COMMENT '公告',
+  `goods_pic` varchar(500) DEFAULT NULL COMMENT '封面图',
+  `ewm` varchar(500) DEFAULT NULL COMMENT '二维码',
+  `is_type` int(3) DEFAULT '0',
+  `src` varchar(200) DEFAULT NULL COMMENT '跳转地址',
+  `xcxappid` varchar(100) DEFAULT NULL COMMENT '小程序appid',
+  `is_types` int(3) DEFAULT '0',
+  `srcs` varchar(200) DEFAULT NULL COMMENT '跳转地址',
+  `xcxappids` varchar(100) DEFAULT NULL COMMENT '小程序appid',
+  `srcs2` varchar(200) DEFAULT NULL COMMENT '跳转地址',
+  `stgg_img` varchar(500) DEFAULT NULL COMMENT '广告封面图',
+  `status` int(4) DEFAULT '0',
+  `user_code` varchar(100) DEFAULT NULL COMMENT '用户唯一标识',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_version` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `version` varchar(20) DEFAULT '' COMMENT '版本号',
+  `time` int(10) DEFAULT NULL,
+  `status` int(4) DEFAULT '0' COMMENT '0关闭 1开启',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_wifi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `zhanghao` varchar(255) DEFAULT NULL,
+  `pass` varchar(255) DEFAULT NULL,
+  `status` int(4) DEFAULT '1' COMMENT '0 禁用 1启用',
+  `uniacid` varchar(50) DEFAULT NULL,
+  `longitude` decimal(50,15) DEFAULT NULL,
+  `latitude` decimal(50,15) DEFAULT NULL,
+  `miaoshu` text,
+  `addr` varchar(500) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `num` int(11) DEFAULT '0' COMMENT '连接次数',
+  `ysid` int(11) DEFAULT NULL COMMENT '样式id',
+  `bssid` varchar(20) DEFAULT NULL COMMENT '设备号',
+  `qrid` int(11) DEFAULT '0',
+  `updatetime` int(10) DEFAULT '0' COMMENT '修改时间',
+  `addtime` int(10) DEFAULT NULL,
+  `gzqrid` int(11) DEFAULT '0',
+  `wxappid` int(11) DEFAULT '0',
+  `dlid` int(11) DEFAULT '0',
+  `is_zdwifi` int(2) DEFAULT '1' COMMENT '是否指定WIFI，1代表是，2代表否',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_wifilist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `wifi_id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `addtime` int(11) NOT NULL DEFAULT '0',
+  `wifi_user` int(11) NOT NULL DEFAULT '0' COMMENT 'wifi提供者user_id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_jyfen_yangshi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `slt` varchar(200) NOT NULL COMMENT '缩略图',
+  `zst` varchar(200) NOT NULL COMMENT '展示图',
+  `yuantu` varchar(200) NOT NULL COMMENT '源图',
+  `uniacid` varchar(50) NOT NULL,
+  `watermark` int(2) DEFAULT '1',
+  `updatetime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_jyfen_commission_withdrawal`;
+DROP TABLE IF EXISTS `ims_jyfen_distribution`;
+DROP TABLE IF EXISTS `ims_jyfen_djgglist`;
+DROP TABLE IF EXISTS `ims_jyfen_earnings`;
+DROP TABLE IF EXISTS `ims_jyfen_feedback`;
+DROP TABLE IF EXISTS `ims_jyfen_fxset`;
+DROP TABLE IF EXISTS `ims_jyfen_fxuser`;
+DROP TABLE IF EXISTS `ims_jyfen_gg`;
+DROP TABLE IF EXISTS `ims_jyfen_ggusers`;
+DROP TABLE IF EXISTS `ims_jyfen_gzqbmx`;
+DROP TABLE IF EXISTS `ims_jyfen_gzset`;
+DROP TABLE IF EXISTS `ims_jyfen_gzuser`;
+DROP TABLE IF EXISTS `ims_jyfen_gzuser_views`;
+DROP TABLE IF EXISTS `ims_jyfen_gzwxapp`;
+DROP TABLE IF EXISTS `ims_jyfen_hangye`;
+DROP TABLE IF EXISTS `ims_jyfen_help`;
+DROP TABLE IF EXISTS `ims_jyfen_help_type`;
+DROP TABLE IF EXISTS `ims_jyfen_hexiao`;
+DROP TABLE IF EXISTS `ims_jyfen_menu`;
+DROP TABLE IF EXISTS `ims_jyfen_pinguservoucher`;
+DROP TABLE IF EXISTS `ims_jyfen_pingvoucher`;
+DROP TABLE IF EXISTS `ims_jyfen_plugin`;
+DROP TABLE IF EXISTS `ims_jyfen_plugin_redlog`;
+DROP TABLE IF EXISTS `ims_jyfen_plugin_redset`;
+DROP TABLE IF EXISTS `ims_jyfen_qbmx`;
+DROP TABLE IF EXISTS `ims_jyfen_qrcode_print`;
+DROP TABLE IF EXISTS `ims_jyfen_sms`;
+DROP TABLE IF EXISTS `ims_jyfen_storetype`;
+DROP TABLE IF EXISTS `ims_jyfen_system`;
+DROP TABLE IF EXISTS `ims_jyfen_tx`;
+DROP TABLE IF EXISTS `ims_jyfen_user`;
+DROP TABLE IF EXISTS `ims_jyfen_version`;
+DROP TABLE IF EXISTS `ims_jyfen_wifi`;
+DROP TABLE IF EXISTS `ims_jyfen_wifilist`;
+DROP TABLE IF EXISTS `ims_jyfen_yangshi`;
+]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+
+</manifest>

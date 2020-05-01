@@ -1,0 +1,42 @@
+<view class="list list_b" hidden="{{activeIndex!=0}}">
+    <view class="list_imgbk2" hidden="{{yj.length!=0}}">
+        <image class="list_imgbk" lazyLoad="true" src="{{url3}}template/images/applet/list.png"></image>
+        <view class="list_imgbk3">您暂时没有下级级代理哦！</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{yj}}">
+            <view class="weui-cell__hd">
+                <image class="himg" lazyLoad="true" src="{{item.img}}"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view>{{item.name}}</view>
+                <view class="sj">加入时间：{{item.time}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="kong" hidden="{{yj.length==0}}">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/wushuju.png?v=1"></image>
+        <view>没有更多了</view>
+    </view>
+</view>
+<view class="list" hidden="{{activeIndex!=1}}">
+    <view class="list_imgbk2" hidden="{{ej.length!=0}}">
+        <image class="list_imgbk" lazyLoad="true" src="{{url3}}template/images/applet/list.png"></image>
+        <view class="list_imgbk3">您暂时没有二级代理哦！</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{ej}}">
+            <view class="weui-cell__hd">
+                <image class="himg" lazyLoad="true" src="{{item.img}}"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view>{{item.name}}</view>
+                <view class="sj">加入时间：{{item.time}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="kong" hidden="{{ej.length==0}}">
+        <image lazyLoad="true" src="{{url3}}template/images/applet/wushuju.png?v=1"></image>
+        <view>没有更多了</view>
+    </view>
+</view>

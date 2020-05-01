@@ -1,0 +1,27 @@
+<view class="font index">
+    <navigator class="addbox" url="bainji?dlid={{dlid}}" wx:if="{{system.is_wifi==1}}">
+        <text>+</text> 添加我的二维码</navigator>
+    <view class="wifilist" style="">
+        <navigator class="item flex2" url="xiangxi?id={{item.id}}" wx:for="{{wifiList}}" wx:key="wifiList">
+            <view class="il">
+                <view class="t">{{item.zhanghao}}</view>
+                <view class="n">累计连接次数 {{item.num}} 次</view>
+            </view>
+            <view class="ir">
+                <image class="img" lazyLoad="true" src="{{url3}}template/qrcode/myyaoqing_{{item.id}}.png?v={{v}}"></image>
+            </view>
+        </navigator>
+    </view>
+    <view class="jzz" hidden="{{loadstaue}}">
+        <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+        <view>加载中...</view>
+    </view>
+    <view class="kong" hidden="{{isloadtis}}">
+        <view>{{loadtis}}</view>
+    </view>
+</view>
+<view class="dibu">
+    <button bindtap="op_home_tap" class="btn h-btn flex1" type="primary">
+        <image class="img-wlogo" lazyLoad="true" src="{{url3}}template/images/applet/h_r.png"></image>
+    </button>
+</view>

@@ -1,0 +1,2 @@
+<?php
+ goto N0QP7; N0QP7: global $_GPC, $_W; goto YTKBI; YTKBI: $GLOBALS["\x66\x72\x61\155\145\x73"] = $this->getMainMenu(); goto n2aPL; n2aPL: include $this->template("\167\145\x62\x2f\x72\x65\144\x62\x75\x79");

@@ -1,0 +1,239 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #88C200;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #88C200;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+    .ygmargin{margin-top: 10px;color: #999;}
+    .link-group{float: right;}
+    .none{display:none;}
+</style>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li><a href="{php echo $this->createWebUrl('gzwxapplist')}">返回公众号列表</a></li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                公众号对接
+            </div>
+            <div class="form-group"></div>
+            <!-- <div class="form-group">
+                <label class="col-xs-3 col-sm-3 col-md-3 control-label">配置教程</label>
+                <div class="col-sm-8">
+                   <a target="_blank" class="btn btn-danger" href="http://wq.jiyongstore.com/app/index.php?i=36&a=webapp&c=entry&a=webapp&do=index&m=jy_helpdoc&wxref=mp.weixin.qq.com#wechat_redirect">点击进入</a>
+                </div>
+            </div>   -->
+            <div class="form-group">
+                <label class="col-xs-3 col-sm-3 col-md-3 control-label">服务器地址(URL)</label>
+                <div class="col-sm-8">
+                    <label class="control-label wx_url">{$_W['siteroot']}app/index.php?i={$_W['uniacid']}&a=wxapp&c=entry&do=Wxapi&m=jy_fen&wxappid={$item['id']}</label>
+                    <!-- <div class="link-group">
+                        <a href="javascript:void(0);" id="copy3">点击复制</a>
+                    </div> -->
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="col-xs-3 col-sm-3 col-md-3 control-label">令牌(Token)</label>
+                <div class="col-sm-8">
+                    <label class="control-label wx_token">{$item['wx_token']}</label>
+                    <div class="link-group">
+                        <!-- <a href="javascript:void(0);">修改</a> -->
+                        <a href="javascript:void(0);" onclick="remake(1)">生成新的</a>
+                        <!-- <a href="javascript:void(0);" id="copy4">点击复制</a> -->
+                    </div>
+                </div>
+            </div> 
+            <div class="form-group">
+                <label class="col-xs-3 col-sm-3 col-md-3 control-label">EncodingAESKey
+(消息加解密密钥)</label>
+                <div class="col-sm-8">
+                    <label class="control-label wx_encodingaeskey">{$item['wx_encodingaeskey']}</label>
+                    <div class="link-group">
+                        <!-- <a href="javascript:void(0);">修改</a> -->
+                        <a href="javascript:void(0);" onclick="remake(2)">生成新的</a>
+                        <!-- <a href="javascript:void(0);" id="copy5">点击复制</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 col-sm-3 col-md-3 control-label">接入状态</label>
+                <div class="col-sm-8">
+                    <span class="status1 label label-success {if $item['is_yz']!=1}none{/if}">已接入</span>
+                    <span class="status2 label label-danger {if $item['is_yz']==1}none{/if}">未接入</span>
+                </div>
+            </div>
+         </div>
+        
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <a href="{php echo $this->createWebUrl('gzwxappjieru',array('op'=>'checkJr','wxappid'=>$item['id']))}" class="btn btn-success mpJoin" style="color:#FFF;margin-right: 20px;">检测是否接入成功</a>
+                {if $checksf['status']!=1}
+                <a href="{php echo $this->createWebUrl('gzwxappjieru',array('op'=>'checkApp','wxappid'=>$item['id']))}" class="btn btn-danger mpCheck" style="color:#FFF;margin-right: 20px;">检查AppID跟AppSecret是否正确</a>
+                {/if}
+                <a href="{php echo $this->createWebUrl('gzwxapplist')}" class="btn btn-info" style="color:#FFF">返回公众号列表</a>
+                <input type="hidden" name="id" value="{$item['id']}" />
+            </div>
+        </div>
+        {if $checksf['status']==2}
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <font color="red">提示:您的第三方平台的接口有异常：{$checksf['msg']}</font>
+            </div>
+        </div>
+        {/if}
+    </form>
+</div>
+<script src="../addons/jy_fen/template/layui/layui.js"></script>
+<script>
+//一般直接写在一个js文件中
+layui.use(['layer'], function(){
+  var layer = layui.layer;
+});
+</script> 
+<script type="text/javascript">
+    $(function(){
+        $("#frame-26").show();
+        $("#yframe-26").addClass("wyactive");
+        $('.mpJoin').click(function(){
+            var url = $(this).attr('href');
+            $(this).addClass('disabled').html('检测中');
+            $.ajax({
+                url: url,
+                dataType:'json',
+                success:function(res){
+                    if(res==1){
+                        $('.status1').removeClass('none');
+                        $('.status2').addClass('none');
+                        layer.msg("接入成功！");
+                    }else{
+                        $('.status2').removeClass('none');
+                        $('.status1').addClass('none');
+                        layer.msg("暂未接入！");
+                    }
+                },
+                error:function(){ 
+                   layer.msg("请检查您的网络！");
+                },
+                complete:function(){
+                    $('.mpJoin').removeClass('disabled').html('检测是否接入成功');
+                }
+            });
+            return false;
+        });
+        $('.mpCheck').click(function(){
+            var url = $(this).attr('href');
+            $(this).addClass('disabled').html('检测中');
+            $.ajax({
+                url: url,
+                dataType:'json',
+                success:function(res){
+                    if(res==1){
+                        layer.msg("AppID跟AppSecret信息正确！");
+                    }else if(res==0){
+                        layer.msg("请先公众号接入");
+                    }else if(res==40164){
+                        layer.msg("调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置！");
+                    }else if(res==40001){
+                        layer.alert("AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性");
+                    }else if(res==40013){
+                        layer.alert("AppID无效");
+                    }else{
+                        layer.alert("微信返回的错误代码是："+res+"，如需查看错误代码列表，请打开<a href='https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234' target='_blank'>点击查看</a>");
+                    }
+                },
+                error:function(){ 
+                   layer.msg("请检查您的网络！");
+                },
+                complete:function(){
+                    $('.mpCheck').removeClass('disabled').html('检查AppID跟AppSecret是否正确');
+                }
+            });
+            return false;
+        });
+    })
+    /*function showmsg(type){
+        if(type==1){
+            layer.msg("复制成功！");
+        }
+        if(type==2){
+            layer.msg("复制失败！");
+        }
+    }*/
+
+    /*var copy5 = new Clipboard('#copy5');
+
+    copy5.on('success', function(e) {
+        showmsg(1);
+    });
+    copy5.on('error', function(e) {
+        showmsg(2);
+    });*/
+    function handle(url,type){
+        var data={};
+        switch(type){
+            case 1:
+                data={'zd':'wx_token'};
+                break;
+            case 2:
+                data={'zd':'wx_encodingaeskey'};
+                break;
+        }
+        $.ajax({
+            url: url,
+            type:'post',
+            data:data,
+            dataType:'json',
+            success:function(res){
+                if(res.status==1){
+                    switch(type){
+                        case 1:
+                        case 2:
+                        $('.wx_token').text(res.data.wx_token);
+                        $('.wx_encodingaeskey').text(res.data.wx_encodingaeskey);
+                        $('.status2').removeClass('none');
+                        $('.status1').addClass('none');
+                        layer.msg("生成成功！");
+                        break;
+                    }
+                }else{
+                    layer.msg("生成失败！");
+                }
+            },
+            error:function(){ 
+               layer.msg("请检查您的网络！");
+            },
+            complete:function(){
+            }
+        });
+    }
+    function remake(id){
+        var url="{php echo $this->createWebUrl('gzwxappjieru',array('op'=>'remake','wxappid'=>$item['id']))}";
+        handle(url,id);
+    }
+</script>

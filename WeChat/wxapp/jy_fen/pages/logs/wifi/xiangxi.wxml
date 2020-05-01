@@ -1,0 +1,30 @@
+<view class="font index">
+    <view class="list">
+        <view class="scroll-view-list">
+            <view bindtap="toxx" class="item" data-id="1">
+                <view class="p">
+                    <image class="img" lazyLoad="true" mode="aspectFit" src="{{url3}}template/qrcode/myyaoqing_{{model.id}}.png?v={{v}}"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="top none">{{model.zhanghao}}</view>
+    <view class="tool ">
+        <button bindtap="xiazai_tap" class="btn flex3" type="primary">
+            <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/r_baoc.png?v=1"></image>
+            <view class="txt">下载</view>
+        </button>
+        <button bindtap="bianji_tap" class="btn flex3" type="primary">
+            <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/r_bianji.png?v=1"></image>
+            <view class="txt">编辑</view>
+        </button>
+        <button class="btn flex3" openType="share" type="primary">
+            <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/r_fenx.png?v=1"></image>
+            <view class="txt">分享</view>
+        </button>
+        <button bindtap="del_tap" class="btn flex3" type="primary">
+            <image class="img" lazyLoad="true" src="{{url3}}template/images/applet/r_del.png?v=1"></image>
+            <view class="txt">删除</view>
+        </button>
+    </view>
+</view>

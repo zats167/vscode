@@ -1,0 +1,46 @@
+<form bindreset="formReset" bindsubmit="formSubmit" reportSubmit="true">
+    <view class="distribution">
+        <view class="header">
+            <image lazyLoad="true" mode="aspectFill" src="{{url}}{{img}}" wx:if="{{img!=''}}"></image>
+        </view>
+        <view class="banner">
+            <view class="huanying">欢迎加入
+        <text style="color:{{system.color}}">{{pt_name}}</text>，请填写申请信息。</view>
+            <view class="bannerbox">
+                <view class="">姓名：</view>
+                <input name="name" placeholder="请填写真实姓名" placeholderStyle="color:#999;" type="text"></input>
+            </view>
+            <view class="bannerbox">
+                <view class="">手机号：</view>
+                <input name="tel" placeholder="请填写手机号码" placeholderStyle="color:#999;" type="number"></input>
+            </view>
+            <view class="bannerbox">
+                <view class="section__title">选择地址：</view>
+                <picker bindchange="bindRegionChange" customItem="{{customItem}}" mode="region" value="{{region}}">
+                    <view class="picker">
+            {{region[0]}}，{{region[1]}}，{{region[2]}}
+          </view>
+                </picker>
+            </view>
+            <view class="read">
+                <checkbox-group name="checkbox">
+                    <checkbox color="#ff6161" style="zoom:80%" value="1"></checkbox>
+                </checkbox-group>
+                <view>我已阅读并同意
+          <text bindtap="lookck" class="readfont">《代理商申请协议》</text>
+                </view>
+            </view>
+        </view>
+        <view class="disbox">
+            <button disabled="{{disabled}}" formType="submit" style="background:{{system.color}};">{{logintext}}</button>
+        </view>
+    </view>
+</form>
+<view class="zhezhao" hidden="{{fwxy}}"></view>
+<view class="kcrzxy" hidden="{{fwxy}}">
+    <view class="kcrzxyhd" style="background:{{system.color}};">代理商申请协议</view>
+    <scroll-view scrollY class="kcrzxybd" style="height: 600rpx;">
+        <rich-text nodes="{{fx_details}}"></rich-text>
+    </scroll-view>
+    <view bindtap="queren" class="queren" style="background:{{system.color}};">确定</view>
+</view>

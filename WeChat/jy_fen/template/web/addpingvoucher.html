@@ -1,0 +1,145 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcss.css">
+<style type="text/css">
+.yg5_key>div{float: left;line-height: 34px;}
+.store_td1{height: 45px;}
+.store_list_img{width: 60px;height: 60px;}
+.yg5_tabel{border-color: #e5e5e5;outline: 1px solid #e5e5e5;}
+.yg5_tr2>td{padding: 10px 15px;border: 1px solid #e5e5e5;}
+.yg5_tr1>th{
+  border: 1px solid #e5e5e5;
+  padding-left: 15px;
+  background-color: #FAFAFA;
+  font-weight: bold;
+}
+.yg5_btn{background-color: #EEEEEE;color: #333;border: 1px solid #E4E4E4;border-radius: 6px;width: 100px;height: 34px;}
+</style>
+<ul class="nav nav-tabs">
+  <span class="ygxian"></span>
+  <div class="ygdangq">当前位置:</div>    
+  <li><a href="{php echo $this->createWebUrl('pingvoucher')}">优惠券管理</a></li>
+  <li class="active"><a href="{php echo $this->createWebUrl('addpingvoucher')}">添加/编辑优惠券</a></li>
+</ul>
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <div class="panel panel-default ygdefault">
+      <div class="panel-heading wyheader">
+        添加/编辑优惠券
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal" action="" method="POST">
+
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">优惠劵类型</label>
+                <div class="col-sm-9">
+                    <select name="type" id="zstype" class="col-md-4">
+                        <option value="1" {if $list['type']==1}selected{/if}>公众号优惠劵</option>
+                        <option value="2" {if $list['type']==2}selected{/if}>商家优惠劵</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group mode mode1">
+                <label for="inputEmail3" class="col-sm-2 control-label">微信公众号</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="wxapp_id"> 
+                    <option value="0" >选择公众号</option>
+                    {loop $wxapplist $key $item}
+                        {if $item['id']==$list['wxapp_id']}
+                            <option value="{$item['id']}" selected="selected">{$item['appname']}</option>
+                        {else}
+                            <option value="{$item['id']}">{$item['appname']}</option>
+                        {/if}
+                    {/loop}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group mode mode2 ">
+                <label for="inputEmail4" class="col-sm-2 control-label">商家</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="wxapp_id2"> 
+                    <option value="0" >选择商家</option>
+                    {loop $stores $key $item}
+                        {if $item['id']==$list['wxapp_id']}
+                            <option value="{$item['id']}" selected="selected">{$item['store_name']}</option>
+                        {else}
+                            <option value="{$item['id']}">{$item['store_name']}</option>
+                        {/if}
+                    {/loop}
+                    </select>
+                </div>
+            </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">优惠券名称</label>
+            <div class="col-sm-10">
+              <input type="text"  name="name" value="{$list['name']}" class="form-control" id="inputEmail3" placeholder="请填写优惠券">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">折扣金额</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <input type="text"  name="preferential" value="{$list['preferential']}" class="form-control" id="inputEmail3" placeholder="请填写折扣金额">
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">满多少元可使用</label>
+            <div class="col-sm-5">
+              <div class="input-group">
+                <input type="text"  name="conditions" value="{$list['conditions']}" class="form-control" id="inputEmail3" placeholder="请填写金额">
+                <span class="input-group-addon">元</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">优惠券时间</label>
+            <div class="col-sm-10">
+              {php echo tpl_form_field_daterange('time',array('start' =>$list['start_time'], 'end' =>$list['end_time']));} 
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">使用说明</label>
+            <div class="col-sm-10">
+              <input type="text"  name="instruction" value="{$list['instruction']}" class="form-control" id="inputEmail3" placeholder="请填写使用说明">
+            </div>
+          </div>
+        </div>
+
+        <input type="hidden" name="id" value="{$list['id']}"/>
+        <input type="hidden" name="token" value="{$_W['token']}"/>
+        <div class="form-group" style="margin-top: 20px;">
+          <input type="submit" name="submit" value="提交" class="btn col-lg-3" style="color: white;background-color: #88C200;"/>
+        </div>
+      </form>
+
+    </div>
+    <script type="text/javascript">
+      $(function(){
+        $("#frame-4").show();
+        $("#yframe-4").addClass("wyactive");     
+        // alert("234234")
+
+        $(".mode").hide();
+        "{if $list}"
+            "{if $list['zstype']=='1'}"
+                $('.mode1').show();
+                // alert(1)
+            "{/if}" 
+            "{if $list['zstype']=='2'}"             
+                $('.mode2').show();
+                // alert(2)
+            "{/if}"             
+        "{else}"
+             $('.mode1').show();
+             // alert(3)
+        "{/if}"
+        $("#zstype").change(function(){
+            $(".mode").hide();
+            $(".mode"+$(this).val()).show();           
+         })
+        $("#zstype").change();
+        
+      })
+    </script>

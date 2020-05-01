@@ -1,0 +1,176 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/jy_fen/template/public/ygcsslist.css">
+<style type="text/css">
+    .yg5_key>div{float: left;line-height: 34px;}
+    .store_td1{height: 45px;}
+    .store_list_img{width: 60px;height: 60px;}
+    .yg5_tabel{border-color: #e5e5e5;outline: 1px solid #e5e5e5;}
+    .yg5_tr2>td{padding: 10px 15px;border: 1px solid #e5e5e5;text-align:center;}
+    .yg5_tr1>th{
+        border: 1px solid #e5e5e5;
+        padding-left: 15px;
+        background-color: #FAFAFA;
+        font-weight: bold;
+        text-align: center;
+    }
+    .yg5_btn{background-color: #EEEEEE;color: #333;border: 1px solid #E4E4E4;border-radius: 6px;width: 100px;height: 34px;}
+    /*#frame-2{display: block;visibility: visible;}*/
+</style>
+<script>
+function tellyou()
+{
+  var hzw_msg=util.dialog("提醒您","正在生成二维码并压缩下载，请耐心等待，下载后自行关闭");
+  hzw_msg.modal('show');
+}
+</script>
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li class="active"><a href="{php echo $this->createWebUrl('qrprintlist')}">二维码预打印列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('addqrprintlist')}">添加二维码预打印</a></li>
+</ul>
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            预打印列表
+        </div>
+        <div class="panel-body" style="padding: 0px 15px;">
+            <div class="row">
+                <table class="yg5_tabel col-md-12">
+                    <tr class="yg5_tr1">
+                        <th class="store_td1 col-md-1">id</th>                      
+                        <th class="col-md-2">名称</th>
+                        <th class="col-md-2">数量</th>
+                        <th class="col-md-1">打印方式</th>
+                        <th class="col-md-1">公众号</th>
+                        <th class="col-md-1">样式</th>
+                        <th class="col-md-2">时间</th>
+                        <th class="col-md-2">操作</th>
+                    </tr>
+                    {loop $list $row}
+                    <tr class="yg5_tr2">
+                        <td><div class="type-parent">{$row['id']}&nbsp;&nbsp;</div></td>  
+                        <td>{$row['name']}</td>
+                        <td>{$row['num']}</td>
+                        <td>
+                            {if $row['ptype']==2}
+                            二维码
+                            {else}
+                            海报
+                            {/if}
+                        </td>
+                        <td>
+                            {if $row['appname']}
+                                {$row['appname']}
+                            {else}
+                                活码
+                            {/if}
+                        </td>
+                        <td>{$row['yangshititle']}</td>
+                        <td>{php echo date("Y-m-d H:i:s",$row['dateline']);}</td>
+                        <td>
+                            <a href="javascript:void(0);" url="{php echo $this->createWebUrl('qrprintlist', array('op' => 'dabao','qid'=>$row['id']))}" class="storespan btn btn-xs" onclick="dabao(this,{$row['id']})">
+                                <span class="fa fa-save"></span>
+                                <span class="bianji">打包下载<span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            <a href="javascript:void(0);" class="storespan btn btn-xs" data-toggle="modal" data-target="#myModal{$row['id']}">
+                                <span class="fa fa-trash-o"></span>
+                                <span class="bianji">删除<span class="arrowdown"></span>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="myModal{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                            确定删除么？删除之后，未激活的、未设置wifi账号密码的，都会被删除，如果你用这些打印出来，但是未激活的去贴码的话，是不能打开的，请谨慎删除，最好是不要删除！
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('qrprintlist', array('op' => 'delete', 'id' => $row['id']))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    {/loop}
+                    {if empty($list)}
+                      <tr class="yg5_tr2">
+                        <td colspan="8">
+                          暂无预打印
+                      </td>
+                    </tr> 
+                    {/if} 
+                </table>
+            </div>
+    </div>
+    {$pager}
+</div>
+<div class="modal fade" id="DabaoModal" tabindex="-1" role="dialog" aria-labelledby="dbModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="dbModalLabel" style="font-size: 20px;">打包提示</h4>
+            </div>
+            <div class="modal-body" style="font-size: 20px">
+                <div id="msgloading">正在努力打包中，请耐心等待</div>
+                <div id="msgtitle"></div>
+                <div id="msgcont"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="javascript:location.reload();" class="btn btn-default">取消</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script type="text/javascript" src="../addons/jy_fen/template/assets/js/jquery-1.11.1.min.js"></script> -->
+<script type="text/javascript">
+    $(function(){
+        $("#frame-16").show();
+        $("#yframe-16").addClass("wyactive");
+    })
+    function dabao(obj,qrid){
+        $("#msgtitle").hide();
+        $("#msgcont").hide();
+        $("#msgloading").show();
+        $('#DabaoModal').modal('show');
+        var url=$(obj).attr("url");
+        if(url==undefined||url==null||url==""){
+            alert('请求地址错误');
+            return false;
+        }
+        $.ajax({
+            type:"get",
+            url:url,
+            dataType:"json",
+            success:function(data){
+                if(data.status==1&&data.durl!=undefined&&data.durl!=null&&data.durl!=''){
+                    $("#msgloading").hide();
+                    $("#msgtitle").text("打包成功").show();
+                    $("#msgcont").html("下载地址：<a href='"+data.durl+"' target='_blank'>"+"<font color='red'>点击下载</font>"+"</a>").show();
+                }else{
+                    $("#msgloading").hide();
+                    $("#msgtitle").text("打包失败").show();
+                    $("#msgcont").text("失败原因："+data.msg).show();
+                }
+            },
+            complete:function(){
+                //请求完成的处理
+            },
+            error:function(){
+                //请求出错处理
+                $("#msgloading").hide();
+                $("#msgtitle").text("打包失败").show();
+                $("#msgcont").text("失败原因：网络原因，或请求出错，可重试").show();
+            }
+        });
+    }
+</script>

@@ -1,0 +1,97 @@
+<view class="font" wx:if="{{is_rz==1||is_rz==3||is_rz==4}}">
+    <view class="authen" style="margin-top:30px;">
+        <view class="authen_header" wx:if="{{is_rz==4}}">
+            <icon size="25" type="info"></icon>
+            <view class="header_text">暂未申请</view>
+        </view>
+        <view class="authen_header" wx:if="{{is_rz==1}}">
+            <icon size="25" type="waiting"></icon>
+            <view class="header_text">正在审核中</view>
+        </view>
+        <view class="authen_header" wx:if="{{is_rz==2}}">
+            <icon size="25" type="success"></icon>
+            <view class="header_text">审核已通过</view>
+        </view>
+        <view class="authen_header" wx:if="{{is_rz==3}}">
+            <icon size="25" type="warn"></icon>
+            <view class="header_text">已被拒绝</view>
+        </view>
+        <view class="header_bot">获取更多广告资源，立即申请入驻！</view>
+    </view>
+    <view class="section_state2">
+        <view class="section_state">
+            <view class="section_header">
+                <image class="section_header_img" lazyLoad="true" src="{{url3}}template/images/applet/fangkuai.png" style="transform: rotateY(180deg);"></image>
+                <view class="section_header_text">平台优势</view>
+                <image class="section_header_img" lazyLoad="true" src="{{url3}}template/images/applet/fangkuai.png"></image>
+            </view>
+            <view class="section_two">
+                <rich-text nodes="{{ggcjwt}}" style="font-size:28rpx;color:#666"></rich-text>
+            </view>
+        </view>
+    </view>
+    <view class="footer2">
+        <view bindtap="select" class="footer_btn2" style="background:{{system.color}}">立即申请</view>
+    </view>
+</view>
+<view class="font" wx:if="{{is_rz==2}}">
+    <view class="yao">
+        <view class="yqbox">
+            <view class="section">
+                <view class="jbbgimjg" style="background:{{system.color}}">
+                    <image class="jbbgimjg3" lazyLoad="true" src="{{usersinfo.img}}"></image>
+                    <view class="jbbgname">{{ggmodel.user_name}}</view>
+                </view>
+            </view>
+            <view class="section">
+                <button bindtap="tel_tap" class="secbtn" style="background:{{system.color}}">我要投广告</button>
+            </view>
+        </view>
+        <view class="banner">
+            <view class="b-head">
+                <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>数据统计</view>
+        </view>
+        <view class="b-bd">
+            <navigator class="b1" style="width:50%" url="myform">
+                <image lazyLoad="true" src="{{url3}}template/images/applet/fk-t.png?v=1"></image>
+                <view class="b2">
+                    <text class="text2" style="color:{{system.color}}">{{ufk}} 条</text>
+                    <text class="text1">用户反馈</text>
+                </view>
+            </navigator>
+            <navigator class="b1" style="width:50%" url="mygg">
+                <image lazyLoad="true" src="{{url3}}template/images/applet/gg-t.png?v=1"></image>
+                <view class="b2">
+                    <text class="text2" style="color:{{system.color}}">{{mygg}} 条</text>
+                    <text class="text1">我的广告</text>
+                </view>
+            </navigator>
+        </view>
+        <view class="banner" style="margin-top:20rpx;">
+            <view class="b-head">
+                <image class="secimg" lazyLoad="true" src="../image/" style="background:{{system.color}}"></image>消费明细</view>
+            <view class="ckgd" style="color:{{system.color}}" wx:if="{{list.length!=0}}">共 {{udj}} 条</view>
+        </view>
+        <view class="integral" wx:for="{{list}}">
+            <view class="integral-left">
+                <view>{{item.uname}}</view>
+                <view>{{item.name}}</view>
+                <view>{{item.time}}</view>
+            </view>
+            <view class="integral-right">
+                <text style="color:#f44444">-{{item.money}}<text class="integral-right1">元</text>
+                </text>
+            </view>
+        </view>
+        <view class="jzz" hidden="{{loadstaue}}">
+            <image class="Rotation" lazyLoad="true" src="{{url3}}template/images/applet/jzz.png"></image>
+            <view>加载中...</view>
+        </view>
+        <view class="kong" hidden="{{isloadtis}}">
+            <view>{{loadtis}}</view>
+        </view>
+        <view class="kong" style="margin-top:0px;" wx:if="{{loadstaue&&symx.length==0}}">
+            <view>暂无数据！</view>
+        </view>
+    </view>
+</view>

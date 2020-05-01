@@ -1,0 +1,17 @@
+<view class="list">
+    <view class="list_imgbk2" wx:if="{{yj.length==0}}">
+        <view class="list_imgbk3">还没有邀请过wifi提供者哦！</view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:if="{{yj.length>0}}">
+        <view class="weui-cell" wx:for="{{yj}}">
+            <view class="weui-cell__hd">
+                <image class="himg" lazyLoad="true" src="{{item.img}}"></image>
+            </view>
+            <view class="weui-cell__bd">
+                <view>用户：{{item.uname}}</view>
+                <view style="color: #999;">wifi：{{item.zhanghao}}</view>
+                <view class="sj">入驻时间：{{item.addtime}}</view>
+            </view>
+        </view>
+    </view>
+</view>
